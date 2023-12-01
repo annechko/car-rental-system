@@ -8,7 +8,7 @@ add_executable(car_rental_system_tests tests.cpp
         )
 
 enable_testing()
-#if(BUILD_TESTING)
+
 add_test(user ${CMAKE_CTEST_COMMAND}
         --build-and-test "${CMAKE_SOURCE_DIR}/tests/functional"
         "${CMAKE_BINARY_DIR}/bin/tests/functional"
@@ -17,11 +17,4 @@ add_test(user ${CMAKE_CTEST_COMMAND}
         --build-project car_rental_system_tests
         --test-command car_rental_system_tests
 )
-
-
-#        add_test(NAME UserTest COMMAND test
-#                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/tests/functional/
-#
-#        )
-#endif()
 
