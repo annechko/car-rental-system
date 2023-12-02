@@ -1,9 +1,14 @@
-#include <vector>
 #include "../assertions.hpp"
+#include "../../src/core/user/user.h"
+#include "../../src/core/auth/auth_service.h"
+#include <vector>
 
 void testLogin()
 {
-	assertEquals(1, 2, __FUNCTION__);
+    crs::core::auth::auth_service service{};
+    crs::core::user::user user = service.login("test_user", "test_pass");
+	assertEquals(user.get_name(), (std::string)"test_user", __FUNCTION__);
+	assertEquals(user.get_role(), crs::core::user::ROLE::CUSTOMER, __FUNCTION__);
 }
 
 void testRegister()
@@ -15,13 +20,19 @@ int main()
 {
 	int res = 0;
 	std::vector<std::function<void()>> tests{
-			[]() -> void { testLogin(); },
-			[]() -> void { testRegister(); },
+		[]() -> void
+		{ testLogin(); },
+		[]() -> void
+		{ testRegister(); },
 	};
-	for (auto& test : tests) {
-		try {
+	for (auto& test : tests)
+	{
+		try
+		{
 			test();
-		} catch (...) {
+		}
+		catch (...)
+		{
 			res = 1;
 		}
 	}
