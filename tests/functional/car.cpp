@@ -1,10 +1,8 @@
 #include <iostream>
-namespace car_tests {
 
-int tests()
+int main()
 {
 	std::cout << "car success\n";
 	return 0;
 }
 
-}

@@ -1,12 +1,10 @@
 #include <iostream>
-namespace user_tests {
 
-int tests()
+int main()
 {
 	std::cout << "user success\n";
 	return 0;
 }
 
-}
 
 

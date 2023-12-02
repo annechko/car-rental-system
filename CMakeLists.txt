@@ -9,4 +9,4 @@ add_executable(car_rental_system main.cpp
 
 include(CTest)
 enable_testing()
-add_subdirectory(tests)
+add_subdirectory(tests/functional)
