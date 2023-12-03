@@ -20,9 +20,11 @@ namespace crs
             {
 
             public:
-                user();
-                std::string get_name() const;
+                user(std::string n) : name_(n) {}
+                std::string get_name() const {return name_;};
                 crs::core::user::ROLE::USER_ROLE get_role() const;
+            private:
+                std::string name_;
             };
 
         }
