@@ -1,8 +1,9 @@
-#include "../assertions.hpp"
-#include "../../src/core/user/user.h"
-#include "../../src/core/auth/auth_service.h"
+#include "assertions.hpp"
+#include "../src/core/user/user.h"
+#include "../src/core/auth/auth_service.h"
 #include <vector>
 
+/* UNIT */
 void testCreateUser()
 {
     crs::core::user::user user("test_name");
@@ -10,6 +11,7 @@ void testCreateUser()
     assertEquals(user.get_role(), crs::core::user::ROLE::CUSTOMER, __FUNCTION__);
 }
 
+/* FUNCTIONAL */
 void testLogin()
 {
     crs::core::auth::auth_service service{};
