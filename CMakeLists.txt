@@ -10,7 +10,17 @@ add_executable(car_rental_system main.cpp
         src/core/auth/auth_service.h
         src/core/auth/auth_service.cpp
         src/core/validation_exception.h
+        src/core/storage/storage.h
+        src/core/storage/storage.cpp
+        src/core/user/user_repository.h
+        src/core/user/user_repository.cpp
 )
+set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)
+set(SHARED_INCLUDES
+        ${APP_ROOT_SRC_DIR}
+)
+include_directories(${SHARED_INCLUDES})
 
 include(CTest)
 enable_testing()

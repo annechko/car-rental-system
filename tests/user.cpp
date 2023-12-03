@@ -1,4 +1,5 @@
 #include "assertions.hpp"
+#include <core/user/user_repository.h>
 #include "../src/core/user/user.h"
 #include "../src/core/auth/auth_service.h"
 #include <vector>
@@ -29,6 +30,12 @@ void testRegister_InvalidName_Exception()
     const std::exception& exc = assertException([& service]() -> void { service.sign_up("test user", "test_pass"); }, __FUNCTION__);
     assertEquals((std::string)exc.what(), (std::string)"Username is invalid.", __FUNCTION__);
 }
+void testFindUserById_NotExist_Exception()
+{
+    crs::core::user::user_repository repo;
+
+    const std::exception& exc = assertException([& repo]() -> void { repo.get_by_id(42); }, __FUNCTION__);
+}
 
 void testRegister()
 {
@@ -47,6 +54,7 @@ int main()
         []() -> void { testRegister(); },
         []() -> void { testCreateUser(); },
         []() -> void { testRegister_InvalidName_Exception(); },
+        []() -> void { testFindUserById_NotExist_Exception(); },
     };
     for (auto& test : tests)
     {
