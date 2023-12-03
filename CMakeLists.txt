@@ -9,6 +9,7 @@ add_executable(car_rental_system main.cpp
         src/core/user/user.cpp
         src/core/auth/auth_service.h
         src/core/auth/auth_service.cpp
+        src/core/validation_exception.h
 )
 
 include(CTest)

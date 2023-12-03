@@ -9,22 +9,28 @@ namespace crs
     {
         namespace user
         {
-            struct ROLE {
+            struct ROLE
+            {
                 enum USER_ROLE
                 {
                     CUSTOMER = 0, ADMIN = 1
                 };
             };
-
+            const int MAX_NAME_LENGTH = 30;
             class user
             {
 
             public:
-                user(std::string n) : name_(n) {}
-                std::string get_name() const {return name_;};
+                user(std::string n);
+                std::string get_name() const
+                {
+                    return name_;
+                };
                 crs::core::user::ROLE::USER_ROLE get_role() const;
             private:
                 std::string name_;
+                void validate_name(std::string username);
+
             };
 
         }
