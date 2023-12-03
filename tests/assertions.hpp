@@ -3,49 +3,49 @@
 #include "../src/core/core_exception.h"
 #define TESTS_VERBOSE true
 
-static int assertionsCount = 0;
+static int assertions_count = 0;
 
-void showErrorMsg(std::string s, std::string funcName = "")
+void show_error_msg(std::string s, std::string func_name = "")
 {
     printf("\x1B[31m");
-    std::cout << funcName << ": " << s << "\n";
+    std::cout << func_name << ": " << s << "\n";
     printf("\033[0m");
     throw -1;
 }
 
-void showSuccessMsg(std::string s, std::string funcName = "")
+void show_success_msg(std::string s, std::string func_name = "")
 {
     printf("\x1B[32m");
-    std::cout << (std::string)(funcName == "" ? "" : funcName + ": ") << s << "\n";
+    std::cout << (std::string)(func_name == "" ? "" : func_name + ": ") << s << "\n";
     printf("\033[0m");
 }
 
-void successAssertion(std::string funcName = "")
+void success_assertion(std::string func_name = "")
 {
-    assertionsCount++;
+    assertions_count++;
     if (TESTS_VERBOSE)
     {
-        showSuccessMsg("Assertions is correct.", funcName);
+        show_success_msg("Assertions is correct.", func_name);
     }
 }
 
 template<class SomeType>
-void assertEquals(SomeType a, SomeType b, std::string funcName = "")
+void assert_equals(SomeType a, SomeType b, std::string func_name = "")
 {
     if (a == b)
     {
-        successAssertion(funcName);
+        success_assertion(func_name);
         return;
     }
-    showErrorMsg("Not equals!", funcName);
+    show_error_msg("Not equals!", func_name);
 }
 
-void assertEnd()
+void assert_end()
 {
-    showSuccessMsg("All tests passed! " + std::to_string(assertionsCount) + " assertions.");
+    show_success_msg("All tests passed! " + std::to_string(assertions_count) + " assertions.");
 }
 
-const std::exception& assertException(std::function<void()> f, std::string funcName = "")
+const std::exception& assert_exception(std::function<void()> f, std::string func_name = "")
 {
     try
     {
@@ -53,8 +53,8 @@ const std::exception& assertException(std::function<void()> f, std::string funcN
     }
     catch (const std::exception& exception)
     {
-        successAssertion(funcName);
+        success_assertion(func_name);
         return exception;
     };
-    showErrorMsg("expected exception but didn't catch any!", funcName);
+    show_error_msg("expected exception but didn't catch any!", func_name);
 }
