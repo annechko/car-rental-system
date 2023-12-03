@@ -13,7 +13,7 @@ crs::core::user::user::user(std::string name)
 void crs::core::user::user::validate_name(std::string username)
 {
     int length = username.length();
-    if (length > 0)
+    if (length == 0)
     {
         throw crs::core::core_exception("Username can not be empty.");
     }
