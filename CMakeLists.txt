@@ -15,3 +15,14 @@ add_executable(car_rental_system main.cpp
 include(CTest)
 enable_testing()
 add_subdirectory(tests)
+
+include(FetchContent)
+set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+FetchContent_Declare(
+        sqlite_orm
+        GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
+        GIT_TAG        master
+)
+
+FetchContent_MakeAvailable(sqlite_orm)
+target_link_libraries(car_rental_system PRIVATE sqlite_orm)
