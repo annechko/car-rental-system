@@ -1,6 +1,6 @@
 #include "user_repository.h"
 #include "core/storage/storage.h"
-#include "core/validation_exception.h"
+#include "core/core_exception.h"
 
 crs::core::user::user crs::core::user::user_repository::get_by_id(int id)
 {
@@ -14,7 +14,7 @@ crs::core::user::user crs::core::user::user_repository::get_by_id(int id)
     }
     else
     {
-        throw core::validation_exception("no user with id ");
+        throw core::core_exception("no user with id ");
     }
 }
 void crs::core::user::user_repository::save(crs::core::user::user user_to_add)

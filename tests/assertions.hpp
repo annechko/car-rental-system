@@ -1,6 +1,6 @@
 #include <iostream>
 #include <functional>
-#include "../src/core/validation_exception.h"
+#include "../src/core/core_exception.h"
 #define TESTS_VERBOSE true
 
 static int assertionsCount = 0;

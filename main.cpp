@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include "src/core/storage/storage.h"
 #include <core/user/user_repository.h>
 
 using std::cout;

@@ -1,5 +1,5 @@
 #include "user.h"
-#include "../validation_exception.h"
+#include "../core_exception.h"
 
 crs::core::user::ROLE::USER_ROLE crs::core::user::user::get_role() const
 {
@@ -15,11 +15,11 @@ void crs::core::user::user::validate_name(std::string username)
     int length = username.length();
     if (length == 0)
     {
-        throw crs::core::validation_exception("Username can not be empty.");
+        throw crs::core::core_exception("Username can not be empty.");
     }
     else if (length > crs::core::user::MAX_NAME_LENGTH)
     {
-        throw crs::core::validation_exception("Username too long.");
+        throw crs::core::core_exception("Username too long.");
     }
 
     for (int i = 0; i < length; i++)
@@ -27,7 +27,7 @@ void crs::core::user::user::validate_name(std::string username)
         char letter = username.at(i);
         if (!(isalnum(letter) || letter == '_'))
         {
-            throw crs::core::validation_exception("Username is invalid.");
+            throw crs::core::core_exception("Username is invalid.");
         }
     }
 }
