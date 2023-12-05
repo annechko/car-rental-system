@@ -14,6 +14,14 @@ add_executable(car_rental_system main.cpp
         src/core/storage/storage.cpp
         src/core/user/user_repository.h
         src/core/user/user_repository.cpp
+        src/command/command.h
+        src/command/command.cpp
+        src/command/sign_up.h
+        src/command/sign_up.cpp
+        src/command/login.h
+        src/command/login.cpp
+        src/command/input_parser.h
+        src/command/input_parser.cpp
 )
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)
