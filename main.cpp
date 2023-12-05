@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <command/command.h>
 #include <command/login.h>
 #include <command/sign_up.h>
@@ -7,17 +6,7 @@
 
 using std::cout;
 using std::endl;
-/*
-char* getCmdOption(char** begin_, char** end_, const std::string& option)
-{
-    char** itr = std::find(begin_, end_, option);
-    if (itr != end_ && ++itr != end_)
-    {
-        return *itr;
-    }
-    return 0;
-}
-*/
+
 int main(int argc, char* argv[])
 {
     std::list<crs::command::command*> commands;
@@ -32,17 +21,5 @@ int main(int argc, char* argv[])
         }
     }
 
-
-    //    char* filename = getCmdOption(argv, argv + argc, "-f");
-
-    //    if (filename)
-    //    {
-    //        std::cout << "// Do interesting things filename: " << filename;
-    //
-    //    }
-
     return 0;
-    //    crs::core::user::user_repository repo;
-    //    repo.get_by_id(3);
-
 }
