@@ -1,7 +1,6 @@
-#include <algorithm>
-#include "command.h"
+#include "abstract_command.h"
 
-bool crs::command::command::try_to_handle(crs::command::input_parser* input_parser)
+bool crs::command::abstract_command::try_to_handle(crs::command::input_parser* input_parser)
 {
     if (input_parser->has(this->get_long_name()))
     {

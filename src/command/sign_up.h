@@ -1,13 +1,13 @@
 #ifndef SIGN_UP_H
 #define SIGN_UP_H
 
-#include "command.h"
+#include "abstract_command.h"
 
 namespace crs
 {
     namespace command
     {
-        class sign_up : public crs::command::command
+        class sign_up : public crs::command::abstract_command
         {
         protected:
             void handle(crs::command::input_parser* input_parser) override;

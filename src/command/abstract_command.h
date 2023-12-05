@@ -1,5 +1,5 @@
-#ifndef COMMAND_H
-#define COMMAND_H
+#ifndef ABSTRACT_COMMAND_H
+#define ABSTRACT_COMMAND_H
 #include <string>
 #include "input_parser.h"
 
@@ -7,10 +7,10 @@ namespace crs
 {
     namespace command
     {
-        class command
+        class abstract_command
         {
         public:
-            virtual ~command()
+            virtual ~abstract_command()
             {
             }
             bool try_to_handle(crs::command::input_parser* input_parser);
@@ -23,4 +23,4 @@ namespace crs
 }
 
 
-#endif //COMMAND_H
+#endif //ABSTRACT_COMMAND_H

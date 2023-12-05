@@ -1,13 +1,13 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include "command.h"
+#include "abstract_command.h"
 
 namespace crs
 {
     namespace command
     {
-        class login : public crs::command::command
+        class login : public crs::command::abstract_command
         {
         protected:
             void handle(crs::command::input_parser* input_parser) override;
@@ -17,6 +17,6 @@ namespace crs
         };
 
     } // crs
-} // command
+} // abstract_command
 
 #endif //LOGIN_H

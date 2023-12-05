@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "input_parser.h"
 
 bool crs::command::input_parser::has(std::string name)

@@ -14,8 +14,8 @@ add_executable(car_rental_system main.cpp
         src/core/storage/storage.cpp
         src/core/user/user_repository.h
         src/core/user/user_repository.cpp
-        src/command/command.h
-        src/command/command.cpp
+        src/command/abstract_command.h
+        src/command/abstract_command.cpp
         src/command/sign_up.h
         src/command/sign_up.cpp
         src/command/login.h
