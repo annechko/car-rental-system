@@ -1,9 +1,13 @@
 #include "abstract_command.h"
 
-bool crs::command::abstract_command::can_handle(crs::command::input_parser* input_parser)
+namespace crs::command
 {
-    return input_parser->has(this->get_long_name());
+    bool abstract_command::can_handle(crs::command::input_parser* input_parser)
+    {
+        return input_parser->has(this->get_name());
+    }
 }
+
 /*
 handle() {
     // check if --help

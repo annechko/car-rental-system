@@ -3,12 +3,10 @@
 
 #include <exception>
 using namespace std;
-namespace crs
+namespace crs::core
 {
-    namespace core
+    class core_exception : public std::exception
     {
-        class core_exception : public std::exception
-        {
         public:
             core_exception(const std::string& msg) throw(): message(msg)
             {
@@ -24,8 +22,7 @@ namespace crs
 
         private:
             std::string message;
-        };
-    }
+    };
 }
 
 #endif //CORE_EXCEPTION_H

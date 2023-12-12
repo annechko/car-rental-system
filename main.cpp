@@ -1,7 +1,5 @@
 #include <iostream>
-#include "command/abstract_command.h"
-#include <command/login.h>
-#include <command/sign_up.h>
+#include "command/application.h"
 #include <list>
 
 static const char USAGE[] =
@@ -56,6 +54,7 @@ static const char USAGE_USER[] =
         -d <id>, --delete=<id>          Delete user with ID = <id>.
 
 )";
+
 static const char USAGE_USER_[] =
     R"(
 Description:
@@ -71,26 +70,27 @@ Arguments:
 Options:
 
 )";
-
-
+/*
 std::list<crs::command::abstract_command*> get_commands()
 {
     std::list<crs::command::abstract_command*> commands;
     commands.push_back(new crs::command::login);
     commands.push_back(new crs::command::sign_up);
-//    commands.push_back(new crs::command::user);//composite
-//    commands.push_back(new crs::command::car);
+    //    commands.push_back(new crs::command::user);//composite
+    //    commands.push_back(new crs::command::car);
     return commands;
 }
-
+*/
 int main(int argc, char* argv[])
 {
     // new draft with application as a command.
-    auto app = new Application();
-    app->execute(new crs::command::input_parser(argv, argv + argc), output);
+    auto app = new crs::command::application;
+    //    app->handle(new crs::command::input_parser(argv, argv + argc), output);
+    app->handle(new crs::command::input_parser(argv, argv + argc));
 
-
-    ///
+    return 0;
+    /**
+     ///
 
 
 
@@ -107,7 +107,7 @@ int main(int argc, char* argv[])
     //    HelpDefinition->createHelp(commands);
     //    HelpDefinition->createHelp(command); // overloading
 
-// if I handle this specific case here  -> responsibility распыляется
+    // if I handle this specific case here  -> responsibility распыляется
 
     for (crs::command::abstract_command* c : commands)
     {
@@ -119,47 +119,47 @@ int main(int argc, char* argv[])
         }
     }
 
-/*
- *
- *
- * Application itself - is a help composite command having all other commands in itself
- * Application command can either
- *      execute given command
- *      show help of a given command
- *      show help of all commands
- *
- * Application as a command check option --help, or call inner commands to execute
- *
- *
- *
- *
- * */
+    *
+     *
+     *
+     * Application itself - is a help composite command having all other commands in itself
+     * Application command can either
+     *      execute given command
+     *      show help of a given command
+     *      show help of all commands
+     *
+     * Application as a command check option --help, or call inner commands to execute
+     *
+     *
+     *
+     *
+     * */
 
 
-//    get help for the application
-/**
- *
- * get all commands and ask them to return their help message
- * composite command asks inner commands
- *
- *
- *
-Description:
-  List commands
+    //    get help for the application
+    /**
+     *
+     * get all commands and ask them to return their help message
+     * composite command asks inner commands
+     *
+     *
+     *
+    Description:
+      List commands
 
-Usage:
-  list [options] [--] [<namespace>]
+    Usage:
+      list [options] [--] [<namespace>]
 
-Arguments:
-  namespace              The namespace name
+    Arguments:
+      namespace              The namespace name
 
-Options:
-      --raw              To output raw command list
+    Options:
+          --raw              To output raw command list
 
- *
- */
+     *
+     */
 
-//      get help for the command
+    //      get help for the command
     /**
  *
  * ask the command to return a help message
@@ -180,7 +180,7 @@ Options:
   -h, --help             Display help for the given command. When no command is given display help for the list command
 
  *
- */
+ *
 
 
 
@@ -195,4 +195,5 @@ Options:
 
 
     return 0;
+     */
 }

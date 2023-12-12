@@ -1,41 +1,37 @@
-#include "abstract_command.h"
-#include <set>
-// composite command
+#include "application.h"
+#include "login.h"
+#include "sign_up.h"
 
-// all other commands are here
-std::set<crs::command::abstract_command*> build_commands()
+namespace crs::command
 {
-    std::set<crs::command::abstract_command*> commands;
-    commands.insert(new crs::command::login);
-    commands.insert(new crs::command::sign_up);
-    //    commands.push_back(new crs::command::user);//composite
-    //    commands.push_back(new crs::command::car);
-    return commands;
+    std::set<crs::command::abstract_command*> application::build_commands()
+    {
+        std::set<crs::command::abstract_command*> commands;
+        commands.insert(new crs::command::login);
+        commands.insert(new crs::command::sign_up);
+        //    commands.push_back(new crs::command::user);//composite
+        //    commands.push_back(new crs::command::car);
+        return commands;
+    }
+
+    application::application()
+    {
+        init_commands(build_commands());
+    }
+
+
+    //    bool application::can_handle(crs::command::input_parser* input_parser)
+    //    {
+    //        return abstract_composite_command::can_handle(input_parser);
+    //    }
+    //
+    //    void application::handle(crs::command::input_parser* input_parser)
+    //    {
+    //        abstract_composite_command::handle(input_parser);
+    //    }
+
+    const std::string application::get_name() const
+    {
+        return "Car Rental System";
+    }
 }
-
-// check for option --help
-// has option
-    // check command name
-        // has command - draw command help
-        // no command - ask all commands for help
-        // return
-
-// no --help option
-    // parent execute
-
-    // foreach commands
-        // can handle?
-            // execute
-
-    // foreach commands
-        // if execute break
-
-
-
-
-
-
-// typical command execute
-    // canHandle ?
-        // yes - call execute
-        // no - return

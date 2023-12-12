@@ -3,23 +3,15 @@
 
 #include "../user/user.h"
 
-namespace crs
+namespace crs::core::auth
 {
-    namespace core
+    class auth_service
     {
-        namespace auth
-        {
-
-            class auth_service
-            {
-            public:
-                auth_service();
-                crs::core::user::user login(std::string username, std::string password);
-                crs::core::user::user sign_up(std::string username, std::string password);
-            };
-
-        }
-    }
+        public:
+            auth_service();
+            crs::core::user::user login(std::string username, std::string password);
+            crs::core::user::user sign_up(std::string username, std::string password);
+    };
 }
 
 #endif //AUTH_SERVICE_H

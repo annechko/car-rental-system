@@ -3,19 +3,18 @@
 
 // enum COMMANDS = []
 // enum ARGUMENTS = [NAME, PASSWORD]
-
-std::string crs::command::sign_up::handle(crs::command::input_parser* input_parser)
+namespace crs::command
 {
-    std::cout << "created new user! you can login now!";
+    void sign_up::handle(crs::command::input_parser* input_parser)
+    {
+        std::cout << "created new user! you can log in now!";
+    }
+
+    const std::string sign_up::get_name() const
+    {
+        return std::string("register");
+    }
 }
 
-const std::string crs::command::sign_up::get_short_name() const
-{
-    return std::string("r");
-}
 
-const std::string crs::command::sign_up::get_long_name() const
-{
-    return std::string("register");
-}
 

@@ -1,6 +1,6 @@
 #include "sign_up.h"
 #include <iostream>
-
+/**
 // enum COMMANDS = [ADD, LIST, SHOW]
 // enum ARGUMENTS = [NAME, PASSWORD]
 // extend abstract_composite
@@ -11,7 +11,7 @@ std::set<crs::command::abstract_command*> build_commands()
     commands.insert(new crs::command::user_show);
     return commands;
 }
-/**
+
  *
  *
  * // getHelp (){

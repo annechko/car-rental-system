@@ -1,16 +1,36 @@
-#include "abstract_command.h"
+#include "abstract_composite_command.h"
+#include <iostream>
 
-// in constructor virtual "init commands" method - every child has to implement
-// virtual "build commands" method - in constructor: commands = build commands
-
-bool crs::command::abstract_composite_command::can_handle(crs::command::input_parser* input_parser)
+namespace crs::command
 {
-    for (const auto& command : commands_)
+    bool abstract_composite_command::can_handle(input_parser* input_parser)
     {
-        if (input_parser->has(command->get_long_name()))
+        for (const auto command : commands_)
         {
-            return true;
+            if (command->can_handle(input_parser))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void abstract_composite_command::handle(input_parser* input_parser)
+    {
+        for (const auto command : commands_)
+        {
+            if (command->can_handle(input_parser))
+            {
+                command->handle(input_parser);
+                return;
+            }
         }
     }
-    return false;
+
+    void abstract_composite_command::init_commands(std::set<crs::command::abstract_command*> commands)
+    {
+        commands_ = commands;
+    }
 }
+
+

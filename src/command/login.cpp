@@ -2,31 +2,30 @@
 #include <iostream>
 #include <map>
 
-std::string crs::command::login::handle(crs::command::input_parser* input_parser)
+namespace crs::command
 {
-    std::cout << "user logged in!";
-}
+    void login::handle(crs::command::input_parser* input_parser)
+    {
+        std::cout << "user logged in!";
+    }
 
-const std::string crs::command::login::get_short_name() const
-{
-    return std::string("l");
-}
+    const std::string login::get_name() const
+    {
+        return std::string("login");
+    }
 
-const std::string crs::command::login::get_long_name() const
-{
-    return std::string("login");
-}
+    // enum ARGUMENTS = [NAME, PASSWORD]
+    // enum COMMANDS = []
+    /**
+     *
+     *
 
-// enum ARGUMENTS = [NAME, PASSWORD]
-// enum COMMANDS = []
-/**
- *
- * @return
- */
 
-std::map<std::string> crs::command::login::get_arguments()
-{
-    return [
+    std::map<std::string> crs::command::login::get_arguments()
+    {
+        return [
 
         ];
+    }*/
 }
+
