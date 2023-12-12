@@ -9,8 +9,9 @@ namespace crs
     {
         class sign_up : public crs::command::abstract_command
         {
+        public:
+            std::string handle(crs::command::input_parser* input_parser) override;
         protected:
-            void handle(crs::command::input_parser* input_parser) override;
 
             const std::string get_short_name() const override;
             const std::string get_long_name() const override;

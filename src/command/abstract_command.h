@@ -13,9 +13,9 @@ namespace crs
             virtual ~abstract_command()
             {
             }
-            bool try_to_handle(crs::command::input_parser* input_parser);
+            bool can_handle(crs::command::input_parser* input_parser);
+            virtual std::string handle(crs::command::input_parser* input_parser) = 0;
         protected:
-            virtual void handle(crs::command::input_parser* input_parser) = 0;
             virtual const std::string get_short_name() const = 0;
             virtual const std::string get_long_name() const = 0;
         };

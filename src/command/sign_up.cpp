@@ -1,7 +1,10 @@
 #include "sign_up.h"
 #include <iostream>
 
-void crs::command::sign_up::handle(crs::command::input_parser* input_parser)
+// enum COMMANDS = []
+// enum ARGUMENTS = [NAME, PASSWORD]
+
+std::string crs::command::sign_up::handle(crs::command::input_parser* input_parser)
 {
     std::cout << "created new user! you can login now!";
 }
