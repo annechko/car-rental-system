@@ -9,7 +9,6 @@ namespace crs::command
     {
         public:
             void handle(crs::command::input_parser* input_parser) override;
-        protected:
             const std::string get_name() const override;
     };
 }

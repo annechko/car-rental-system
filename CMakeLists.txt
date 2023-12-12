@@ -26,6 +26,10 @@ add_executable(car_rental_system main.cpp
         src/command/input_parser.cpp
         src/command/application.h
         src/command/application.cpp
+        src/command/user_add.h
+        src/command/user_add.cpp
+        src/command/user.h
+        src/command/user.cpp
 )
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)

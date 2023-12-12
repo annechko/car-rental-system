@@ -11,7 +11,6 @@ namespace crs::command
             abstract_command() = default;
             virtual bool can_handle(crs::command::input_parser* input_parser);
             virtual void handle(crs::command::input_parser* input_parser) = 0;
-        protected:
             virtual const std::string get_name() const = 0;
     };
 }

@@ -1,6 +1,7 @@
 #include "application.h"
 #include "login.h"
 #include "sign_up.h"
+#include "user.h"
 
 namespace crs::command
 {
@@ -9,7 +10,7 @@ namespace crs::command
         std::set<crs::command::abstract_command*> commands;
         commands.insert(new crs::command::login);
         commands.insert(new crs::command::sign_up);
-        //    commands.push_back(new crs::command::user);//composite
+        commands.insert(new crs::command::user);//composite
         //    commands.push_back(new crs::command::car);
         return commands;
     }
@@ -32,6 +33,6 @@ namespace crs::command
 
     const std::string application::get_name() const
     {
-        return "Car Rental System";
+        return "";
     }
 }

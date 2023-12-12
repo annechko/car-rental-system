@@ -1,5 +1,24 @@
+#include "user.h"
+#include "user_add.h"
 #include "sign_up.h"
 #include <iostream>
+#include <set>
+
+namespace crs::command
+{
+    user::user()
+    {
+        init_commands(std::set<crs::command::abstract_command*>{
+            new crs::command::user_add()
+        });
+    }
+
+    const std::string user::get_name() const
+    {
+        return "user:";
+    }
+}
+
 /**
 // enum COMMANDS = [ADD, LIST, SHOW]
 // enum ARGUMENTS = [NAME, PASSWORD]
@@ -29,7 +48,7 @@ std::set<crs::command::abstract_command*> build_commands()
  *
  *
  *
- */
+
 
 
 
@@ -49,3 +68,4 @@ const std::string crs::command::sign_up::get_long_name() const
     return std::string("register");
 }
 
+ */
