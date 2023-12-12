@@ -2,7 +2,7 @@
 #define INPUT_PARSER_H
 
 #include <string>
-namespace crs::command
+namespace crs::console
 {
     class input_parser
     {

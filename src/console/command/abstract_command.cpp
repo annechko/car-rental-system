@@ -1,8 +1,9 @@
 #include "abstract_command.h"
+#include <console/input_parser.h>
 
-namespace crs::command
+namespace crs::console::command
 {
-    bool abstract_command::can_handle(crs::command::input_parser* input_parser)
+    bool abstract_command::can_handle(crs::console::input_parser* input_parser)
     {
         return input_parser->has(this->get_name());
     }

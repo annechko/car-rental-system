@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "input_parser.h"
 
-namespace crs::command
+namespace crs::console
 {
     bool input_parser::has(std::string name)
     {

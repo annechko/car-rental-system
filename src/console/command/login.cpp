@@ -1,10 +1,11 @@
 #include "login.h"
 #include <iostream>
 #include <map>
+#include <console/input_parser.h>
 
-namespace crs::command
+namespace crs::console::command
 {
-    void login::handle(crs::command::input_parser* input_parser)
+    void login::handle(crs::console::input_parser* input_parser)
     {
         std::cout << "user logged in!";
     }
@@ -21,7 +22,7 @@ namespace crs::command
      *
 
 
-    std::map<std::string> crs::command::login::get_arguments()
+    std::map<std::string> crs::console::command::login::get_arguments()
     {
         return [
 

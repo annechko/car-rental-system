@@ -1,5 +1,5 @@
 #include <iostream>
-#include "command/application.h"
+#include <console/application.h>
 #include <list>
 
 static const char USAGE[] =
@@ -84,9 +84,9 @@ std::list<crs::command::abstract_command*> get_commands()
 int main(int argc, char* argv[])
 {
     // new draft with application as a command.
-    auto app = new crs::command::application;
+    auto app = new crs::console::application;
     //    app->handle(new crs::command::input_parser(argv, argv + argc), output);
-    app->handle(new crs::command::input_parser(argv, argv + argc));
+    app->handle(new crs::console::input_parser(argv, argv + argc));
 
     return 0;
     /**
