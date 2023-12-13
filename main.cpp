@@ -1,6 +1,7 @@
 #include <iostream>
 #include <console/application.h>
 #include <list>
+#include <cxxopts.hpp>
 
 static const char USAGE[] =
     R"(Naval Fate.
@@ -70,6 +71,7 @@ Arguments:
 Options:
 
 )";
+
 /*
 std::list<crs::command::abstract_command*> get_commands()
 {
@@ -81,8 +83,46 @@ std::list<crs::command::abstract_command*> get_commands()
     return commands;
 }
 */
+std::string yellow(std::string s)
+{
+    return "\x1B[1;33m" + s + "\033[0m";
+}
+
+std::string green(std::string s)
+{
+    return "\x1B[1;32m" + s + "\033[0m";
+}
+
 int main(int argc, char* argv[])
 {
+    cxxopts::Options options("car_rental_system " + std::string("<command> ") + std::string("[options]"));
+    //    options.add_options("group")
+    //        ("d,debug", "Enable debugging");
+    options.add_options(green("user:add"))
+        //        ("i,integer", "Int param", cxxopts::value<int>())
+        //        ("f,file", "File name", cxxopts::value<std::string>())
+        ("n,name", "The script file to execute", cxxopts::value<std::string>())
+        ("p,password", "The script file to execute", cxxopts::value<std::string>())
+        //        ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"))
+        ;
+    options.add_options(green("user:show"))
+        ("i,id", "The script file to execute", cxxopts::value<std::string>())
+        //        ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"))
+        ;
+    //    options.parse_positional({"name","password"});
+    options.positional_help("<command>");
+
+    std::string commands_list = "\n";
+    commands_list += "  user:add\n";
+    commands_list += "  user:show\n";
+
+
+    options.custom_help(yellow("\n\nAvailable commands:") + green(commands_list) + yellow("\nCommands options:"));
+    auto result = options.parse(argc, argv);
+    std::cout << options.help(std::vector<std::string>{}) << std::endl;
+    //    std::cout << options.help(std::vector<std::string>{std::string("user")}) << std::endl;
+    exit(0);
+    auto rrr = result["integer"].as<int>();
     // new draft with application as a command.
     auto app = new crs::console::application;
     //    app->handle(new crs::command::input_parser(argv, argv + argc), output);

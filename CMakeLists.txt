@@ -48,3 +48,13 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(sqlite_orm)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
+
+set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+        GIT_TAG        v3.1.1
+)
+
+FetchContent_MakeAvailable(cxxopts)
+target_link_libraries(car_rental_system PRIVATE cxxopts)
