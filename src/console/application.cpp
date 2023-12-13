@@ -24,56 +24,49 @@ namespace crs::console
     {
         argc_ = argc;
         argv_ = argv;
-        commands_ = build_commands();
-
+        init_commands();
         init_options();
     }
 
-    std::map<std::string, crs::console::command::abstract_command*> application::build_commands()
+    void application::init_commands()
     {
         std::set<crs::console::command::abstract_command*> commands;
         commands.insert(new crs::console::command::login);
         commands.insert(new crs::console::command::sign_up);
         commands.insert(new crs::console::command::user_add);
 
-        std::map<std::string, crs::console::command::abstract_command*> result;
         for (crs::console::command::abstract_command* command : commands)
         {
-            result.insert({ command->get_name(), command });
+            commands_[command->get_name()] = command;
         }
-
-        return result;
     }
 
     void application::init_options()
     {
-        options_ = new cxxopts::Options((std::string)"car_rental_system <command> [options]");
-        options_->positional_help("");
-        std::string commands_list = "\n";
-
-        for (const auto command : commands_)
+        for (const auto& [key, command] : commands_)
         {
-            commands_list += "  " + command.second->get_name() + "\n";
-        }
-        options_->custom_help(
-            yellow("\n\nAvailable commands:") + green(commands_list) + yellow("\nCommands options:")
-        );
+            auto command_options = new cxxopts::Options(green("car_rental_system " + command->get_name()));
 
-        for (const auto command : commands_)
-        {
-            auto builder = options_->add_options(command.second->get_name());
-            command.second->configure_options(builder);
+            auto builder = command_options->add_options();
+            command->configure_options(builder);
+            options_commands[command->get_name()] = command_options;
         }
 
-        options_->add_options()
+        options_default_ = new cxxopts::Options(green("car_rental_system <command> [options]"));
+        options_default_->positional_help("");
+        options_default_->allow_unrecognised_options();
+        options_default_->custom_help("");
+        options_default_->add_options()
             ("command", "The command to execute.", cxxopts::value<std::string>()->default_value(""))
-            ("h,help", "Print help.");
-        options_->parse_positional({ "command" });
+            ("h,help", "Print help.")
+            ("u,username", "Login as user.", cxxopts::value<std::string>())
+            ("p,password", "Login password.", cxxopts::value<std::string>());
+        options_default_->parse_positional({ "command" });
     }
 
     void application::handle()
     {
-        auto parsed_options = options_->parse(argc_, argv_);
+        auto parsed_options = options_default_->parse(argc_, argv_);
         std::string command_name = parsed_options["command"].as<std::string>();
         bool has_help_option = parsed_options["help"].count() > 0;
 
@@ -84,13 +77,18 @@ namespace crs::console
 
         if (has_help_option)
         {
-            std::vector<std::string> command_name_for_help;
+            std::cout << options_default_->help() << std::endl;
             if (!command_name.empty())
             {
-                command_name_for_help.push_back(command_name);
-                options_->custom_help("");
+                std::cout << options_commands.find(command_name)->second->help() << std::endl;
             }
-            std::cout << options_->help(command_name_for_help) << std::endl;
+            else
+            {
+                for (const auto [k, cmd] : options_commands)
+                {
+                    std::cout << cmd->help() << std::endl;
+                }
+            }
             return;
         }
 
@@ -99,6 +97,7 @@ namespace crs::console
             throw crs::core::core_exception("Please specify <command>.");
         }
 
-        commands_.find(command_name)->second->handle(parsed_options);
+        auto parsed_cmnd_options = options_commands[command_name]->parse(argc_, argv_);
+        commands_[command_name]->handle(parsed_cmnd_options);
     }
 }

@@ -28,11 +28,9 @@ namespace crs::console::command
 
     void login::configure_options(cxxopts::OptionAdder& options_builder)
     {
-        //        options_builder
-        //            ("n,name", "Name of user.", cxxopts::value<std::string>())
-        //            ("p,password", "Password for a user.", cxxopts::value<std::string>());
+        options_builder
+            ("n,name", "Name of user.", cxxopts::value<std::string>())
+            ("p,password", "Password for a user.", cxxopts::value<std::string>());
     }
-    // enum ARGUMENTS = [NAME, PASSWORD]
-    // enum COMMANDS = []
 }
 

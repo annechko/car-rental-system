@@ -16,10 +16,10 @@ namespace crs::console
         private:
             int argc_;
             const char* const* argv_;
-            cxxopts::Options* options_;
-            std::map<std::string, crs::console::command::abstract_command*> commands_;
-            std::map<std::string, crs::console::command::abstract_command*> build_commands();
-
+            std::unordered_map<std::string, cxxopts::Options*> options_commands;
+            cxxopts::Options* options_default_;
+            std::unordered_map<std::string, crs::console::command::abstract_command*> commands_;
+            void init_commands();
             void init_options();
     };
 

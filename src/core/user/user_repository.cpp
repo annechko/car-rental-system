@@ -49,10 +49,11 @@ namespace crs::core::user
             auto user_raw = db.get_all<user_data>(
                 where(is_equal(&user_data::name, username))
             );
-            if (user_raw.size() == 1)
+            if (user_raw.size() != 1)
             {
-                return new user(user_raw.front().name, user_raw.front().password_hash);
+                throw core::core_exception("User not found!");
             }
+            return new user(user_raw.front().name, user_raw.front().password_hash);
         }
         catch (std::exception& exception)
         {
