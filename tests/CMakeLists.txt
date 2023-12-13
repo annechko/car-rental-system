@@ -13,8 +13,8 @@ include_directories(${SHARED_INCLUDES})
 add_executable(user_tests user.cpp
         ../src/core/user/user.h
         ../src/core/user/user.cpp
-        ../src/core/auth/auth_service.h
-        ../src/core/auth/auth_service.cpp
+        ../src/core/service/auth_service.h
+        ../src/core/service/auth_service.cpp
         ../src/core/storage/storage.h
         ../src/core/storage/storage.cpp
         ../src/core/user/user_repository.h

@@ -99,6 +99,13 @@ int main(int argc, char* argv[])
         printf("\033[0m");
         return EXIT_FAILURE;
     }
+    catch (cxxopts::exceptions::exception& exception)
+    {
+        printf("\x1B[31m");
+        std::cout << exception.what() << std::endl;
+        printf("\033[0m");
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
     /**

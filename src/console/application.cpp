@@ -35,11 +35,13 @@ namespace crs::console
         commands.insert(new crs::console::command::login);
         commands.insert(new crs::console::command::sign_up);
         commands.insert(new crs::console::command::user_add);
+
         std::map<std::string, crs::console::command::abstract_command*> result;
         for (crs::console::command::abstract_command* command : commands)
         {
             result.insert({ command->get_name(), command });
         }
+
         return result;
     }
 
@@ -97,12 +99,6 @@ namespace crs::console
             throw crs::core::core_exception("Please specify <command>.");
         }
 
-        commands_.find(command_name)->second->handle();
+        commands_.find(command_name)->second->handle(parsed_options);
     }
-
-    //
-    //    void application::handle(crs::command::input_parser* input_parser)
-    //    {
-    //        abstract_composite_command::handle(input_parser);
-    //    }
 }

@@ -11,6 +11,7 @@ namespace crs::core
             core_exception(const std::string& msg) throw(): message(msg)
             {
             }
+
             virtual ~core_exception() throw()
             {
             }

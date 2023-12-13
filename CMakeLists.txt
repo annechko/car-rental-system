@@ -7,8 +7,8 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 add_executable(car_rental_system main.cpp
         src/core/user/user.h
         src/core/user/user.cpp
-        src/core/auth/auth_service.h
-        src/core/auth/auth_service.cpp
+        src/core/service/auth_service.h
+        src/core/service/auth_service.cpp
         src/core/core_exception.h
         src/core/storage/storage.h
         src/core/storage/storage.cpp
@@ -47,7 +47,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(sqlite_orm)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
-set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
 FetchContent_Declare(
         cxxopts
         GIT_REPOSITORY https://github.com/jarro2783/cxxopts
@@ -56,3 +55,12 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(cxxopts)
 target_link_libraries(car_rental_system PRIVATE cxxopts)
+
+FetchContent_Declare(
+        bcrypt
+        GIT_REPOSITORY https://github.com/hilch/Bcrypt.cpp
+        GIT_TAG        master
+)
+
+FetchContent_MakeAvailable(bcrypt)
+target_link_libraries(car_rental_system PRIVATE bcrypt)

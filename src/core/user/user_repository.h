@@ -11,7 +11,8 @@ namespace crs::core::user
             {
             };
             crs::core::user::user get_by_id(int id);
-            void save(crs::core::user::user user_to_add);
+            crs::core::user::user* get_by_username(std::string username);
+            void save(crs::core::user::user* user_to_add);
     };
 }
 
