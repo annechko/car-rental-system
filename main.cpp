@@ -11,14 +11,7 @@ int main(int argc, char* argv[])
     {
         app->handle();
     }
-    catch (crs::core::core_exception& exception)
-    {
-        printf("\x1B[31m");
-        std::cout << exception.what() << std::endl;
-        printf("\033[0m");
-        return EXIT_FAILURE;
-    }
-    catch (cxxopts::exceptions::exception& exception)
+    catch (const std::exception& exception)
     {
         printf("\x1B[31m");
         std::cout << exception.what() << std::endl;
