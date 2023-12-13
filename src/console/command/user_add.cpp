@@ -1,6 +1,5 @@
 #include "user_add.h"
 #include <iostream>
-#include <console/input_parser.h>
 
 namespace crs::console::command
 {
@@ -9,8 +8,9 @@ namespace crs::console::command
         return std::string("user:add");
     }
 
-    void user_add::handle(crs::console::input_parser* input_parser)
+    void user_add::handle()
     {
+        //        std::list<std::string> args = input_parser->get;
         std::cout << "user added!";
     }
 
@@ -73,10 +73,6 @@ namespace crs::console::command
         return "created new user! you can login now!";
     }
 
-    const std::string crs::console::command::sign_up::get_arguments() const
-    {
-        return ARGUMENTS; // abstract implementation
-    }
     get_arguments_help()
     {
         return [
@@ -96,4 +92,10 @@ namespace crs::console::command
     }*/
 
 
+    void user_add::configure_options(cxxopts::OptionAdder& options_builder)
+    {
+        options_builder
+            ("n,name", "Name of new user.", cxxopts::value<std::string>())
+            ("p,password", "Password for a new user.", cxxopts::value<std::string>());
+    }
 }

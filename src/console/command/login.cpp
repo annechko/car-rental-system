@@ -1,11 +1,9 @@
 #include "login.h"
 #include <iostream>
-#include <map>
-#include <console/input_parser.h>
 
 namespace crs::console::command
 {
-    void login::handle(crs::console::input_parser* input_parser)
+    void login::handle()
     {
         std::cout << "user logged in!";
     }
@@ -17,16 +15,5 @@ namespace crs::console::command
 
     // enum ARGUMENTS = [NAME, PASSWORD]
     // enum COMMANDS = []
-    /**
-     *
-     *
-
-
-    std::map<std::string> crs::console::command::login::get_arguments()
-    {
-        return [
-
-        ];
-    }*/
 }
 

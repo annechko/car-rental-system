@@ -22,8 +22,6 @@ add_executable(car_rental_system main.cpp
         src/console/command/login.cpp
         src/console/command/user_add.h
         src/console/command/user_add.cpp
-        src/console/input_parser.h
-        src/console/input_parser.cpp
         src/console/application.h
         src/console/application.cpp
 )

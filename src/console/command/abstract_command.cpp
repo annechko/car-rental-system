@@ -1,17 +1,8 @@
 #include "abstract_command.h"
-#include <console/input_parser.h>
 
 namespace crs::console::command
 {
-    bool abstract_command::can_handle(crs::console::input_parser* input_parser)
+    void command::abstract_command::configure_options(cxxopts::OptionAdder& options)
     {
-        return input_parser->has(this->get_name());
     }
 }
-
-/*
-handle() {
-    // check if --help
-    // show help???
-}
- */
