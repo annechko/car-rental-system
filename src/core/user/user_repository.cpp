@@ -6,15 +6,15 @@
 
 namespace crs::core::user
 {
-    user user_repository::get_by_id(int id)
+    user* user_repository::get_by_id(int id)
     {
         using namespace crs::core;
 
         auto db = core::storage::storage::get_instance()->get_db();
-        auto user_data = db.get_pointer<core::storage::user_data>(id);
-        if (user_data)
+        auto user_raw = db.get_pointer<user>(id);
+        if (user_raw)
         {
-            return user(user_data->name, user_data->password_hash);
+            return user_raw.release();
         }
         else
         {
@@ -27,13 +27,9 @@ namespace crs::core::user
         using namespace crs::core;
 
         auto db = storage::storage::get_instance()->get_db();
-        auto user_data = storage::user_data{
-            .name = user_to_add->get_name(),
-            .password_hash = user_to_add->get_password_hash(),
-            //            .role =user_to_add->get_role()
-        };
 
-        db.insert(user_data);
+        int id = db.insert(*user_to_add);
+        user_to_add->set_id(id);
     }
 
     user* user_repository::get_by_username(std::string username)
@@ -46,14 +42,14 @@ namespace crs::core::user
         {
             using namespace sqlite_orm;
 
-            auto user_raw = db.get_all<user_data>(
-                where(is_equal(&user_data::name, username))
+            static auto user_raw = db.get_all<user>(
+                where(is_equal(&user::get_name, username))
             );
             if (user_raw.size() != 1)
             {
                 throw core::core_exception("User not found!");
             }
-            return new user(user_raw.front().name, user_raw.front().password_hash);
+            return &user_raw.front();
         }
         catch (std::exception& exception)
         {

@@ -70,7 +70,11 @@ namespace crs::console
         auto parsed_options = options_default_->parse(argc_, argv_);
         std::string command_name = parsed_options["command"].as<std::string>();
         bool has_help_option = parsed_options["help"].count() > 0;
-
+        if (command_name == "" && argc_ == 1)
+        {
+            // by default always show help.
+            has_help_option = true;
+        }
         if (!command_name.empty() && !commands_.contains(command_name))
         {
             throw crs::core::core_exception("Command \"" + command_name + "\" does not exist!");

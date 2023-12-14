@@ -1,6 +1,5 @@
 #include <iostream>
 #include "console/application.h"
-#include <list>
 #include "core/core_exception.h"
 
 int main(int argc, char* argv[])

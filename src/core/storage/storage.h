@@ -5,23 +5,27 @@
 
 namespace crs::core::storage
 {
-    struct user_data //delete
-    {
-        int id;
-        std::string name;
-        std::string password_hash;
-        //        crs::core::user::USER_ROLE role;
-    };
-
     inline auto init_storage(const std::string& path)
     {
         using namespace sqlite_orm;
         return make_storage(path,
             make_table("user",
-                make_column("id", &user_data::id, primary_key()),
-                make_column("name", &user_data::name, unique()),
-                make_column("password_hash", &user_data::password_hash)
-            ));
+                make_column("id",
+                    &crs::core::user::user::set_id,
+                    &crs::core::user::user::get_id,
+                    primary_key()),
+                make_column("name",
+                    &crs::core::user::user::set_name,
+                    &crs::core::user::user::get_name,
+                    unique()),
+                make_column("password_hash",
+                    &crs::core::user::user::set_password_hash,
+                    &crs::core::user::user::get_password_hash),
+                make_column("role",
+                    &crs::core::user::user::set_role_value,
+                    &crs::core::user::user::get_role_value)
+            )
+        );
     }
 
     using Db = decltype(init_storage("storage.sqlite"));
@@ -33,16 +37,12 @@ namespace crs::core::storage
             void operator=(const storage&) = delete;
             static storage* get_instance();
 
-            Db get_db()
-            {
-                return db_;
-            };
+            Db get_db();
         private:
             static storage* instance_;
-            storage();
             Db db_ = init_storage("storage.sqlite");
+            storage();
     };
 }
 
-
-#endif //STORAGE_H
+#endif

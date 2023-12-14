@@ -135,7 +135,7 @@ void testRegisterAndLogin()
     }
     catch (std::exception& exception)
     {
-        assert_equals((std::string)"", (std::string)exception.what());
+        assert_equals((std::string)"", (std::string)exception.what(), __FUNCTION__);
     };
 
     app = new crs::console::application(argc_test, argv_test_login, buffer);
@@ -145,7 +145,7 @@ void testRegisterAndLogin()
     }
     catch (std::exception& exception)
     {
-        assert_equals((std::string)"", (std::string)exception.what());
+        assert_equals((std::string)"", (std::string)exception.what(), __FUNCTION__);
     };
 }
 

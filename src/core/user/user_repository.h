@@ -10,9 +10,9 @@ namespace crs::core::user
             user_repository()
             {
             };
-            crs::core::user::user get_by_id(int id);
-            crs::core::user::user* get_by_username(std::string username);
-            void save(crs::core::user::user* user_to_add);
+            user* get_by_id(int id);
+            user* get_by_username(std::string username);
+            void save(user* user_to_add);
     };
 }
 
