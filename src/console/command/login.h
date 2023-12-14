@@ -10,7 +10,7 @@ namespace crs::console::command
     {
         public:
             login();
-            void handle(cxxopts::ParseResult& result) override;
+            void handle(cxxopts::ParseResult& result, std::stringstream& output) override;
             const std::string get_name() const override;
             void configure_options(cxxopts::OptionAdder& options) override;
         private:

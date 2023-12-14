@@ -10,7 +10,7 @@ namespace crs::console::command
         public:
             user_add();
             const std::string get_name() const override;
-            void handle(cxxopts::ParseResult& result) override;
+            void handle(cxxopts::ParseResult& result, std::stringstream& output) override;
             void configure_options(cxxopts::OptionAdder& options) override;
         private:
             crs::core::service::auth_service* auth_service_;

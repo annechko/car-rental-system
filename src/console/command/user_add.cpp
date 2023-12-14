@@ -15,7 +15,7 @@ namespace crs::console::command
         return std::string("user:add");
     }
 
-    void user_add::handle(cxxopts::ParseResult& result)
+    void user_add::handle(cxxopts::ParseResult& result, std::stringstream& output)
     {
         std::string name = result["name"].as<std::string>();
         std::string pass = result["password"].as<std::string>();
@@ -26,7 +26,7 @@ namespace crs::console::command
 
         auth_service_->sign_up(name, pass);
 
-        std::cout << "User with username = \"" + name + "\" was created! You can log in now.";
+        output << "User with username = \"" + name + "\" was created! You can log in now.";
     }
 
     void user_add::configure_options(cxxopts::OptionAdder& options_builder)

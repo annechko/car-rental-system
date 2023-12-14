@@ -5,7 +5,7 @@
 
 namespace crs::core::storage
 {
-    struct user_data
+    struct user_data //delete
     {
         int id;
         std::string name;

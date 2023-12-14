@@ -8,7 +8,7 @@ namespace crs::console::command
     class sign_up : public crs::console::command::abstract_command
     {
         public:
-            void handle(cxxopts::ParseResult& result) override;
+            void handle(cxxopts::ParseResult& result, std::stringstream& output) override;
             const std::string get_name() const override;
     };
 }

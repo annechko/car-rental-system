@@ -1,7 +1,8 @@
+#define TESTS_VERBOSE true
 #include <iostream>
 #include <functional>
 #include "../src/core/core_exception.h"
-#define TESTS_VERBOSE true
+#include <type_traits>
 
 static int assertions_count = 0;
 
@@ -37,7 +38,34 @@ void assert_equals(SomeType a, SomeType b, std::string func_name = "")
         success_assertion(func_name);
         return;
     }
-    show_error_msg("Not equals!", func_name);
+    if constexpr (std::is_same<SomeType, std::string>::value)
+    {
+        show_error_msg("Failed asserting that \"" + (std::string)a + "\" is equal to \"" + (std::string)b + "\"", func_name);
+    }
+    else
+    {
+        show_error_msg("Not equals!", func_name);
+    }
+}
+
+void assert_has_text(std::string haystack, std::string needle, std::string func_name = "")
+{
+    if (std::string::npos != haystack.find(needle))
+    {
+        success_assertion(func_name);
+        return;
+    }
+    show_error_msg("Not found " + needle + " in " + haystack, func_name);
+}
+
+void assert_no_text(std::string haystack, std::string needle, std::string func_name = "")
+{
+    if (std::string::npos == haystack.find(needle))
+    {
+        success_assertion(func_name);
+        return;
+    }
+    show_error_msg("Not found " + needle + " in " + haystack, func_name);
 }
 
 void assert_end()
@@ -49,6 +77,7 @@ const std::exception& assert_exception(std::function<void()> f, std::string func
 {
     try
     {
+        throw std::exception{};
         f();
     }
     catch (const std::exception& exception)

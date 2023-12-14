@@ -9,7 +9,7 @@ namespace crs::console::command
         auth_service_ = new crs::core::service::auth_service;
     }
 
-    void login::handle(cxxopts::ParseResult& result)
+    void login::handle(cxxopts::ParseResult& result, std::stringstream& output)
     {
         std::string name = result["name"].as<std::string>();
         std::string pass = result["password"].as<std::string>();
@@ -18,7 +18,7 @@ namespace crs::console::command
             throw crs::core::core_exception("Username and password are required.");
         }
         auth_service_->login(name, pass);
-        std::cout << "user logged in!";
+        output << "user logged in!";
     }
 
     const std::string login::get_name() const

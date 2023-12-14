@@ -5,9 +5,9 @@
 // enum ARGUMENTS = [NAME, PASSWORD]
 namespace crs::console::command
 {
-    void sign_up::handle(cxxopts::ParseResult& result)
+    void sign_up::handle(cxxopts::ParseResult& result, std::stringstream& output)
     {
-        std::cout << "created new user! you can log in now!";
+        output << "created new user! you can log in now!";
     }
 
     const std::string sign_up::get_name() const

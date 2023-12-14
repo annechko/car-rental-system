@@ -6,7 +6,7 @@
 #include <core/core_exception.h>
 #include <cxxopts.hpp>
 #include <set>
-#include <iostream>
+#include <sstream>
 
 namespace crs::console
 {
@@ -20,7 +20,8 @@ namespace crs::console
         return "\x1B[1;32m" + s + "\033[0m";
     }
 
-    application::application(int argc, const char* const* argv)
+    application::application(int argc, const char* const* argv, std::stringstream& output)
+        : output_(output)
     {
         argc_ = argc;
         argv_ = argv;
@@ -52,7 +53,7 @@ namespace crs::console
             options_commands[command->get_name()] = command_options;
         }
 
-        options_default_ = new cxxopts::Options(green("car_rental_system <command> [options]"));
+        options_default_ = new cxxopts::Options(green("car_rental_system <command> [options]"), "Car Rental System - help with the rental process, users and cars management.");
         options_default_->positional_help("");
         options_default_->allow_unrecognised_options();
         options_default_->custom_help("");
@@ -77,16 +78,16 @@ namespace crs::console
 
         if (has_help_option)
         {
-            std::cout << options_default_->help() << std::endl;
+            output_ << options_default_->help() << std::endl;
             if (!command_name.empty())
             {
-                std::cout << options_commands.find(command_name)->second->help() << std::endl;
+                output_ << options_commands.find(command_name)->second->help() << std::endl;
             }
             else
             {
                 for (const auto [k, cmd] : options_commands)
                 {
-                    std::cout << cmd->help() << std::endl;
+                    output_ << cmd->help() << std::endl;
                 }
             }
             return;
@@ -98,6 +99,6 @@ namespace crs::console
         }
 
         auto parsed_cmnd_options = options_commands[command_name]->parse(argc_, argv_);
-        commands_[command_name]->handle(parsed_cmnd_options);
+        commands_[command_name]->handle(parsed_cmnd_options, output_);
     }
 }
