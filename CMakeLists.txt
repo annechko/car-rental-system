@@ -4,7 +4,7 @@ project(car_rental_system)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
-add_executable(car_rental_system main.cpp
+add_executable(car_rental_system src/main.cpp
         src/core/user/user.h
         src/core/user/user.cpp
         src/core/service/auth_service.h
