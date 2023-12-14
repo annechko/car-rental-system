@@ -14,7 +14,7 @@ void testCreateUser()
     assert_equals(user.get_role(), crs::core::user::USER_ROLE::CUSTOMER, __FUNCTION__);
 }
 
-/* FUNCTIONAL */
+/* ACCEPTANCE */
 void testHelp_App()
 {
     std::string a1 = "car_rental_system";
@@ -115,6 +115,40 @@ void testLogin_UserNotExist_Error()
     show_error_msg("Expected an exception but didn't have any");
 }
 
+void testRegisterAndLogin()
+{
+    std::string a1 = "car_rental_system";
+    std::string a2 = "user:add";
+    std::string a2_login = "login";
+    std::string a3 = "-n";
+    std::string a4 = "user";
+    std::string a5 = "-p";
+    std::string a6 = "pass";
+    char* argv_test_reg[] = { &a1[0], &a2[0], &a3[0], &a4[0], &a5[0], &a6[0], };
+    char* argv_test_login[] = { &a1[0], &a2_login[0], &a3[0], &a4[0], &a5[0], &a6[0], };
+    int argc_test = 6;
+    std::stringstream buffer;
+    auto app = new crs::console::application(argc_test, argv_test_reg, buffer);
+    try
+    {
+        app->handle();
+    }
+    catch (std::exception& exception)
+    {
+        assert_equals((std::string)"", (std::string)exception.what());
+    };
+
+    app = new crs::console::application(argc_test, argv_test_login, buffer);
+    try
+    {
+        app->handle();
+    }
+    catch (std::exception& exception)
+    {
+        assert_equals((std::string)"", (std::string)exception.what());
+    };
+}
+
 int main()
 {
     int res = 0;
@@ -124,6 +158,7 @@ int main()
         []() -> void { testHelp_CommandNotExist_Error(); },
         []() -> void { testLogin_UserOptionNoPassOption_Error(); },
         []() -> void { testLogin_UserNotExist_Error(); },
+        []() -> void { testRegisterAndLogin(); },
         []() -> void { testCreateUser(); },
     };
     for (auto& test : tests)
