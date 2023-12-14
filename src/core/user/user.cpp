@@ -59,9 +59,9 @@ namespace crs::core::user
         return password_hash_;
     }
 
-    void user::set_password_hash(const std::string& passwordHash)
+    void user::set_password_hash(const std::string& password_hash)
     {
-        password_hash_ = passwordHash;
+        password_hash_ = password_hash;
     }
 
     const crs::core::user::USER_ROLE user::get_role() const

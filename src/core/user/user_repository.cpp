@@ -32,7 +32,7 @@ namespace crs::core::user
         user_to_add->set_id(id);
     }
 
-    user* user_repository::get_by_username(std::string username)
+    user user_repository::get_by_username(std::string username)
     {
         using namespace crs::core::storage;
 
@@ -42,14 +42,14 @@ namespace crs::core::user
         {
             using namespace sqlite_orm;
 
-            static auto user_raw = db.get_all<user>(
+            auto user_raw = db.get_all<user>(
                 where(is_equal(&user::get_name, username))
             );
             if (user_raw.size() != 1)
             {
                 throw core::core_exception("User not found!");
             }
-            return &user_raw.front();
+            return user_raw.front();
         }
         catch (std::exception& exception)
         {

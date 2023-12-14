@@ -96,7 +96,7 @@ void testLogin_UserNotExist_Error()
     std::string a1 = "car_rental_system";
     std::string a2 = "login";
     std::string a3 = "-n";
-    std::string a4 = "nonono";
+    std::string a4 = "nono";
     std::string a5 = "-p";
     std::string a6 = "p";
     char* argv_test[] = { &a1[0], &a2[0], &a3[0], &a4[0], &a5[0], &a6[0], };
@@ -112,7 +112,7 @@ void testLogin_UserNotExist_Error()
         assert_equals((std::string)"User not found!", (std::string)exc.what(), __FUNCTION__);
         return;
     };
-    show_error_msg("Expected an exception but didn't have any");
+    show_error_msg("Expected an exception but didn't have any", __FUNCTION__);
 }
 
 void testRegisterAndLogin()
@@ -121,7 +121,7 @@ void testRegisterAndLogin()
     std::string a2 = "user:add";
     std::string a2_login = "login";
     std::string a3 = "-n";
-    std::string a4 = "user";
+    std::string a4 = "user68kkdfsddfsjkok";
     std::string a5 = "-p";
     std::string a6 = "pass";
     char* argv_test_reg[] = { &a1[0], &a2[0], &a3[0], &a4[0], &a5[0], &a6[0], };
@@ -138,10 +138,10 @@ void testRegisterAndLogin()
         assert_equals((std::string)"", (std::string)exception.what(), __FUNCTION__);
     };
 
-    app = new crs::console::application(argc_test, argv_test_login, buffer);
+    auto app7 = new crs::console::application(argc_test, argv_test_login, buffer);
     try
     {
-        app->handle();
+        app7->handle();
     }
     catch (std::exception& exception)
     {

@@ -21,7 +21,7 @@ namespace crs::core::user
             const std::string get_name() const;
             void set_name(const std::string& name);
             const std::string get_password_hash() const;
-            void set_password_hash(const std::string& passwordHash);
+            void set_password_hash(const std::string& password_hash);
             const USER_ROLE get_role() const;
             const int get_role_value() const;
             void set_role_value(int role);
