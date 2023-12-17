@@ -1,13 +1,13 @@
 User Management:
-    user registration
-    user login          ->  roles:  customer
-                                    admin
+    ✅user registration
+    ✅user login          ->  roles: customer
+                                     admin
 
 --------------------------------------------------------------------------------
 Car Management:
     get car  (ID, make, model, year, mileage, available now, minimum rent period, maximum rent period.)
     get car list
-    add car (admin)
+    ✅add car (admin)
     update car (admin)
     delete car (admin)
 

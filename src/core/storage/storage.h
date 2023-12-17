@@ -2,6 +2,7 @@
 #define STORAGE_H
 #include <sqlite_orm/sqlite_orm.h>
 #include <core/user/user.h>
+#include <core/car/car.h>
 
 namespace crs::core::storage
 {
@@ -24,6 +25,30 @@ namespace crs::core::storage
                 make_column("role",
                     &crs::core::user::user::set_role_value,
                     &crs::core::user::user::get_role_value)
+            ),
+            make_table("car",
+                make_column("id",
+                    &crs::core::car::car::set_id,
+                    &crs::core::car::car::get_id,
+                    primary_key()),
+                make_column("make",
+                    &crs::core::car::car::set_make,
+                    &crs::core::car::car::get_make),
+                make_column("model",
+                    &crs::core::car::car::set_model,
+                    &crs::core::car::car::get_model),
+                make_column("year",
+                    &crs::core::car::car::set_year,
+                    &crs::core::car::car::get_year),
+                make_column("mileage",
+                    &crs::core::car::car::set_mileage,
+                    &crs::core::car::car::get_mileage),
+                make_column("min_rent",
+                    &crs::core::car::car::set_min_rent,
+                    &crs::core::car::car::get_min_rent),
+                make_column("max_rent",
+                    &crs::core::car::car::set_max_rent,
+                    &crs::core::car::car::get_max_rent)
             )
         );
     }
