@@ -2,7 +2,6 @@
 #define CAR_ADD_H
 #include "abstract_command.h"
 #include "core/service/car_service.h"
-#include <core/service/auth_service.h>
 
 namespace crs::console::command
 {
