@@ -1,30 +1,22 @@
 #include "application.h"
 #include <console/command/abstract_command.h>
-#include <console/command/login.h>
 #include <console/command/sign_up.h>
-#include <console/command/user_add.h>
-#include <core/core_exception.h>
+#include <console/command/car_add.h>
+#include <console/role.hpp>
+#include <console/text_helper.hpp>
+#include <core/core_exception.hpp>
 #include <cxxopts.hpp>
 #include <set>
 #include <sstream>
 
 namespace crs::console
 {
-    std::string yellow(std::string s)
-    {
-        return "\x1B[1;33m" + s + "\033[0m";
-    }
-
-    std::string green(std::string s)
-    {
-        return "\x1B[1;32m" + s + "\033[0m";
-    }
-
     application::application(int argc, const char* const* argv, std::stringstream& output)
         : output_(output)
     {
         argc_ = argc;
         argv_ = argv;
+        auth_service_ = new crs::core::service::auth_service;
         init_commands();
         init_options();
     }
@@ -32,9 +24,8 @@ namespace crs::console
     void application::init_commands()
     {
         std::set<crs::console::command::abstract_command*> commands;
-        commands.insert(new crs::console::command::login);
         commands.insert(new crs::console::command::sign_up);
-        commands.insert(new crs::console::command::user_add);
+        commands.insert(new crs::console::command::car_add);
 
         for (crs::console::command::abstract_command* command : commands)
         {
@@ -46,22 +37,26 @@ namespace crs::console
     {
         for (const auto& [key, command] : commands_)
         {
-            auto command_options = new cxxopts::Options(green("car_rental_system " + command->get_name()));
+            auto command_options = new cxxopts::Options(text_helper::green((std::string)"car_rental_system " + command->get_name()));
+            command_options->allow_unrecognised_options();
 
             auto builder = command_options->add_options();
             command->configure_options(builder);
             options_commands[command->get_name()] = command_options;
         }
 
-        options_default_ = new cxxopts::Options(green("car_rental_system <command> [options]"), "Car Rental System - help with the rental process, users and cars management.");
+        options_default_ = new cxxopts::Options(
+            ((std::string)"car_rental_system <command> [options]"),
+            "Car Rental System - help with the rental process, users and cars management."
+        );
         options_default_->positional_help("");
         options_default_->allow_unrecognised_options();
         options_default_->custom_help("");
         options_default_->add_options()
             ("command", "The command to execute.", cxxopts::value<std::string>()->default_value(""))
             ("h,help", "Print help.")
-            ("u,username", "Login as user.", cxxopts::value<std::string>())
-            ("p,password", "Login password.", cxxopts::value<std::string>());
+            ("u,username", "Login as user.", cxxopts::value<std::string>()->default_value(""))
+            ("p,password", "Login password.", cxxopts::value<std::string>()->default_value(""));
         options_default_->parse_positional({ "command" });
     }
 
@@ -103,6 +98,44 @@ namespace crs::console
         }
 
         auto parsed_cmnd_options = options_commands[command_name]->parse(argc_, argv_);
-        commands_[command_name]->handle(parsed_cmnd_options, output_);
+        auto command = commands_[command_name];
+        authenticate_if_needed(command->get_permission_level(), parsed_options);
+        command->handle(parsed_cmnd_options, output_);
+    }
+
+    void application::authenticate_if_needed(ROLE required_role, const cxxopts::ParseResult& parsed_options)
+    {
+        if (required_role == ROLE::ANONYMOUS)
+        {
+            return;
+        }
+
+        std::string username = parsed_options["username"].as<std::string>();
+        std::string password = parsed_options["password"].as<std::string>();
+        if (username.empty() || password.empty())
+        {
+            throw crs::core::core_exception("Authentication is required to run this command.");
+        }
+
+        crs::core::user::user* user = auth_service_->login(username, password);
+        switch (required_role)
+        {
+            case ROLE::AUTHENTICATED:
+            case ROLE::ANONYMOUS:
+                break;
+            case ROLE::ADMIN:
+                if (user->get_role() != crs::core::user::USER_ROLE::ADMIN)
+                {
+                    throw crs::core::core_exception("This command can be run only by admin user.");
+                }
+                break;
+            case ROLE::CUSTOMER:
+                if (user->get_role() != crs::core::user::USER_ROLE::CUSTOMER)
+                {
+                    throw crs::core::core_exception("Command can be run only by customer user.");
+                }
+                break;
+        }
+        return;
     }
 }

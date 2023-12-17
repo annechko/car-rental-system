@@ -15,7 +15,7 @@ add_executable(app_tests app.cpp
         ../src/core/user/user.cpp
         ../src/core/service/auth_service.h
         ../src/core/service/auth_service.cpp
-        ../src/core/core_exception.h
+        ../src/core/core_exception.hpp
         ../src/core/storage/storage.h
         ../src/core/storage/storage.cpp
         ../src/core/user/user_repository.h
@@ -24,10 +24,8 @@ add_executable(app_tests app.cpp
         ../src/console/command/abstract_command.cpp
         ../src/console/command/sign_up.h
         ../src/console/command/sign_up.cpp
-        ../src/console/command/login.h
-        ../src/console/command/login.cpp
-        ../src/console/command/user_add.h
-        ../src/console/command/user_add.cpp
+        ../src/console/command/car_add.h
+        ../src/console/command/car_add.cpp
         ../src/console/application.h
         ../src/console/application.cpp
 )

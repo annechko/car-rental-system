@@ -1,6 +1,6 @@
 #include "auth_service.h"
 #include <core/user/user.h>
-#include <core/core_exception.h>
+#include <core/core_exception.hpp>
 #include "bcrypt.h"
 
 namespace crs::core::service
@@ -10,10 +10,10 @@ namespace crs::core::service
         user_repository_ = new crs::core::user::user_repository;
     }
 
-    crs::core::user::user auth_service::login(std::string username, std::string password)
+    crs::core::user::user* auth_service::login(std::string username, std::string password)
     {
-        crs::core::user::user user = user_repository_->get_by_username(username);
-        if (!bcrypt::validatePassword(password, user.get_password_hash()))
+        crs::core::user::user* user = user_repository_->get_by_username(username);
+        if (!bcrypt::validatePassword(password, user->get_password_hash()))
         {
             throw core::core_exception("Password is invalid!");
         }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "console/application.h"
-#include "core/core_exception.h"
+#include "core/core_exception.hpp"
+#include "console/text_helper.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -14,9 +15,7 @@ int main(int argc, char* argv[])
     }
     catch (const std::exception& exception)
     {
-        printf("\x1B[31m");
-        std::cout << exception.what() << std::endl;
-        printf("\033[0m");
+        std::cout << crs::console::text_helper::red(exception.what()) << std::endl;
         return EXIT_FAILURE;
     }
 

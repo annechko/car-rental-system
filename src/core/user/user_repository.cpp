@@ -1,6 +1,6 @@
 #include "user_repository.h"
 #include "core/storage/storage.h"
-#include "core/core_exception.h"
+#include "core/core_exception.hpp"
 #include <sqlite_orm/sqlite_orm.h>
 #include <exception>
 
@@ -32,7 +32,7 @@ namespace crs::core::user
         user_to_add->set_id(id);
     }
 
-    user user_repository::get_by_username(std::string username)
+    user* user_repository::get_by_username(std::string username)
     {
         using namespace crs::core::storage;
 
@@ -42,14 +42,14 @@ namespace crs::core::user
         {
             using namespace sqlite_orm;
 
-            auto user_raw = db.get_all<user>(
+            auto user_raw = db.get_all_pointer<user>(
                 where(is_equal(&user::get_name, username))
             );
             if (user_raw.size() != 1)
             {
                 throw core::core_exception("User not found!");
             }
-            return user_raw.front();
+            return user_raw.front().release();
         }
         catch (std::exception& exception)
         {

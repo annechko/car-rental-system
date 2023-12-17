@@ -5,6 +5,7 @@
 #include <console/command/abstract_command.h>
 #include <cxxopts.hpp>
 #include <sstream>
+#include <core/service/auth_service.h>
 
 namespace crs::console
 {
@@ -21,8 +22,10 @@ namespace crs::console
             std::unordered_map<std::string, cxxopts::Options*> options_commands;
             cxxopts::Options* options_default_;
             std::unordered_map<std::string, crs::console::command::abstract_command*> commands_;
+            crs::core::service::auth_service* auth_service_;
             void init_commands();
             void init_options();
+            void authenticate_if_needed(ROLE required_role, const cxxopts::ParseResult& parsed_options);
     };
 
 }

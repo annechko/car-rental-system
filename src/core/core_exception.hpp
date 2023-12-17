@@ -1,5 +1,5 @@
-#ifndef CORE_EXCEPTION_H
-#define CORE_EXCEPTION_H
+#ifndef CORE_EXCEPTION_HPP
+#define CORE_EXCEPTION_HPP
 
 #include <exception>
 using namespace std;
@@ -26,4 +26,4 @@ namespace crs::core
     };
 }
 
-#endif //CORE_EXCEPTION_H
+#endif //CORE_EXCEPTION_HPP

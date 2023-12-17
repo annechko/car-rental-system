@@ -1,7 +1,7 @@
 #define TESTS_VERBOSE true
 #include <iostream>
 #include <functional>
-#include "../src/core/core_exception.h"
+#include "../src/core/core_exception.hpp"
 #include <type_traits>
 
 static int assertions_count = 0;

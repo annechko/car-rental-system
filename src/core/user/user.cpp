@@ -1,5 +1,5 @@
 #include "user.h"
-#include <core/core_exception.h>
+#include <core/core_exception.hpp>
 #include <unordered_map>
 
 namespace crs::core::user
