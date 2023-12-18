@@ -15,11 +15,11 @@ namespace crs::console::command
         return std::string("register");
     }
 
-    void sign_up::handle(cxxopts::ParseResult& result, std::ostream& output)
+    void sign_up::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        std::string name = result["username"].as<std::string>();
-        std::string pass = result["password"].as<std::string>();
-        bool is_admin = result["admin"].as<bool>();
+        std::string name = options["username"].as<std::string>();
+        std::string pass = options["password"].as<std::string>();
+        bool is_admin = options["admin"].as<bool>();
         if (name.empty() || pass.empty())
         {
             throw crs::core::core_exception("Username and password are required.");

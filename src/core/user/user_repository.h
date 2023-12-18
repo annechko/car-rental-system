@@ -12,6 +12,7 @@ namespace crs::core::user
             user* get_by_id(int id);
             user* get_by_username(std::string username);
             void save(user* user_to_add);
+            const bool has_by_username(std::string username) const;
         private:
             crs::core::storage::db* db_;
     };

@@ -37,11 +37,10 @@ namespace crs::core::user
     user* user_repository::get_by_username(std::string username)
     {
         using namespace crs::core::storage;
+        using namespace sqlite_orm;
 
         try
         {
-            using namespace sqlite_orm;
-
             auto user_raw = db_->get_all_pointer<user>(
                 where(is_equal(&user::get_name, username))
             );
@@ -55,6 +54,19 @@ namespace crs::core::user
         {
             throw core::core_exception("User not found!");
         }
+    }
+
+    const bool user_repository::has_by_username(std::string username) const
+    {
+        using namespace crs::core::storage;
+        using namespace sqlite_orm;
+
+        auto user_id = db_->select(
+            &user::get_id,
+            where(is_equal(&user::get_name, username))
+        );
+
+        return user_id.size() > 0;
     }
 }
 

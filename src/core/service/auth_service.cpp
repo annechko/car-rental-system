@@ -27,6 +27,10 @@ namespace crs::core::service
         {
             user->make_admin();
         }
+        if (user_repository_->has_by_username(username))
+        {
+            throw crs::core::core_exception("User with username \"" + username + "\" already exists.");
+        }
         user_repository_->save(user);
 
         return user;

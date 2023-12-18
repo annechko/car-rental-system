@@ -14,14 +14,16 @@ namespace crs::console::command
         return std::string("car:add");
     }
 
-    void car_add::handle(cxxopts::ParseResult& result, std::ostream& output)
+    void car_add::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        std::string make = result["make"].as<std::string>();
-        std::string model = result["model"].as<std::string>();
-        int year = result["year"].as<int>();
-        int mileage = result["mileage"].as<int>();
-        int min_rent = result["min-rent"].as<int>();
-        int max_rent = result["max-rent"].as<int>();
+        authenticate_if_needed(options);
+
+        std::string make = options["make"].as<std::string>();
+        std::string model = options["model"].as<std::string>();
+        int year = options["year"].as<int>();
+        int mileage = options["mileage"].as<int>();
+        int min_rent = options["min-rent"].as<int>();
+        int max_rent = options["max-rent"].as<int>();
 
         car_service_->create(make, model, year, mileage, min_rent, max_rent);
         output << "Car " + make + " " + model + " added!";
@@ -29,7 +31,7 @@ namespace crs::console::command
 
     void car_add::configure_options(cxxopts::OptionAdder& options_builder)
     {
-        options_builder
+        add_auth_params(options_builder)
             ("k,make",
                 "Company that made a car, for example: Ford, Honda, Volkswagen.",
                 cxxopts::value<std::string>())

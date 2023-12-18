@@ -58,9 +58,7 @@ namespace crs::console
         // todo maybe move -u -p to abstract command for every command that needs auth
         options_default_->add_options()
             ("command", "The command to execute.", cxxopts::value<std::string>()->default_value(""))
-            ("h,help", "Print help.")
-            ("u,username", "Login as user.", cxxopts::value<std::string>()->default_value(""))
-            ("p,password", "Login password.", cxxopts::value<std::string>()->default_value(""));
+            ("h,help", "Print help.");
         options_default_->parse_positional({ "command" });
     }
 
@@ -103,44 +101,6 @@ namespace crs::console
 
         auto parsed_cmnd_options = options_commands[command_name]->parse(argc_, argv_);
         auto command = commands_[command_name];
-        authenticate_if_needed(command->get_permission_level(), parsed_options);
         command->handle(parsed_cmnd_options, output_);
-    }
-
-    void application::authenticate_if_needed(ROLE required_role, const cxxopts::ParseResult& parsed_options)
-    {
-        if (required_role == ROLE::ANONYMOUS)
-        {
-            return;
-        }
-
-        std::string username = parsed_options["username"].as<std::string>();
-        std::string password = parsed_options["password"].as<std::string>();
-        if (username.empty() || password.empty())
-        {
-            throw crs::core::core_exception(
-                "Authentication is required to run this command, please provide username and password options.");
-        }
-
-        crs::core::user::user* user = auth_service_->login(username, password);
-        switch (required_role)
-        {
-            case ROLE::AUTHENTICATED:
-            case ROLE::ANONYMOUS:
-                break;
-            case ROLE::ADMIN:
-                if (!user->is_admin())
-                {
-                    throw crs::core::core_exception("This command can be run only by admin user.");
-                }
-                break;
-            case ROLE::CUSTOMER:
-                if (!user->is_customer())
-                {
-                    throw crs::core::core_exception("Command can be run only by customer user.");
-                }
-                break;
-        }
-        return;
     }
 }
