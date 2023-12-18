@@ -104,4 +104,14 @@ namespace crs::core::user
     {
         role_ = USER_ROLE::ADMIN;
     }
+
+    bool user::is_admin() const
+    {
+        return role_ == crs::core::user::USER_ROLE::ADMIN;
+    }
+
+    bool user::is_customer() const
+    {
+        return role_ == crs::core::user::USER_ROLE::CUSTOMER;
+    }
 }

@@ -129,13 +129,13 @@ namespace crs::console
             case ROLE::ANONYMOUS:
                 break;
             case ROLE::ADMIN:
-                if (user->get_role() != crs::core::user::USER_ROLE::ADMIN)
+                if (!user->is_admin())
                 {
                     throw crs::core::core_exception("This command can be run only by admin user.");
                 }
                 break;
             case ROLE::CUSTOMER:
-                if (user->get_role() != crs::core::user::USER_ROLE::CUSTOMER)
+                if (!user->is_customer())
                 {
                     throw crs::core::core_exception("Command can be run only by customer user.");
                 }

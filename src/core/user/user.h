@@ -28,6 +28,8 @@ namespace crs::core::user
             void set_role_value(int role);
             const int get_id() const;
             void set_id(int id);
+            bool is_admin() const;
+            bool is_customer() const;
         private:
             int id_;
             std::string name_;
