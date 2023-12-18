@@ -1,5 +1,5 @@
 #include "car_add.h"
-#include <iostream>
+#include <ostream>
 #include <core/core_exception.hpp>
 
 namespace crs::console::command
@@ -14,7 +14,7 @@ namespace crs::console::command
         return std::string("car:add");
     }
 
-    void car_add::handle(cxxopts::ParseResult& result, std::stringstream& output)
+    void car_add::handle(cxxopts::ParseResult& result, std::ostream& output)
     {
         std::string make = result["make"].as<std::string>();
         std::string model = result["model"].as<std::string>();

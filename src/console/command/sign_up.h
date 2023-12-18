@@ -10,7 +10,7 @@ namespace crs::console::command
     {
         public:
             sign_up();
-            void handle(cxxopts::ParseResult& result, std::stringstream& output) override;
+            void handle(cxxopts::ParseResult& result, std::ostream& output) override;
             const std::string get_name() const override;
             void configure_options(cxxopts::OptionAdder& options) override;
             const crs::console::ROLE get_permission_level() const override;

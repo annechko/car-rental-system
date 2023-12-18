@@ -27,8 +27,12 @@ add_executable(car_rental_system src/main.cpp
         src/core/car/car.cpp
         src/core/car/car_repository.h
         src/core/car/car_repository.cpp
-        src/core/service/car_service.cpp
         src/core/service/car_service.h
+        src/core/service/car_service.cpp
+        src/console/command/car_list.h
+        src/console/command/car_list.cpp
+        src/console/table_formatter.h
+        src/console/table_formatter.cpp
 )
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)
@@ -43,12 +47,12 @@ add_subdirectory(tests)
 
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+
 FetchContent_Declare(
         sqlite_orm
         GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
         GIT_TAG        master
 )
-
 FetchContent_MakeAvailable(sqlite_orm)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
@@ -57,7 +61,6 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/jarro2783/cxxopts
         GIT_TAG        v3.1.1
 )
-
 FetchContent_MakeAvailable(cxxopts)
 target_link_libraries(car_rental_system PRIVATE cxxopts)
 
@@ -66,6 +69,13 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/hilch/Bcrypt.cpp
         GIT_TAG        master
 )
-
 FetchContent_MakeAvailable(bcrypt)
 target_link_libraries(car_rental_system PRIVATE bcrypt)
+
+FetchContent_Declare(
+        tabulate
+        GIT_REPOSITORY https://github.com/p-ranav/tabulate
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(tabulate)
+target_link_libraries(car_rental_system PRIVATE tabulate)

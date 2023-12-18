@@ -4,7 +4,7 @@
 #include <map>
 #include <console/command/abstract_command.h>
 #include <cxxopts.hpp>
-#include <sstream>
+#include <ostream>
 #include <core/service/auth_service.h>
 
 namespace crs::console
@@ -12,13 +12,13 @@ namespace crs::console
     class application
     {
         public:
-            application(int argc, const char* const* argv, std::stringstream& output);
+            application(int argc, const char* const* argv, std::ostream& output);
             void handle();
 
         private:
             int argc_;
             const char* const* argv_;
-            std::stringstream& output_;
+            std::ostream& output_;
             std::unordered_map<std::string, cxxopts::Options*> options_commands;
             cxxopts::Options* options_default_;
             std::unordered_map<std::string, crs::console::command::abstract_command*> commands_;

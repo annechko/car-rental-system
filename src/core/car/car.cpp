@@ -3,6 +3,14 @@
 
 namespace crs::core::car
 {
+    car::car()
+    {
+        id_ = 0;
+        make_ = "";
+        model_ = "";
+        year_ = 0;
+    }
+
     car::car(
         const string& make,
         const string& model,

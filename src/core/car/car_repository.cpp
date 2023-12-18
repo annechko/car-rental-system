@@ -1,6 +1,7 @@
 #include "car_repository.h"
 #include "core/storage/storage.h"
 #include <sqlite_orm/sqlite_orm.h>
+#include <memory>
 
 namespace crs::core::car
 {
@@ -18,7 +19,7 @@ namespace crs::core::car
 
     std::vector<std::unique_ptr<crs::core::car::car>> car_repository::get_list()
     {
-        return std::vector<std::unique_ptr<crs::core::car::car>>();
+        return db_->get_all_pointer<crs::core::car::car>();
     }
 }
 

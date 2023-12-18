@@ -5,13 +5,11 @@
 
 int main(int argc, char* argv[])
 {
-    std::stringstream output;
-    auto app = new crs::console::application(argc, argv, output);
+    auto app = new crs::console::application(argc, argv, std::cout);
 
     try
     {
         app->handle();
-        std::cout << output.str();
     }
     catch (const std::exception& exception)
     {

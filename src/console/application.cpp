@@ -2,16 +2,17 @@
 #include <console/command/abstract_command.h>
 #include <console/command/sign_up.h>
 #include <console/command/car_add.h>
+#include <console/command/car_list.h>
 #include <console/role.hpp>
 #include <console/text_helper.hpp>
 #include <core/core_exception.hpp>
 #include <cxxopts.hpp>
 #include <set>
-#include <sstream>
+#include <ostream>
 
 namespace crs::console
 {
-    application::application(int argc, const char* const* argv, std::stringstream& output)
+    application::application(int argc, const char* const* argv, ostream& output)
         : output_(output)
     {
         argc_ = argc;
@@ -26,6 +27,7 @@ namespace crs::console
         std::set<crs::console::command::abstract_command*> commands;
         commands.insert(new crs::console::command::sign_up);
         commands.insert(new crs::console::command::car_add);
+        commands.insert(new crs::console::command::car_list);
 
         for (crs::console::command::abstract_command* command : commands)
         {
