@@ -99,4 +99,9 @@ namespace crs::core::user
         }
         return 1;
     }
+
+    void user::make_admin()
+    {
+        role_ = USER_ROLE::ADMIN;
+    }
 }

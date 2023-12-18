@@ -18,6 +18,7 @@ namespace crs::core::user
         public:
             user();
             user(std::string name, std::string password_hash);
+            void make_admin();
             const std::string get_name() const;
             void set_name(const std::string& name);
             const std::string get_password_hash() const;

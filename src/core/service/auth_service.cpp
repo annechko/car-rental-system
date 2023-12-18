@@ -20,9 +20,13 @@ namespace crs::core::service
         return user;
     }
 
-    crs::core::user::user* auth_service::sign_up(std::string username, std::string password)
+    crs::core::user::user* auth_service::sign_up(std::string username, std::string password, bool is_admin)
     {
         auto user = new crs::core::user::user(username, bcrypt::generateHash(password));
+        if (is_admin)
+        {
+            user->make_admin();
+        }
         user_repository_->save(user);
 
         return user;

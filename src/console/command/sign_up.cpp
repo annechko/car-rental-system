@@ -17,14 +17,15 @@ namespace crs::console::command
 
     void sign_up::handle(cxxopts::ParseResult& result, std::ostream& output)
     {
-        std::string name = result["name"].as<std::string>();
+        std::string name = result["username"].as<std::string>();
         std::string pass = result["password"].as<std::string>();
+        bool is_admin = result["admin"].as<bool>();
         if (name.empty() || pass.empty())
         {
             throw crs::core::core_exception("Username and password are required.");
         }
 
-        auth_service_->sign_up(name, pass);
+        auth_service_->sign_up(name, pass, is_admin);
 
         output << "User with username = \"" + name + "\" was created! You can log in now.";
     }
@@ -32,8 +33,9 @@ namespace crs::console::command
     void sign_up::configure_options(cxxopts::OptionAdder& options_builder)
     {
         options_builder
-            ("n,name", "Name of new user.", cxxopts::value<std::string>())
-            ("p,password", "Password for a new user.", cxxopts::value<std::string>());
+            ("u,username", "Username for a new user.", cxxopts::value<std::string>())
+            ("p,password", "Password for a new user.", cxxopts::value<std::string>())
+            ("a,admin", "Assign admin permissions (testing purposes).");
     }
 
     const crs::console::ROLE sign_up::get_permission_level() const
