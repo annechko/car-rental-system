@@ -1,6 +1,9 @@
 #ifndef CAR_REPOSITORY_H
 #define CAR_REPOSITORY_H
+#include <memory>
+#include <vector>
 #include "car.h"
+#include "core/storage/storage.h"
 
 namespace crs::core::car
 {
@@ -9,6 +12,9 @@ namespace crs::core::car
         public:
             car_repository();
             void save(car* car_to_add);
+            std::vector<std::unique_ptr<car>> get_list();
+        private:
+            crs::core::storage::db* db_;
     };
 }
 

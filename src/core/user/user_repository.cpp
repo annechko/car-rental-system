@@ -6,12 +6,16 @@
 
 namespace crs::core::user
 {
+    user_repository::user_repository()
+    {
+        db_ = storage::storage::get_instance()->get_db();
+    }
+
     user* user_repository::get_by_id(int id)
     {
         using namespace crs::core;
 
-        auto db = core::storage::storage::get_instance()->get_db();
-        auto user_raw = db.get_pointer<user>(id);
+        auto user_raw = db_->get_pointer<user>(id);
         if (user_raw)
         {
             return user_raw.release();
@@ -26,9 +30,7 @@ namespace crs::core::user
     {
         using namespace crs::core;
 
-        auto db = storage::storage::get_instance()->get_db();
-
-        int id = db.insert(*user_to_add);
+        int id = db_->insert(*user_to_add);
         user_to_add->set_id(id);
     }
 
@@ -36,13 +38,11 @@ namespace crs::core::user
     {
         using namespace crs::core::storage;
 
-        auto db = crs::core::storage::storage::get_instance()->get_db();
-
         try
         {
             using namespace sqlite_orm;
 
-            auto user_raw = db.get_all_pointer<user>(
+            auto user_raw = db_->get_all_pointer<user>(
                 where(is_equal(&user::get_name, username))
             );
             if (user_raw.size() != 1)
@@ -56,7 +56,6 @@ namespace crs::core::user
             throw core::core_exception("User not found!");
         }
     }
-
 }
 
 

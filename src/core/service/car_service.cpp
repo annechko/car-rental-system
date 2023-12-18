@@ -19,4 +19,9 @@ namespace crs::core::service
         car_repository_->save(car);
         return car;
     }
+
+    std::vector<std::unique_ptr<car::car>> car_service::get_list() const
+    {
+        return car_repository_->get_list();
+    }
 }

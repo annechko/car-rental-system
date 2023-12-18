@@ -2,6 +2,8 @@
 #define CAR_SERVICE_H
 #include "core/car/car.h"
 #include "core/car/car_repository.h"
+#include <memory>
+#include <vector>
 
 namespace crs::core::service
 {
@@ -16,6 +18,7 @@ namespace crs::core::service
                 int mileage,
                 int min_rent,
                 int max_rent) const;
+            std::vector<std::unique_ptr<car::car>> get_list() const;
         private:
             crs::core::car::car_repository* car_repository_;
     };

@@ -37,7 +37,8 @@ namespace crs::console
     {
         for (const auto& [key, command] : commands_)
         {
-            auto command_options = new cxxopts::Options(text_helper::green((std::string)"car_rental_system " + command->get_name()));
+            auto command_options = new cxxopts::Options(text_helper::green(
+                (std::string)"car_rental_system " + command->get_name()));
             command_options->allow_unrecognised_options();
 
             auto builder = command_options->add_options();
@@ -52,6 +53,7 @@ namespace crs::console
         options_default_->positional_help("");
         options_default_->allow_unrecognised_options();
         options_default_->custom_help("");
+        // todo maybe move -u -p to abstract command for every command that needs auth
         options_default_->add_options()
             ("command", "The command to execute.", cxxopts::value<std::string>()->default_value(""))
             ("h,help", "Print help.")
@@ -114,7 +116,8 @@ namespace crs::console
         std::string password = parsed_options["password"].as<std::string>();
         if (username.empty() || password.empty())
         {
-            throw crs::core::core_exception("Authentication is required to run this command.");
+            throw crs::core::core_exception(
+                "Authentication is required to run this command, please provide username and password options.");
         }
 
         crs::core::user::user* user = auth_service_->login(username, password);

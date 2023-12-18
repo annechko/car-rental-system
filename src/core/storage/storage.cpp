@@ -1,5 +1,5 @@
 #include "storage.h"
-#include <core/user/user.h>
+#include <memory>
 
 namespace crs::core::storage
 {
@@ -19,8 +19,8 @@ namespace crs::core::storage
         db_.sync_schema();
     }
 
-    Db storage::get_db()
+    db* storage::get_db()
     {
-        return db_;
+        return &db_;
     }
 }
