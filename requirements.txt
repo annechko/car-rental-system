@@ -9,7 +9,7 @@ Car Management:
     get car list
     ✅add car (admin)
     ✅update car (admin)
-    delete car (admin)
+    ✅delete car (admin)
 
 --------------------------------------------------------------------------------
 Rental Booking:

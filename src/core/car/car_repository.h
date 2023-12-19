@@ -14,6 +14,7 @@ namespace crs::core::car
             void save(car* car_to_add);
             std::vector<std::unique_ptr<car>> get_list();
             car* get_by_id(int id) const;
+            void delete_car(int id);
         private:
             crs::core::storage::db* db_;
     };

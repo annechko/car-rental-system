@@ -39,4 +39,11 @@ namespace crs::core::service
         car_repository_->save(car);
         return car;
     }
+
+    void car_service::delete_car(int id) const
+    {
+        // check car exists.
+        auto car = car_repository_->get_by_id(id);
+        car_repository_->delete_car(id);
+    }
 }

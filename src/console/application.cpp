@@ -4,6 +4,7 @@
 #include <console/command/car_add.h>
 #include <console/command/car_list.h>
 #include <console/command/car_update.h>
+#include <console/command/car_delete.h>
 #include <console/text_helper.hpp>
 #include <core/core_exception.hpp>
 #include <cxxopts.hpp>
@@ -29,6 +30,7 @@ namespace crs::console
         commands.insert(new crs::console::command::car_add);
         commands.insert(new crs::console::command::car_list);
         commands.insert(new crs::console::command::car_update);
+        commands.insert(new crs::console::command::car_delete);
 
         for (crs::console::command::abstract_command* command : commands)
         {

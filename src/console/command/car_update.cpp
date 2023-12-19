@@ -1,4 +1,5 @@
 #include "car_update.h"
+#include "core/core_exception.hpp"
 #include <ostream>
 
 namespace crs::console::command
@@ -20,6 +21,10 @@ namespace crs::console::command
         std::string make = options["make"].as<std::string>();
         std::string model = options["model"].as<std::string>();
         int id = options["id"].as<int>();
+        if (id <= 0)
+        {
+            throw crs::core::core_exception("Id must be greater than 0.");
+        }
         int year = options["year"].as<int>();
         int mileage = options["mileage"].as<int>();
         int min_rent = options["min-rent"].as<int>();

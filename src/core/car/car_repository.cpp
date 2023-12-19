@@ -41,8 +41,13 @@ namespace crs::core::car
         }
         else
         {
-            throw core::core_exception("Car with id \"" + std::to_string(id) + "\" not found.");
+            throw core::core_exception("Car with id = " + std::to_string(id) + " not found.");
         }
+    }
+
+    void car_repository::delete_car(int id)
+    {
+        db_->remove<car>(id);
     }
 }
 

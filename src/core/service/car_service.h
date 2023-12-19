@@ -27,6 +27,7 @@ namespace crs::core::service
                 int min_rent,
                 int max_rent) const;
             std::vector<std::unique_ptr<car::car>> get_list() const;
+            void delete_car(int id) const;
         private:
             crs::core::car::car_repository* car_repository_;
     };
