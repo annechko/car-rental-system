@@ -27,6 +27,42 @@ namespace crs::core::car
         }
     }
 
+    void car::update(
+        const string& make,
+        const string& model,
+        int year,
+        int mileage,
+        int min_rent,
+        int max_rent)
+    {
+        if (!make.empty())
+        {
+            make_ = make;
+        }
+        if (!model.empty())
+        {
+            model_ = model;
+        }
+        if (year > 0)
+        {
+            year_ = year;
+        }
+        if (mileage > 0)
+        {
+            mileage_ = mileage;
+        }
+
+        if (max_rent > 0)
+        {
+            max_rent_ = max_rent;
+        }
+
+        if (min_rent > 0)
+        {
+            min_rent_ = min_rent;
+        }
+    }
+
     int car::get_id() const
     {
         return id_;

@@ -13,6 +13,7 @@ namespace crs::core::car
             car_repository();
             void save(car* car_to_add);
             std::vector<std::unique_ptr<car>> get_list();
+            car* get_by_id(int id) const;
         private:
             crs::core::storage::db* db_;
     };

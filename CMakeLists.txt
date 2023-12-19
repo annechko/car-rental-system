@@ -33,6 +33,8 @@ add_executable(car_rental_system src/main.cpp
         src/console/command/car_list.cpp
         src/console/table_formatter.h
         src/console/table_formatter.cpp
+        src/console/command/car_update.h
+        src/console/command/car_update.cpp
 )
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)

@@ -18,6 +18,14 @@ namespace crs::core::service
                 int mileage,
                 int min_rent,
                 int max_rent) const;
+            crs::core::car::car* update(
+                int id,
+                const std::string& make,
+                const std::string& model,
+                int year,
+                int mileage,
+                int min_rent,
+                int max_rent) const;
             std::vector<std::unique_ptr<car::car>> get_list() const;
         private:
             crs::core::car::car_repository* car_repository_;

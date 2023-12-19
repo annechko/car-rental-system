@@ -32,6 +32,14 @@ namespace crs::core::car
             void set_min_rent(int minRent);
             int get_max_rent() const;
             void set_max_rent(int maxRent);
+            void update(
+                const std::string& make,
+                const std::string& model,
+                int year,
+                int mileage,
+                int min_rent,
+                int max_rent
+            );
 
         private:
             int id_;
@@ -41,7 +49,6 @@ namespace crs::core::car
             int mileage_;
             int min_rent_;
             int max_rent_;
-
     };
 
 }

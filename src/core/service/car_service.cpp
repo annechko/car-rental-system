@@ -24,4 +24,19 @@ namespace crs::core::service
     {
         return car_repository_->get_list();
     }
+
+    crs::core::car::car* car_service::update(
+        int id,
+        const std::string& make,
+        const std::string& model,
+        int year,
+        int mileage,
+        int min_rent,
+        int max_rent) const
+    {
+        auto car = car_repository_->get_by_id(id);
+        car->update(make, model, year, mileage, min_rent, max_rent);
+        car_repository_->save(car);
+        return car;
+    }
 }
