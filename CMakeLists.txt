@@ -4,7 +4,7 @@ project(car_rental_system)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
-add_executable(car_rental_system src/main.cpp
+add_library(car_rental_system
         src/core/user/user.h
         src/core/user/user.cpp
         src/core/service/auth_service.h
@@ -42,6 +42,7 @@ add_executable(car_rental_system src/main.cpp
         src/core/service/rent_service.cpp
         src/core/service/rent_service.h
 )
+
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(APP_ROOT_SRC_DIR ${APP_ROOT_DIR}/src)
 set(SHARED_INCLUDES
@@ -49,9 +50,7 @@ set(SHARED_INCLUDES
 )
 include_directories(${SHARED_INCLUDES})
 
-include(CTest)
-enable_testing()
-add_subdirectory(tests)
+add_executable(app src/main.cpp)
 
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
@@ -63,6 +62,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sqlite_orm)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
+target_link_libraries(app PRIVATE sqlite_orm)
 
 FetchContent_Declare(
         cxxopts
@@ -71,6 +71,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(cxxopts)
 target_link_libraries(car_rental_system PRIVATE cxxopts)
+target_link_libraries(app PRIVATE cxxopts)
 
 FetchContent_Declare(
         bcrypt
@@ -79,6 +80,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(bcrypt)
 target_link_libraries(car_rental_system PRIVATE bcrypt)
+target_link_libraries(app PRIVATE bcrypt)
 
 FetchContent_Declare(
         tabulate
@@ -87,3 +89,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(tabulate)
 target_link_libraries(car_rental_system PRIVATE tabulate)
+target_link_libraries(app PRIVATE tabulate)
+target_link_libraries(app PRIVATE car_rental_system)
+
+include(CTest)
+enable_testing()
+add_subdirectory(tests)
