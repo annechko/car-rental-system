@@ -28,6 +28,6 @@ namespace crs::console::command
 
     const crs::console::ROLE car_list::get_permission_level() const
     {
-        return crs::console::ROLE::ANONYMOUS;
+        return crs::console::ROLE::ANY;
     }
 }

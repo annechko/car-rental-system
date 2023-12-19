@@ -30,7 +30,7 @@ namespace crs::console::command
     const void abstract_command::authenticate_if_needed(const cxxopts::ParseResult& parsed_options)
     {
         auto required_role = get_permission_level();
-        if (required_role == ROLE::ANONYMOUS)
+        if (required_role == ROLE::ANY)
         {
             return;
         }
@@ -47,7 +47,7 @@ namespace crs::console::command
         switch (required_role)
         {
             case ROLE::AUTHENTICATED:
-            case ROLE::ANONYMOUS:
+            case ROLE::ANY:
                 break;
             case ROLE::ADMIN:
                 if (!user->is_admin())

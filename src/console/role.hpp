@@ -6,7 +6,7 @@ namespace crs::console
     {
         CUSTOMER = 0,
         ADMIN = 1,
-        ANONYMOUS = 2,
+        ANY = 2,
         AUTHENTICATED = 3
     };
 }

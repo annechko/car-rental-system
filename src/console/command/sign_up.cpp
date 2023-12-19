@@ -40,7 +40,7 @@ namespace crs::console::command
 
     const crs::console::ROLE sign_up::get_permission_level() const
     {
-        return crs::console::ROLE::ANONYMOUS;
+        return crs::console::ROLE::ANY;
     }
 }
 
