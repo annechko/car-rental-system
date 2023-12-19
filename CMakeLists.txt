@@ -52,6 +52,8 @@ include_directories(${SHARED_INCLUDES})
 
 add_executable(app src/main.cpp)
 
+####### ADDING EXTERNAL DEPENDENCIES #######
+
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
 
@@ -61,8 +63,6 @@ FetchContent_Declare(
         GIT_TAG        master
 )
 FetchContent_MakeAvailable(sqlite_orm)
-target_link_libraries(car_rental_system PRIVATE sqlite_orm)
-target_link_libraries(app PRIVATE sqlite_orm)
 
 FetchContent_Declare(
         cxxopts
@@ -70,8 +70,6 @@ FetchContent_Declare(
         GIT_TAG        v3.1.1
 )
 FetchContent_MakeAvailable(cxxopts)
-target_link_libraries(car_rental_system PRIVATE cxxopts)
-target_link_libraries(app PRIVATE cxxopts)
 
 FetchContent_Declare(
         bcrypt
@@ -79,8 +77,6 @@ FetchContent_Declare(
         GIT_TAG        master
 )
 FetchContent_MakeAvailable(bcrypt)
-target_link_libraries(car_rental_system PRIVATE bcrypt)
-target_link_libraries(app PRIVATE bcrypt)
 
 FetchContent_Declare(
         tabulate
@@ -88,7 +84,14 @@ FetchContent_Declare(
         GIT_TAG master
 )
 FetchContent_MakeAvailable(tabulate)
+
+target_link_libraries(car_rental_system PRIVATE bcrypt)
+target_link_libraries(car_rental_system PRIVATE sqlite_orm)
+target_link_libraries(car_rental_system PRIVATE cxxopts)
 target_link_libraries(car_rental_system PRIVATE tabulate)
+target_link_libraries(app PRIVATE bcrypt)
+target_link_libraries(app PRIVATE sqlite_orm)
+target_link_libraries(app PRIVATE cxxopts)
 target_link_libraries(app PRIVATE tabulate)
 target_link_libraries(app PRIVATE car_rental_system)
 
