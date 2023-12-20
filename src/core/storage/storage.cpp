@@ -16,11 +16,14 @@ namespace crs::core::storage
 
     storage::storage()
     {
-        db_.sync_schema();
+        static auto db = init_storage(getenv("ENV_TEST") == NULL ? "storage.sqlite" : "storage_test.sqlite");
+
+        db_ = &db;
+        db_->sync_schema();
     }
 
     db* storage::get_db()
     {
-        return &db_;
+        return db_;
     }
 }

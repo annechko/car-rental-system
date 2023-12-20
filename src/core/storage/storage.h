@@ -53,7 +53,7 @@ namespace crs::core::storage
         );
     }
 
-    using db = decltype(init_storage("storage.sqlite"));
+    using db = decltype(init_storage(""));
 
     class storage
     {
@@ -65,7 +65,7 @@ namespace crs::core::storage
             db* get_db();
         private:
             static storage* instance_;
-            db db_ = init_storage("storage.sqlite");
+            db* db_;
             storage();
     };
 }

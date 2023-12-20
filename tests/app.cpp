@@ -1,7 +1,7 @@
 #include "assertions.hpp"
 #include <core/user/user.h>
+#include <core/car/car.h>
 #include <core/user/user_repository.h>
-#include <core/service/auth_service.h>
 #include <vector>
 #include <console/application.h>
 
@@ -17,15 +17,15 @@ void testCreateUser()
 /* ACCEPTANCE */
 void testHelp_App()
 {
-    std::string a1 = "car_rental_system";
-    std::string a2 = "-h";
-    char* argv_test[] = { &a1[0], &a2[0], };
+    char* argv_test[] = { "car_rental_system", "-h", };
     int argc_test = 2;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
     app->handle();
 
-    assert_has_text(buffer.str(), "Car Rental System - help with the rental process, users and cars management", __FUNCTION__);
+    assert_has_text(buffer.str(),
+        "Car Rental System - help with the rental process, users and cars management",
+        __FUNCTION__);
     assert_has_text(buffer.str(), "car_rental_system register", __FUNCTION__);
     assert_has_text(buffer.str(), "car_rental_system car:add", __FUNCTION__);
     assert_has_text(buffer.str(), "car_rental_system register", __FUNCTION__);
@@ -33,26 +33,22 @@ void testHelp_App()
 
 void testHelp_UserAdd()
 {
-    std::string a1 = "car_rental_system";
-    std::string a2 = "register";
-    std::string a3 = "-h";
-    char* argv_test[] = { &a1[0], &a2[0], &a3[0], };
+    char* argv_test[] = { "car_rental_system", "register", "-h", };
     int argc_test = 3;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
     app->handle();
 
-    assert_has_text(buffer.str(), "Car Rental System - help with the rental process, users and cars management", __FUNCTION__);
+    assert_has_text(buffer.str(),
+        "Car Rental System - help with the rental process, users and cars management",
+        __FUNCTION__);
     assert_has_text(buffer.str(), "car_rental_system register", __FUNCTION__);
     assert_no_text(buffer.str(), "car_rental_system car:add", __FUNCTION__);
 }
 
 void testHelp_CommandNotExist_Error()
 {
-    std::string a1 = "car_rental_system";
-    std::string a2 = "no_such_command";
-    std::string a3 = "-h";
-    char* argv_test[] = { &a1[0], &a2[0], &a3[0], };
+    char* argv_test[] = { "car_rental_system", "no_such_command", "-h", };
     int argc_test = 3;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
@@ -62,56 +58,88 @@ void testHelp_CommandNotExist_Error()
     }
     catch (std::exception& exc)
     {
-        assert_equals((std::string)"Command \"no_such_command\" does not exist!", (std::string)exc.what(), __FUNCTION__);
+        assert_equals((std::string)"Command \"no_such_command\" does not exist!",
+            (std::string)exc.what(),
+            __FUNCTION__);
         return;
     };
     show_error_msg("Expected an exception but didn't have any");
 }
 
-void testLogin_UserOptionNoPassOption_Error()
+void testRegisterAsAdmin_AddCard_Success()
 {
-    std::string a1 = "car_rental_system";
-    std::string a2 = "register";
-    std::string a3 = "-n";
-    std::string a4 = "nonono";
-    char* argv_test[] = { &a1[0], &a2[0], &a3[0], &a4[0], };
-    int argc_test = 4;
+    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
     std::stringstream buffer;
-    auto app = new crs::console::application(argc_test, argv_test, buffer);
+    (new crs::console::application(7, opts_register, buffer))->handle();
+
+    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "was created", __FUNCTION__);
+    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+                          "--make", "toyota",
+                          "--model", "x2",
+                          "--year", "2020",
+    };
+
+    std::stringstream buffer_car;
+    (new crs::console::application(12, opts_car_add, buffer_car))->handle();
+    assert_has_text(buffer_car.str(), "Car", __FUNCTION__);
+    assert_has_text(buffer_car.str(), "added", __FUNCTION__);
+}
+
+void testRegisterAsCustomer_AddCard_Error()
+{
+    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", };
+    std::stringstream buffer;
+    (new crs::console::application(6, opts_register, buffer))->handle();
+
+    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "was created", __FUNCTION__);
+    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+                          "--make", "toyota",
+                          "--model", "x2",
+                          "--year", "2020",
+    };
+
+    std::stringstream buffer_car;
     try
     {
-        app->handle();
+        (new crs::console::application(12, opts_car_add, buffer_car))->handle();
     }
-    catch (std::exception& exc)
+    catch (const std::exception& exc)
     {
-        assert_equals((std::string)"Option ‘password’ has no value", (std::string)exc.what(), __FUNCTION__);
+        assert_has_text(
+            (std::string)exc.what(),
+            (std::string)"This command can be run only by admin user",
+            __FUNCTION__
+        );
         return;
     };
-    show_error_msg("Expected an exception but didn't have any");
+    show_error_msg("Expected an exception but didn't catch any", __FUNCTION__);
 }
 
 void testLogin_UserNotExist_Error()
 {
-    std::string a1 = "car_rental_system";
-    std::string a2 = "car:add";
-    std::string a3 = "-u";
-    std::string a4 = "nono";
-    std::string a5 = "-p";
-    std::string a6 = "p";
-    char* argv_test[] = { &a1[0], &a2[0], &a3[0], &a4[0], &a5[0], &a6[0], };
-    int argc_test = 6;
+    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "no_such_user", "-p", "p" };
+
     std::stringstream buffer;
-    auto app = new crs::console::application(argc_test, argv_test, buffer);
+    auto app = new crs::console::application(6, opts_car_add, buffer);
     try
     {
         app->handle();
     }
-    catch (std::exception& exc)
+    catch (const std::exception& exc)
     {
         assert_equals((std::string)"User not found!", (std::string)exc.what(), __FUNCTION__);
         return;
     };
     show_error_msg("Expected an exception but didn't have any", __FUNCTION__);
+}
+
+void clear_db()
+{
+    auto db = crs::core::storage::storage::get_instance()->get_db();
+    db->remove_all<crs::core::user::user>();
+    db->remove_all<crs::core::car::car>();
 }
 
 int main()
@@ -121,19 +149,22 @@ int main()
         []() -> void { testHelp_App(); },
         []() -> void { testHelp_UserAdd(); },
         []() -> void { testHelp_CommandNotExist_Error(); },
-        []() -> void { testLogin_UserOptionNoPassOption_Error(); },
+        []() -> void { testRegisterAsAdmin_AddCard_Success(); },
+        []() -> void { testRegisterAsCustomer_AddCard_Error(); },
         []() -> void { testLogin_UserNotExist_Error(); },
         []() -> void { testCreateUser(); },
     };
     for (auto& test : tests)
     {
+        clear_db();
         try
         {
             test();
         }
-        catch (...)
+        catch (const std::exception& exception)
         {
             res = 1;
+            show_error_msg(exception.what(), __FUNCTION__);
         }
     }
 

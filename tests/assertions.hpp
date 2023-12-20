@@ -40,7 +40,10 @@ void assert_equals(SomeType a, SomeType b, std::string func_name = "")
     }
     if constexpr (std::is_same<SomeType, std::string>::value)
     {
-        show_error_msg("Failed asserting that \"" + (std::string)a + "\" is equal to \"" + (std::string)b + "\"", func_name);
+        show_error_msg(
+            "Failed asserting that \"" + (std::string)a + "\" is equal to \"" + (std::string)b + "\"",
+            func_name
+        );
     }
     else
     {
@@ -55,7 +58,7 @@ void assert_has_text(std::string haystack, std::string needle, std::string func_
         success_assertion(func_name);
         return;
     }
-    show_error_msg("Not found " + needle + " in " + haystack, func_name);
+    show_error_msg("Failed asserting that \"" + needle + "\" was in \"" + haystack + "\"", func_name);
 }
 
 void assert_no_text(std::string haystack, std::string needle, std::string func_name = "")
@@ -71,19 +74,4 @@ void assert_no_text(std::string haystack, std::string needle, std::string func_n
 void assert_end()
 {
     show_success_msg("All tests passed! " + std::to_string(assertions_count) + " assertions.");
-}
-
-const std::exception& assert_exception(std::function<void()> f, std::string func_name = "")
-{
-    try
-    {
-        throw std::exception{};
-        f();
-    }
-    catch (const std::exception& exception)
-    {
-        success_assertion(func_name);
-        return exception;
-    };
-    show_error_msg("expected exception but didn't catch any!", func_name);
 }
