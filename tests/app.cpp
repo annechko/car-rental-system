@@ -86,6 +86,38 @@ void testRegisterAsAdmin_AddCar_CarCreated()
     assert_has_text(buffer_car.str(), "added", __FUNCTION__);
 }
 
+void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
+{
+    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
+    std::stringstream buffer;
+    (new crs::console::application(7, opts_register, buffer))->handle();
+
+    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "was created", __FUNCTION__);
+    char* make = "toyota";
+    char* model = "x2";
+    char* year = "2020";
+    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+                          "--make", make,
+                          "--model", model,
+                          "--year", year,
+    };
+
+    std::stringstream buffer_car;
+    (new crs::console::application(12, opts_car_add, buffer_car))->handle();
+    assert_has_text(buffer_car.str(), "Car", __FUNCTION__);
+    assert_has_text(buffer_car.str(), "added", __FUNCTION__);
+
+    char* opts_car_list[]{ "car_rental_system", "car:list", };
+    std::stringstream buffer_list;
+    (new crs::console::application(2, opts_car_list, buffer_list))->handle();
+
+    assert_has_text(buffer_list.str(), "Car List", __FUNCTION__);
+    assert_has_text(buffer_list.str(), make, __FUNCTION__);
+    assert_has_text(buffer_list.str(), model, __FUNCTION__);
+    assert_has_text(buffer_list.str(), year, __FUNCTION__);
+}
+
 void testRegisterAsCustomer_AddCar_FailedToAdd()
 {
     char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", };
@@ -150,6 +182,7 @@ int main()
         []() -> void { testHelp_ForRegisterCommand_dontSeeOtherCommands(); },
         []() -> void { testHelp_CommandNotExist_Error(); },
         []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
+        []() -> void { testCarListByCustomer_CarListCreatedByAdmin(); },
         []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
         []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
         []() -> void { testCreateUser(); },

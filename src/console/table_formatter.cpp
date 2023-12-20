@@ -1,6 +1,7 @@
 #include "table_formatter.h"
 #include <tabulate/table.hpp>
 #include <ostream>
+#include <algorithm>
 
 namespace crs::console
 {
@@ -13,7 +14,7 @@ namespace crs::console
         std::ostream& output
     )
     {
-        const int HEADER_COUNT = 7;
+        const int COLUMN_COUNT = 7;
         using namespace tabulate;
         Table cars_table;
         cars_table.format()
@@ -44,7 +45,18 @@ namespace crs::console
             });
         }
 
-        for (short i = 0; i < HEADER_COUNT; ++i)
+        int max_row_width = 0;
+        for (int col = 0; col < COLUMN_COUNT; ++col)
+        {
+            int max_col_width = 0;
+            for (int row = 0; row < cars.size(); ++row)
+            {
+                max_col_width = std::max(max_col_width, int(cars_table[row][col].size()));
+            }
+            max_row_width += max_col_width;
+        }
+
+        for (short i = 0; i < COLUMN_COUNT; ++i)
         {
             cars_table[0][i].format()
                 .font_color(Color::green)
@@ -52,6 +64,28 @@ namespace crs::console
                 .font_style({ FontStyle::bold });
         }
 
+        Table cars_table_header;
+        cars_table_header.add_row({ "Car List" });
+        cars_table_header.format()
+            .border_top(" ")
+            .border_bottom(" ")
+            .border_left(" ")
+            .border_right(" ")
+            .corner(" ");
+        cars_table_header.column(0).format()
+            .background_color(Color::magenta)
+            .border_left_color(Color::magenta)
+            .border_left_background_color(Color::magenta)
+            .font_background_color(Color::magenta)
+            .font_color(Color::magenta)
+            .border_right_color(Color::magenta)
+            .border_right_background_color(Color::magenta)
+            .color(Color::yellow)
+            .font_align(FontAlign::center)
+            .font_style({ FontStyle::bold })
+            .width(max_row_width + COLUMN_COUNT * 3 + 7);
+
+        output << cars_table_header << std::endl;
         output << cars_table << std::endl;
     }
 }
