@@ -15,7 +15,7 @@ void testCreateUser()
 }
 
 /* ACCEPTANCE */
-void testHelp_App()
+void testHelp_NoCommand_SeeAllCommandsHelps()
 {
     char* argv_test[] = { "car_rental_system", "-h", };
     int argc_test = 2;
@@ -31,7 +31,7 @@ void testHelp_App()
     assert_has_text(buffer.str(), "car_rental_system register", __FUNCTION__);
 }
 
-void testHelp_UserAdd()
+void testHelp_ForRegisterCommand_dontSeeOtherCommands()
 {
     char* argv_test[] = { "car_rental_system", "register", "-h", };
     int argc_test = 3;
@@ -66,7 +66,7 @@ void testHelp_CommandNotExist_Error()
     show_error_msg("Expected an exception but didn't have any");
 }
 
-void testRegisterAsAdmin_AddCard_Success()
+void testRegisterAsAdmin_AddCar_CarCreated()
 {
     char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
     std::stringstream buffer;
@@ -86,7 +86,7 @@ void testRegisterAsAdmin_AddCard_Success()
     assert_has_text(buffer_car.str(), "added", __FUNCTION__);
 }
 
-void testRegisterAsCustomer_AddCard_Error()
+void testRegisterAsCustomer_AddCar_FailedToAdd()
 {
     char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", };
     std::stringstream buffer;
@@ -117,7 +117,7 @@ void testRegisterAsCustomer_AddCard_Error()
     show_error_msg("Expected an exception but didn't catch any", __FUNCTION__);
 }
 
-void testLogin_UserNotExist_Error()
+void testCarAdd_ByNotExistedUser_SeeError()
 {
     char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "no_such_user", "-p", "p" };
 
@@ -146,12 +146,12 @@ int main()
 {
     int res = 0;
     std::vector<std::function<void()>> tests{
-        []() -> void { testHelp_App(); },
-        []() -> void { testHelp_UserAdd(); },
+        []() -> void { testHelp_NoCommand_SeeAllCommandsHelps(); },
+        []() -> void { testHelp_ForRegisterCommand_dontSeeOtherCommands(); },
         []() -> void { testHelp_CommandNotExist_Error(); },
-        []() -> void { testRegisterAsAdmin_AddCard_Success(); },
-        []() -> void { testRegisterAsCustomer_AddCard_Error(); },
-        []() -> void { testLogin_UserNotExist_Error(); },
+        []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
+        []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
+        []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
         []() -> void { testCreateUser(); },
     };
     for (auto& test : tests)
