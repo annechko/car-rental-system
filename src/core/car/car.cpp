@@ -9,7 +9,7 @@ namespace crs::core::car
         make_ = "";
         model_ = "";
         year_ = 0;
-        day_rent_cost_ = 0;
+        price_per_day_ = 0;
     }
 
     car::car(
@@ -19,12 +19,12 @@ namespace crs::core::car
         int mileage,
         int minRent,
         int maxRent,
-        float day_rent_cost
+        float price_per_day
     )
         : make_(make), model_(model),
           year_(year), mileage_(mileage),
           min_rent_(minRent), max_rent_(maxRent),
-          day_rent_cost_(day_rent_cost)
+          price_per_day_(price_per_day)
     {
         if (make_.empty() || model_.empty() || year_ <= 0)
         {
@@ -39,7 +39,7 @@ namespace crs::core::car
         int mileage,
         int min_rent,
         int max_rent,
-        float day_rent_cost
+        float price_per_day
     )
     {
         if (!make.empty())
@@ -69,9 +69,9 @@ namespace crs::core::car
             min_rent_ = min_rent;
         }
 
-        if (day_rent_cost > 0)
+        if (price_per_day > 0)
         {
-            day_rent_cost_ = day_rent_cost;
+            price_per_day_ = price_per_day;
         }
     }
 
@@ -145,14 +145,14 @@ namespace crs::core::car
         max_rent_ = max_rent;
     }
 
-    float car::get_day_rent_cost() const
+    float car::get_price_per_day() const
     {
-        return day_rent_cost_;
+        return price_per_day_;
     }
 
-    void car::set_day_rent_cost(float day_rent_cost)
+    void car::set_price_per_day(float price_per_day)
     {
-        day_rent_cost_ = day_rent_cost;
+        price_per_day_ = price_per_day;
     }
 
 }

@@ -43,6 +43,12 @@ add_library(app
         src/core/service/rent_service.h
         src/console/date_ymd.h
         src/console/date_ymd.cpp
+        src/console/command/car_book.h
+        src/console/command/car_book.cpp
+        src/core/car/car_booking_repository.h
+        src/core/car/car_booking_repository.cpp
+        src/core/car/car_booking.h
+        src/core/car/car_booking.cpp
 )
 
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})

@@ -45,4 +45,14 @@ namespace crs::console
         int y = int(get_ymd().year());
         ostream << std::to_string(d) << '/' << m << '/' << y;
     }
+
+    const int date_ymd::get_timestamp() const
+    {
+        std::chrono::system_clock::time_point tp_from =
+            std::chrono::time_point<std::chrono::system_clock, std::chrono::days>(std::chrono::sys_days{
+                get_ymd() });
+        const auto seconds = std::chrono::duration_cast<std::chrono::seconds>(tp_from.time_since_epoch());
+
+        return seconds.count();
+    }
 }

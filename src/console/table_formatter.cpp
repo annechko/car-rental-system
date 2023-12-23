@@ -43,7 +43,7 @@ namespace crs::console
                 std::to_string(car->get_mileage()),
                 std::to_string(car->get_min_rent()),
                 std::to_string(car->get_max_rent()),
-                std::to_string(car->get_day_rent_cost()),
+                std::to_string(car->get_price_per_day()),
             });
         }
 

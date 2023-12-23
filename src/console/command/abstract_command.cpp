@@ -12,6 +12,7 @@ namespace crs::console::command
     abstract_command::abstract_command()
     {
         auth_service_ = new crs::core::service::auth_service;
+        user_id_ = 0;
     }
 
     void abstract_command::configure_options(cxxopts::OptionAdder& options)
@@ -44,6 +45,7 @@ namespace crs::console::command
         }
 
         crs::core::user::user* user = auth_service_->login(username, password);
+        user_id_ = user->get_id();
         switch (required_role)
         {
             case ROLE::AUTHENTICATED:

@@ -1,8 +1,9 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 #include <sqlite_orm/sqlite_orm.h>
-#include <core/user/user.h>
-#include <core/car/car.h>
+#include "core/user/user.h"
+#include "core/car/car.h"
+#include "core/car/car_booking.h"
 
 namespace crs::core::storage
 {
@@ -49,9 +50,30 @@ namespace crs::core::storage
                 make_column("max_rent",
                     &crs::core::car::car::set_max_rent,
                     &crs::core::car::car::get_max_rent),
-                make_column("day_rent_cost",
-                    &crs::core::car::car::set_day_rent_cost,
-                    &crs::core::car::car::get_day_rent_cost)
+                make_column("price_per_day",
+                    &crs::core::car::car::set_price_per_day,
+                    &crs::core::car::car::get_price_per_day)
+            ),
+            make_table("car_booking",
+                make_column("id",
+                    &crs::core::car::car_booking::set_id,
+                    &crs::core::car::car_booking::get_id,
+                    primary_key()),
+                make_column("car_id",
+                    &crs::core::car::car_booking::set_car_id,
+                    &crs::core::car::car_booking::get_car_id),
+                make_column("customer_id",
+                    &crs::core::car::car_booking::set_customer_id,
+                    &crs::core::car::car_booking::get_customer_id),
+                make_column("total_price",
+                    &crs::core::car::car_booking::set_price,
+                    &crs::core::car::car_booking::get_price),
+                make_column("timestamp_start",
+                    &crs::core::car::car_booking::set_timestamp_start,
+                    &crs::core::car::car_booking::get_timestamp_start),
+                make_column("timestamp_end",
+                    &crs::core::car::car_booking::set_timestamp_end,
+                    &crs::core::car::car_booking::get_timestamp_end)
             )
         );
     }

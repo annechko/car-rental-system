@@ -18,7 +18,7 @@ namespace crs::core::service
                 int mileage,
                 int min_rent,
                 int max_rent,
-                float day_rent_cost
+                float price_per_day
             ) const;
             crs::core::car::car* update(
                 int id,
@@ -28,7 +28,7 @@ namespace crs::core::service
                 int mileage,
                 int min_rent,
                 int max_rent,
-                float day_rent_cost
+                float price_per_day
             ) const;
             std::vector<std::unique_ptr<car::car>> get_list() const;
             void delete_car(int id) const;

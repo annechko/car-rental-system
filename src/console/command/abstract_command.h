@@ -20,6 +20,7 @@ namespace crs::console::command
         protected:
             cxxopts::OptionAdder& add_auth_params(cxxopts::OptionAdder& options_builder);
             const void authenticate_if_needed(const cxxopts::ParseResult& parsed_options);
+            int user_id_;
         private:
             static const std::string OPTION_USERNAME;
             static const std::string OPTION_PASSWORD;

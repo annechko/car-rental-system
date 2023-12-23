@@ -27,7 +27,7 @@ namespace crs::console::command
 
         auth_service_->sign_up(name, pass, is_admin);
 
-        output << "User with username = \"" + name + "\" was created! You can log in now.";
+        output << "User with username = \"" + name + "\" was created! You can log in now." << std::endl;
     }
 
     void sign_up::configure_options(cxxopts::OptionAdder& options_builder)

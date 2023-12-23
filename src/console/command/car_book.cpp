@@ -1,26 +1,32 @@
-#include "rent_calculate.h"
+#include "car_book.h"
 #include "console/date_ymd.h"
 #include "core/core_exception.hpp"
 #include <string>
 
 namespace crs::console::command
 {
-    rent_calculate::rent_calculate()
+    car_book::car_book()
     {
         rent_service_ = new crs::core::service::rent_service;
     }
 
-    const std::string rent_calculate::get_name() const
+    const std::string car_book::get_name() const
     {
-        return std::string("rent:calculate");
+        return std::string("car:book");
     }
 
-    void rent_calculate::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void car_book::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
+        authenticate_if_needed(options);
+
         int id = options["id"].as<int>();
         if (id <= 0)
         {
             throw crs::core::core_exception("Id must be greater than 0.");
+        }
+        if (user_id_ <= 0)
+        {
+            throw crs::core::core_exception("User Id must be greater than 0.");
         }
         std::string start = options["start"].as<std::string>();
         std::string end = options["end"].as<std::string>();
@@ -44,18 +50,14 @@ namespace crs::console::command
             throw core::core_exception("End date: " + std::string(exception.what()));
         }
 
-        float total_price = rent_service_->calculate(id, start_ymd, end_ymd);
+        rent_service_->book(user_id_, id, start_ymd, end_ymd);
 
-        output << "Total (";
-        start_ymd->print(output);
-        output << " to ";
-        end_ymd->print(output);
-        output << "): " << total_price << " NZD." << std::endl;
+        output << "Car booked!" << std::endl;
     }
 
-    void rent_calculate::configure_options(cxxopts::OptionAdder& options_builder)
+    void car_book::configure_options(cxxopts::OptionAdder& options_builder)
     {
-        options_builder
+        add_auth_params(options_builder)
             ("i,id", "Id of the car to book.", cxxopts::value<int>())
             ("s,start",
                 "From which date you want to book a car, format dd/mm/yyy: 31/12/2020.",
@@ -65,8 +67,8 @@ namespace crs::console::command
                 cxxopts::value<std::string>());
     }
 
-    const crs::console::ROLE rent_calculate::get_permission_level() const
+    const crs::console::ROLE car_book::get_permission_level() const
     {
-        return crs::console::ROLE::ANY;
+        return crs::console::ROLE::CUSTOMER;
     }
 }
