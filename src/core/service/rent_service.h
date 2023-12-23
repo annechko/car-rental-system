@@ -17,7 +17,7 @@ namespace crs::core::service
                 crs::console::date_ymd* start,
                 crs::console::date_ymd* end
             ) const;
-            void book(
+            float book(
                 int customer_id,
                 int car_id,
                 crs::console::date_ymd* start,

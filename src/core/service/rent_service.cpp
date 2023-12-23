@@ -18,7 +18,7 @@ namespace crs::core::service
         crs::console::date_ymd* end
     ) const
     {
-        if (start > end)
+        if (start->get_timestamp() > end->get_timestamp())
         {
             throw core::core_exception("Start date must be before end date.");
         }
@@ -39,7 +39,7 @@ namespace crs::core::service
         return calculate(car->get_price_per_day(), start, end);
     }
 
-    void rent_service::book(
+    float rent_service::book(
         int customer_id,
         int car_id,
         crs::console::date_ymd* start,
@@ -55,5 +55,7 @@ namespace crs::core::service
             end->get_timestamp()
         );
         car_booking_repository_->save(car_booking);
+
+        return total_price;
     }
 }

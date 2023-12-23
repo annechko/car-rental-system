@@ -97,6 +97,15 @@ void add_admin()
     (new crs::console::application(7, opts_register, buffer))->handle();
 }
 
+void add_customer()
+{
+    char* opts_register[]
+        { (char*)"car_rental_system", (char*)"register",
+          (char*)"-u", (char*)"c", (char*)"-p", (char*)"p" };
+    std::stringstream buffer;
+    (new crs::console::application(6, opts_register, buffer))->handle();
+}
+
 void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
 {
     add_admin();
@@ -120,6 +129,37 @@ void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
     std::stringstream buffer_calc;
     (new crs::console::application(8, opts_calculate, buffer_calc))->handle();
     assert_has_text(buffer_calc.str(), ": 10 NZD", __FUNCTION__);
+}
+
+void testBookCar_WhenCarAvailable_SuccessBooking()
+{
+    add_admin();
+    // add car
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "a", "-p", "p",
+                          "--make", "toyota",
+                          "--model", "x2",
+                          "--year", "2020",
+                          "--price-per-day", "10"
+    };
+
+    std::stringstream buffer_car;
+    (new crs::console::application(14, opts_car_add, buffer_car))->handle();
+
+    add_customer();
+    // see price
+    char* opts_calculate[]{ (char*)"car_rental_system", "car:book",
+                            "--start", "01/01/2025",
+                            "--end", "01/01/2025",
+                            "-i", "1",
+                            "-u", "c",
+                            "-p", "p"
+    };
+
+    std::stringstream buffer_calc;
+    (new crs::console::application(12, opts_calculate, buffer_calc))->handle();
+    assert_has_text(buffer_calc.str(),
+        "Car has successfully been booked, the payment will be 10 NZD",
+        __FUNCTION__);
 }
 
 void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
@@ -220,6 +260,7 @@ int main()
         []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
         []() -> void { testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar(); },
         []() -> void { testCalculateRent_WhenCarAvailable_SeeCorrectPrice(); },
+        []() -> void { testBookCar_WhenCarAvailable_SuccessBooking(); },
         []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
         []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
         []() -> void { testCreateUser(); },

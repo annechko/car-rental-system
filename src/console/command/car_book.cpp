@@ -50,9 +50,9 @@ namespace crs::console::command
             throw core::core_exception("End date: " + std::string(exception.what()));
         }
 
-        rent_service_->book(user_id_, id, start_ymd, end_ymd);
+        auto total = rent_service_->book(user_id_, id, start_ymd, end_ymd);
 
-        output << "Car booked!" << std::endl;
+        output << "Car has successfully been booked, the payment will be " << total << " NZD." << std::endl;
     }
 
     void car_book::configure_options(cxxopts::OptionAdder& options_builder)
