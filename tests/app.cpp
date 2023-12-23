@@ -17,7 +17,7 @@ void testCreateUser()
 /* ACCEPTANCE */
 void testHelp_NoCommand_SeeAllCommandsHelps()
 {
-    char* argv_test[] = { (char*)"car_rental_system", "-h", };
+    char* argv_test[] = { (char*)"car_rental_system", (char*)"-h", };
     int argc_test = 2;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
@@ -33,7 +33,7 @@ void testHelp_NoCommand_SeeAllCommandsHelps()
 
 void testHelp_ForRegisterCommand_dontSeeOtherCommands()
 {
-    char* argv_test[] = { "car_rental_system", "register", "-h", };
+    char* argv_test[] = { (char*)"car_rental_system", (char*)"register", (char*)"-h", };
     int argc_test = 3;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
@@ -48,7 +48,7 @@ void testHelp_ForRegisterCommand_dontSeeOtherCommands()
 
 void testHelp_CommandNotExist_Error()
 {
-    char* argv_test[] = { "car_rental_system", "no_such_command", "-h", };
+    char* argv_test[] = { (char*)"car_rental_system", (char*)"no_such_command", (char*)"-h", };
     int argc_test = 3;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);
@@ -68,13 +68,15 @@ void testHelp_CommandNotExist_Error()
 
 void testRegisterAsAdmin_AddCar_CarCreated()
 {
-    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
+    char* opts_register[]
+        { (char*)"car_rental_system", (char*)"register", (char*)"-u", (char*)"u", (char*)"-p", (char*)"p",
+          (char*)"-a", };
     std::stringstream buffer;
     (new crs::console::application(7, opts_register, buffer))->handle();
 
     assert_has_text(buffer.str(), "User with username", __FUNCTION__);
     assert_has_text(buffer.str(), "was created", __FUNCTION__);
-    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "u", "-p", "p",
                           "--make", "toyota",
                           "--model", "x2",
                           "--year", "2020",
@@ -86,9 +88,43 @@ void testRegisterAsAdmin_AddCar_CarCreated()
     assert_has_text(buffer_car.str(), "added", __FUNCTION__);
 }
 
+void add_admin()
+{
+    char* opts_register[]
+        { (char*)"car_rental_system", (char*)"register",
+          (char*)"-u", (char*)"a", (char*)"-p", (char*)"p", (char*)"-a", };
+    std::stringstream buffer;
+    (new crs::console::application(7, opts_register, buffer))->handle();
+}
+
+void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
+{
+    add_admin();
+    // add car
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "a", "-p", "p",
+                          "--make", "toyota",
+                          "--model", "x2",
+                          "--year", "2020",
+                          "--price-per-day", "1"
+    };
+
+    std::stringstream buffer_car;
+    (new crs::console::application(14, opts_car_add, buffer_car))->handle();
+    // see price
+    char* opts_calculate[]{ (char*)"car_rental_system", "rent:calculate",
+                            "--start", "01/01/2025",
+                            "--end", "10/01/2025",
+                            "-i", "1"
+    };
+
+    std::stringstream buffer_calc;
+    (new crs::console::application(8, opts_calculate, buffer_calc))->handle();
+    assert_has_text(buffer_calc.str(), ": 10 NZD", __FUNCTION__);
+}
+
 void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
 {
-    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
+    char* opts_register[]{ (char*)"car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
     std::stringstream buffer;
     (new crs::console::application(7, opts_register, buffer))->handle();
 
@@ -97,7 +133,7 @@ void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
     char* make = "toyota";
     char* model = "x2";
     char* year = "2020";
-    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "u", "-p", "p",
                           "--make", make,
                           "--model", model,
                           "--year", year,
@@ -108,7 +144,7 @@ void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
     assert_has_text(buffer_car.str(), "Car", __FUNCTION__);
     assert_has_text(buffer_car.str(), "added", __FUNCTION__);
 
-    char* opts_car_list[]{ "car_rental_system", "car:list", };
+    char* opts_car_list[]{ (char*)"car_rental_system", "car:list", };
     std::stringstream buffer_list;
     (new crs::console::application(2, opts_car_list, buffer_list))->handle();
 
@@ -120,13 +156,13 @@ void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
 
 void testRegisterAsCustomer_AddCar_FailedToAdd()
 {
-    char* opts_register[]{ "car_rental_system", "register", "-u", "u", "-p", "p", };
+    char* opts_register[]{ (char*)"car_rental_system", "register", "-u", "u", "-p", "p", };
     std::stringstream buffer;
     (new crs::console::application(6, opts_register, buffer))->handle();
 
     assert_has_text(buffer.str(), "User with username", __FUNCTION__);
     assert_has_text(buffer.str(), "was created", __FUNCTION__);
-    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "u", "-p", "p",
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "u", "-p", "p",
                           "--make", "toyota",
                           "--model", "x2",
                           "--year", "2020",
@@ -151,7 +187,7 @@ void testRegisterAsCustomer_AddCar_FailedToAdd()
 
 void testCarAdd_ByNotExistedUser_SeeError()
 {
-    char* opts_car_add[]{ "car_rental_system", "car:add", "-u", "no_such_user", "-p", "p" };
+    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "no_such_user", "-p", "p" };
 
     std::stringstream buffer;
     auto app = new crs::console::application(6, opts_car_add, buffer);
@@ -182,7 +218,8 @@ int main()
         []() -> void { testHelp_ForRegisterCommand_dontSeeOtherCommands(); },
         []() -> void { testHelp_CommandNotExist_Error(); },
         []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
-        []() -> void { testCarListByCustomer_CarListCreatedByAdmin(); },
+        []() -> void { testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar(); },
+        []() -> void { testCalculateRent_WhenCarAvailable_SeeCorrectPrice(); },
         []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
         []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
         []() -> void { testCreateUser(); },

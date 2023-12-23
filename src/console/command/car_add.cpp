@@ -24,10 +24,10 @@ namespace crs::console::command
         int mileage = options["mileage"].as<int>();
         int min_rent = options["min-rent"].as<int>();
         int max_rent = options["max-rent"].as<int>();
-        float price_per_day = options["day-rent-cost"].as<float>();
+        float price_per_day = options["price-per-day"].as<float>();
 
-        car_service_->create(make, model, year, mileage, min_rent, max_rent, price_per_day);
-        output << "Car " + make + " " + model + " added!";
+        auto car = car_service_->create(make, model, year, mileage, min_rent, max_rent, price_per_day);
+        output << "Car " + make + " " + model + " added with ID = " << car->get_id() << "." << std::endl;
     }
 
     void car_add::configure_options(cxxopts::OptionAdder& options_builder)
@@ -43,7 +43,7 @@ namespace crs::console::command
             ("a,mileage",
                 "Number of miles that car can travel using one gallon of fuel.",
                 cxxopts::value<int>()->default_value("0"))
-            ("c,day-rent-cost",
+            ("c,price-per-day",
                 "Price to rent this car for 1 day.",
                 cxxopts::value<float>()->default_value("0"))
             ("min-rent",

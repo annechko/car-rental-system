@@ -15,7 +15,8 @@ namespace crs::core::service
     const float rent_service::calculate(
         float price_per_day,
         crs::console::date_ymd* start,
-        crs::console::date_ymd* end) const
+        crs::console::date_ymd* end
+    ) const
     {
         if (start > end)
         {
