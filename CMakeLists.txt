@@ -4,7 +4,7 @@ project(car_rental_system)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
-add_library(car_rental_system
+add_library(app
         src/core/user/user.h
         src/core/user/user.cpp
         src/core/service/auth_service.h
@@ -41,6 +41,8 @@ add_library(car_rental_system
         src/console/command/rent_calculate.h
         src/core/service/rent_service.cpp
         src/core/service/rent_service.h
+        src/console/date_ymd.h
+        src/console/date_ymd.cpp
 )
 
 set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -50,7 +52,7 @@ set(SHARED_INCLUDES
 )
 include_directories(${SHARED_INCLUDES})
 
-add_executable(app src/main.cpp)
+add_executable(car_rental_system src/main.cpp)
 
 ####### ADDING EXTERNAL DEPENDENCIES #######
 
@@ -85,15 +87,15 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(tabulate)
 
-target_link_libraries(car_rental_system PRIVATE bcrypt)
-target_link_libraries(car_rental_system PRIVATE sqlite_orm)
-target_link_libraries(car_rental_system PRIVATE cxxopts)
-target_link_libraries(car_rental_system PRIVATE tabulate)
 target_link_libraries(app PRIVATE bcrypt)
 target_link_libraries(app PRIVATE sqlite_orm)
 target_link_libraries(app PRIVATE cxxopts)
 target_link_libraries(app PRIVATE tabulate)
-target_link_libraries(app PRIVATE car_rental_system)
+target_link_libraries(car_rental_system PRIVATE bcrypt)
+target_link_libraries(car_rental_system PRIVATE sqlite_orm)
+target_link_libraries(car_rental_system PRIVATE cxxopts)
+target_link_libraries(car_rental_system PRIVATE tabulate)
+target_link_libraries(car_rental_system PRIVATE app)
 
 include(CTest)
 enable_testing()

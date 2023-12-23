@@ -1,4 +1,5 @@
 #include "rent_calculate.h"
+#include "console/date_ymd.h"
 #include "core/core_exception.hpp"
 #include <string>
 
@@ -24,8 +25,32 @@ namespace crs::console::command
         std::string start = options["start"].as<std::string>();
         std::string end = options["end"].as<std::string>();
 
+        date_ymd* start_ymd;
+        date_ymd* end_ymd;
+        try
+        {
+            start_ymd = new date_ymd(start);
+        }
+        catch (const core::core_exception& exception)
+        {
+            throw core::core_exception("Start date: " + std::string(exception.what()));
+        }
+        try
+        {
+            end_ymd = new date_ymd(end);
+        }
+        catch (const core::core_exception& exception)
+        {
+            throw core::core_exception("End date: " + std::string(exception.what()));
+        }
 
-        output << "Your price will be: " << std::endl;
+        float total_price = rent_service_->calculate(id, start_ymd, end_ymd);
+
+        output << "Total (";
+        start_ymd->print(output);
+        output << " to ";
+        end_ymd->print(output);
+        output << "): " << total_price << " NZD." << std::endl;
     }
 
     void rent_calculate::configure_options(cxxopts::OptionAdder& options_builder)

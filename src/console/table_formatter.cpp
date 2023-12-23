@@ -14,7 +14,7 @@ namespace crs::console
         std::ostream& output
     )
     {
-        const int COLUMN_COUNT = 7;
+        const int COLUMN_COUNT = 8;
         using namespace tabulate;
         Table cars_table;
         cars_table.format()
@@ -29,7 +29,8 @@ namespace crs::console
             "Year",
             "Mileage",
             "Min Rent Days",
-            "Max Rent Days"
+            "Max Rent Days",
+            "Price for day"
         });
 
         for (const auto& car : cars)
@@ -42,6 +43,7 @@ namespace crs::console
                 std::to_string(car->get_mileage()),
                 std::to_string(car->get_min_rent()),
                 std::to_string(car->get_max_rent()),
+                std::to_string(car->get_day_rent_cost()),
             });
         }
 
@@ -49,7 +51,7 @@ namespace crs::console
         for (int col = 0; col < COLUMN_COUNT; ++col)
         {
             int max_col_width = 0;
-            for (int row = 0; row < cars.size(); ++row)
+            for (int row = 0; row < cars.size() + 1; ++row)
             {
                 max_col_width = std::max(max_col_width, int(cars_table[row][col].size()));
             }
@@ -65,7 +67,7 @@ namespace crs::console
         }
 
         Table cars_table_header;
-        cars_table_header.add_row({ "Car List" });
+        cars_table_header.add_row({ cars.size() > 0 ? "Car List" : "No cars found." });
         cars_table_header.format()
             .border_top(" ")
             .border_bottom(" ")
@@ -83,9 +85,12 @@ namespace crs::console
             .color(Color::yellow)
             .font_align(FontAlign::center)
             .font_style({ FontStyle::bold })
-            .width(max_row_width + COLUMN_COUNT * 3 + 7);
+            .width(max_row_width + COLUMN_COUNT * 3 - 1);
 
         output << cars_table_header << std::endl;
-        output << cars_table << std::endl;
+        if (cars.size() > 0)
+        {
+            output << cars_table << std::endl;
+        }
     }
 }

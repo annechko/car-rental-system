@@ -13,9 +13,11 @@ namespace crs::core::service
         int year,
         int mileage,
         int min_rent,
-        int max_rent) const
+        int max_rent,
+        float day_rent_cost
+    ) const
     {
-        auto car = new car::car(make, model, year, mileage, min_rent, max_rent);
+        auto car = new car::car(make, model, year, mileage, min_rent, max_rent, day_rent_cost);
         car_repository_->save(car);
         return car;
     }
@@ -32,10 +34,12 @@ namespace crs::core::service
         int year,
         int mileage,
         int min_rent,
-        int max_rent) const
+        int max_rent,
+        float day_rent_cost
+    ) const
     {
         auto car = car_repository_->get_by_id(id);
-        car->update(make, model, year, mileage, min_rent, max_rent);
+        car->update(make, model, year, mileage, min_rent, max_rent, day_rent_cost);
         car_repository_->save(car);
         return car;
     }

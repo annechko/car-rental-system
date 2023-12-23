@@ -48,7 +48,10 @@ namespace crs::core::storage
                     &crs::core::car::car::get_min_rent),
                 make_column("max_rent",
                     &crs::core::car::car::set_max_rent,
-                    &crs::core::car::car::get_max_rent)
+                    &crs::core::car::car::get_max_rent),
+                make_column("day_rent_cost",
+                    &crs::core::car::car::set_day_rent_cost,
+                    &crs::core::car::car::get_day_rent_cost)
             )
         );
     }

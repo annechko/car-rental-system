@@ -17,7 +17,7 @@ void testCreateUser()
 /* ACCEPTANCE */
 void testHelp_NoCommand_SeeAllCommandsHelps()
 {
-    char* argv_test[] = { "car_rental_system", "-h", };
+    char* argv_test[] = { (char*)"car_rental_system", "-h", };
     int argc_test = 2;
     std::stringstream buffer;
     auto app = new crs::console::application(argc_test, argv_test, buffer);

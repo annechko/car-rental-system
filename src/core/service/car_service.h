@@ -17,7 +17,9 @@ namespace crs::core::service
                 int year,
                 int mileage,
                 int min_rent,
-                int max_rent) const;
+                int max_rent,
+                float day_rent_cost
+            ) const;
             crs::core::car::car* update(
                 int id,
                 const std::string& make,
@@ -25,7 +27,9 @@ namespace crs::core::service
                 int year,
                 int mileage,
                 int min_rent,
-                int max_rent) const;
+                int max_rent,
+                float day_rent_cost
+            ) const;
             std::vector<std::unique_ptr<car::car>> get_list() const;
             void delete_car(int id) const;
         private:

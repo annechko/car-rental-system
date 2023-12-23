@@ -29,8 +29,9 @@ namespace crs::console::command
         int mileage = options["mileage"].as<int>();
         int min_rent = options["min-rent"].as<int>();
         int max_rent = options["max-rent"].as<int>();
+        float day_rent_cost = options["day-rent-cost"].as<float>();
 
-        car_service_->update(id, make, model, year, mileage, min_rent, max_rent);
+        car_service_->update(id, make, model, year, mileage, min_rent, max_rent, day_rent_cost);
         output << "Car with id = " + std::to_string(id) + " was updated!" << std::endl;
     }
 
@@ -48,6 +49,9 @@ namespace crs::console::command
             ("a,mileage",
                 "Number of miles that car can travel using one gallon of fuel.",
                 cxxopts::value<int>()->default_value("-1"))
+            ("c,day-rent-cost",
+                "Price to rent this car for 1 day.",
+                cxxopts::value<float>()->default_value("0"))
             ("min-rent",
                 "The minimum rent period in days.",
                 cxxopts::value<int>()->default_value("-1"))

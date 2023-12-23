@@ -17,7 +17,9 @@ namespace crs::core::car
                 int year,
                 int mileage,
                 int min_rent,
-                int max_rent);
+                int max_rent,
+                float day_rent_cost
+            );
             int get_id() const;
             void set_id(int id);
             const std::string& get_make() const;
@@ -29,16 +31,19 @@ namespace crs::core::car
             int get_mileage() const;
             void set_mileage(int mileage);
             int get_min_rent() const;
-            void set_min_rent(int minRent);
+            void set_min_rent(int min_rent);
             int get_max_rent() const;
-            void set_max_rent(int maxRent);
+            void set_max_rent(int max_rent);
+            float get_day_rent_cost() const;
+            void set_day_rent_cost(float day_rent_cost);
             void update(
                 const std::string& make,
                 const std::string& model,
                 int year,
                 int mileage,
                 int min_rent,
-                int max_rent
+                int max_rent,
+                float day_rent_cost
             );
 
         private:
@@ -49,6 +54,7 @@ namespace crs::core::car
             int mileage_;
             int min_rent_;
             int max_rent_;
+            float day_rent_cost_;
     };
 
 }
