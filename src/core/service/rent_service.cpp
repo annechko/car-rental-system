@@ -26,6 +26,7 @@ namespace crs::core::service
         {
             throw core::core_exception("Car is unavailable for these dates.");
         }
+        // todo check min/max rent
 
         auto diff = std::chrono::sys_days(end->get_ymd()) - std::chrono::sys_days(start->get_ymd());
         int days = diff.count() + 1;
