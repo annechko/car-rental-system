@@ -31,7 +31,7 @@ namespace crs::core::car
         using namespace sqlite_orm;
         auto other_bookings = db_->select(
             &crs::core::car::car_booking::get_id,
-            where(c(&crs::core::car::car_booking::get_id) == car_id
+            where(c(&crs::core::car::car_booking::get_car_id) == car_id
                 and (
                     (c(&crs::core::car::car_booking::get_timestamp_start) <= end->get_timestamp())
                         and (c(&crs::core::car::car_booking::get_timestamp_end) >= start->get_timestamp())

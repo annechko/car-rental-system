@@ -26,6 +26,7 @@ namespace crs::core::car
     void car_booking::init()
     {
         status_ = car_booking::STATUS_NEW;
+        id_ = 0;
     }
 
     const int car_booking::get_id() const
