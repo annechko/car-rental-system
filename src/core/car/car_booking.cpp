@@ -2,6 +2,8 @@
 
 namespace crs::core::car
 {
+    const int car_booking::STATUS_NEW = 0;
+
     car_booking::car_booking(
         int customer_id,
         int car_id,
@@ -11,12 +13,17 @@ namespace crs::core::car
     ) : customer_id_(customer_id), car_id_(car_id), price_(price),
         timestamp_start_(timestamp_start), timestamp_end_(timestamp_end)
     {
-
+        init();
     }
 
     car_booking::car_booking()
     {
+        init();
+    }
 
+    void car_booking::init()
+    {
+        status_ = car_booking::STATUS_NEW;
     }
 
     const int car_booking::get_id() const
@@ -77,6 +84,16 @@ namespace crs::core::car
     void car_booking::set_timestamp_end(int timestamp_end)
     {
         timestamp_end_ = timestamp_end;
+    }
+
+    int car_booking::get_status() const
+    {
+        return status_;
+    }
+
+    void car_booking::set_status(int status)
+    {
+        status_ = status;
     }
 }
 

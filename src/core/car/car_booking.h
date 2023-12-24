@@ -26,13 +26,18 @@ namespace crs::core::car
             void set_timestamp_start(int timestamp_start);
             int get_timestamp_end() const;
             void set_timestamp_end(int timestamp_end);
+            int get_status() const;
+            void set_status(int status);
         private:
+            static const int STATUS_NEW;
+            void init();
             int id_;
             int customer_id_;
             int car_id_;
             float price_;
             int timestamp_start_;
             int timestamp_end_;
+            int status_;
     };
 }
 

@@ -73,7 +73,10 @@ namespace crs::core::storage
                     &crs::core::car::car_booking::get_timestamp_start),
                 make_column("timestamp_end",
                     &crs::core::car::car_booking::set_timestamp_end,
-                    &crs::core::car::car_booking::get_timestamp_end)
+                    &crs::core::car::car_booking::get_timestamp_end),
+                make_column("status",
+                    &crs::core::car::car_booking::set_status,
+                    &crs::core::car::car_booking::get_status)
             )
         );
     }
