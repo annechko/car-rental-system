@@ -13,7 +13,7 @@ namespace crs::core::service
     }
 
     const float rent_service::calculate(
-        float price_per_day,
+        crs::core::car::car* car,
         crs::console::date_ymd* start,
         crs::console::date_ymd* end
     ) const
@@ -22,9 +22,14 @@ namespace crs::core::service
         {
             throw core::core_exception("Start date must be before end date.");
         }
+        if (car_booking_repository_->has(car->get_id(), start, end))
+        {
+            throw core::core_exception("Car is unavailable for these dates.");
+        }
 
         auto diff = std::chrono::sys_days(end->get_ymd()) - std::chrono::sys_days(start->get_ymd());
         int days = diff.count() + 1;
+        auto price_per_day = car->get_price_per_day();
 
         return float(days * price_per_day);
     }
@@ -37,11 +42,7 @@ namespace crs::core::service
     {
         auto car = car_repository_->get_by_id(car_id);
 
-        if (car_booking_repository_->has(car_id, start, end))
-        {
-            throw core::core_exception("Car is unavailable for these dates.");
-        }
-        return calculate(car->get_price_per_day(), start, end);
+        return calculate(car, start, end);
     }
 
     float rent_service::book(
@@ -52,11 +53,7 @@ namespace crs::core::service
     {
         auto car = car_repository_->get_by_id(car_id);
 
-        if (car_booking_repository_->has(car_id, start, end))
-        {
-            throw core::core_exception("Car is unavailable for these dates.");
-        }
-        float total_price = calculate(car->get_price_per_day(), start, end);
+        float total_price = calculate(car, start, end);
         auto car_booking = new crs::core::car::car_booking(
             customer_id,
             car_id,

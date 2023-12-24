@@ -25,9 +25,10 @@ namespace crs::core::service
             ) const;
         private:
             const float calculate(
-                float price_per_day,
+                crs::core::car::car* car,
                 crs::console::date_ymd* start,
-                crs::console::date_ymd* end) const;
+                crs::console::date_ymd* end
+            ) const;
             const crs::core::car::car_repository* car_repository_;
             const crs::core::car::car_booking_repository* car_booking_repository_;
     };

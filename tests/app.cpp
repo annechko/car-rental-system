@@ -134,7 +134,7 @@ void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
     assert_has_text(buffer_calc.str(), ": 10 NZD", __FUNCTION__);
 }
 
-void testCalculateRent_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
+void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
 {
     add_admin();
     // add car
@@ -187,6 +187,34 @@ void testCalculateRent_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
         try
         {
             (new crs::console::application(8, opts_calculate, buffer))->handle();
+        }
+        catch (const std::exception& e)
+        {
+            has_expected_exception = true;
+            assert_has_text(e.what(), "unavailable", __FUNCTION__);
+        }
+        if (has_expected_exception == false)
+        {
+            show_error_msg(
+                "dates " + std::string(dates[0]) + " - " + dates[1] + " should be unavailable.",
+                __FUNCTION__);
+        }
+    }
+    for (const auto& dates : unavailable_dates)
+    {
+        char* opts_calculate[]{ (char*)"car_rental_system", "car:book",
+                                "--start", dates[0],
+                                "--end", dates[1],
+                                "-i", "1", "-u", "c", "-p", "p",
+
+        };
+        has_expected_exception = false;
+        buffer.clear();
+        buffer.str(std::string());
+
+        try
+        {
+            (new crs::console::application(12, opts_calculate, buffer))->handle();
         }
         catch (const std::exception& e)
         {
@@ -354,7 +382,7 @@ int main()
         []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
         []() -> void { testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar(); },
         []() -> void { testCalculateRent_WhenCarAvailable_SeeCorrectPrice(); },
-        []() -> void { testCalculateRent_WhenCarBooked_SeeErrorWhenDatesNotAvailable(); },
+        []() -> void { testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable(); },
         []() -> void { testBookCar_WhenCarAvailable_SuccessBooking(); },
         []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
         []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
