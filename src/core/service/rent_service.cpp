@@ -66,4 +66,9 @@ namespace crs::core::service
 
         return total_price;
     }
+
+    const std::vector<std::unique_ptr<crs::core::car::car_booking>> rent_service::get_list() const
+    {
+        return car_booking_repository_->get_list();
+    }
 }

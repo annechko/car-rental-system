@@ -42,6 +42,11 @@ namespace crs::core::car
 
         return other_bookings.size() > 0;
     }
+
+    const std::vector<std::unique_ptr<car_booking>> car_booking_repository::get_list() const
+    {
+        return db_->get_all_pointer<car_booking>();
+    }
 }
 
 

@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 #include "core/car/car.h"
+#include "core/car/car_booking.h"
+#include <tabulate/table.hpp>
 
 namespace crs::console
 {
@@ -14,6 +16,17 @@ namespace crs::console
                 std::vector<std::unique_ptr<crs::core::car::car>>& cars,
                 std::ostream& output
             );
+            void draw_booking_list(
+                std::vector<std::unique_ptr<crs::core::car::car_booking>>& bookings,
+                std::ostream& ostream
+            ) const;
+
+        private:
+            const int calculate_max_row_width(
+                short column_count,
+                short row_count,
+                tabulate::Table table
+            ) const;
     };
 }
 

@@ -1,5 +1,6 @@
 #ifndef CAR_BOOKING_H
 #define CAR_BOOKING_H
+#include <string>
 
 namespace crs::core::car
 {
@@ -28,8 +29,12 @@ namespace crs::core::car
             void set_timestamp_end(int timestamp_end);
             int get_status() const;
             void set_status(int status);
+            const std::string get_status_string() const;
+            const bool is_new() const;
+            const bool is_approved() const;
         private:
             static const int STATUS_NEW;
+            static const int STATUS_APPROVED;
             void init();
             int id_;
             int customer_id_;

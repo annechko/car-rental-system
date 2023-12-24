@@ -1,10 +1,11 @@
 #ifndef RENT_SERVICE_H
 #define RENT_SERVICE_H
-
 #include <ctime>
 #include "console/date_ymd.h"
 #include "core/car/car_repository.h"
 #include "core/car/car_booking_repository.h"
+#include <memory>
+#include <vector>
 
 namespace crs::core::service
 {
@@ -23,6 +24,7 @@ namespace crs::core::service
                 crs::console::date_ymd* start,
                 crs::console::date_ymd* end
             ) const;
+            const std::vector<std::unique_ptr<crs::core::car::car_booking>> get_list() const;
         private:
             const float calculate(
                 crs::core::car::car* car,

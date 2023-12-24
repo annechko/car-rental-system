@@ -12,7 +12,7 @@ namespace crs::console::command
 
     const std::string car_book::get_name() const
     {
-        return std::string("car:book");
+        return std::string("booking:add");
     }
 
     void car_book::handle(cxxopts::ParseResult& options, std::ostream& output)

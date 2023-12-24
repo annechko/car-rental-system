@@ -159,12 +159,13 @@ void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
 
     std::list<array<char*, 2>> unavailable_dates{
         array<char*, 2>{ "01/01/2025", "10/01/2025" },
+        array<char*, 2>{ "01/01/2024", "10/01/2026" },
         array<char*, 2>{ "02/01/2025", "09/01/2025" },
         array<char*, 2>{ "09/01/2025", "15/01/2025" },
         array<char*, 2>{ "25/12/2024", "05/01/2025" },
         array<char*, 2>{ "25/12/2024", "01/01/2025" },
-        array<char*, 2>{ "10/01/2025", "11/01/2025", },
-        array<char*, 2>{ "10/01/2025", "10/01/2025", },
+        array<char*, 2>{ "10/01/2025", "11/01/2025" },
+        array<char*, 2>{ "10/01/2025", "10/01/2025" },
         array<char*, 2>{ "01/01/2025", "01/01/2025" },
         array<char*, 2>{ "04/01/2025", "04/01/2025" },
     };

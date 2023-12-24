@@ -4,6 +4,8 @@ namespace crs::core::car
 {
     const int car_booking::STATUS_NEW = 0;
 
+    const int car_booking::STATUS_APPROVED = 1;
+
     car_booking::car_booking(
         int customer_id,
         int car_id,
@@ -94,6 +96,29 @@ namespace crs::core::car
     void car_booking::set_status(int status)
     {
         status_ = status;
+    }
+
+    const std::string car_booking::get_status_string() const
+    {
+        if (is_new())
+        {
+            return "NEW";
+        }
+        else if (is_approved())
+        {
+            return "APPROVED";
+        }
+        return "";
+    }
+
+    const bool car_booking::is_new() const
+    {
+        return status_ == STATUS_NEW;
+    }
+
+    const bool car_booking::is_approved() const
+    {
+        return status_ == STATUS_APPROVED;
     }
 }
 

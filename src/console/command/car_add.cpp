@@ -1,6 +1,5 @@
 #include "car_add.h"
 #include <ostream>
-#include <core/core_exception.hpp>
 
 namespace crs::console::command
 {
