@@ -43,8 +43,16 @@ namespace crs::core::car
         return other_bookings.size() > 0;
     }
 
-    const std::vector<std::unique_ptr<car_booking>> car_booking_repository::get_list() const
+    const std::vector<std::unique_ptr<car_booking>> car_booking_repository::get_list(int user_id = 0) const
     {
+        if (user_id > 0)
+        {
+            using namespace sqlite_orm;
+
+            return db_->get_all_pointer<car_booking>(
+                where(c(&crs::core::car::car_booking::get_customer_id) == user_id)
+            );
+        }
         return db_->get_all_pointer<car_booking>();
     }
 }

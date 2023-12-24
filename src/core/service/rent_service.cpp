@@ -18,9 +18,9 @@ namespace crs::core::service
         crs::console::date_ymd* end
     ) const
     {
-        if (start->get_timestamp() > end->get_timestamp())
+        if (end->get_timestamp() < start->get_timestamp())
         {
-            throw core::core_exception("Start date must be before end date.");
+            throw core::core_exception("End date must be greater than start date.");
         }
         if (car_booking_repository_->has(car->get_id(), start, end))
         {
@@ -67,8 +67,10 @@ namespace crs::core::service
         return total_price;
     }
 
-    const std::vector<std::unique_ptr<crs::core::car::car_booking>> rent_service::get_list() const
+    const std::vector<std::unique_ptr<crs::core::car::car_booking>> rent_service::get_list(
+        int user_id = 0
+    ) const
     {
-        return car_booking_repository_->get_list();
+        return car_booking_repository_->get_list(user_id);
     }
 }

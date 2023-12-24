@@ -16,9 +16,14 @@ namespace crs::console::command
 
     void booking_list::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        authenticate_if_needed(options);
-
-        auto booking_list = rent_service_->get_list();
+        authenticate(options);
+        int user_id = 0;
+        if (user_->is_customer())
+        {
+            // can only see own bookings.
+            user_id = user_->get_id();
+        }
+        auto booking_list = rent_service_->get_list(user_id);
         table_formatter_->draw_booking_list(booking_list, output);
     }
 

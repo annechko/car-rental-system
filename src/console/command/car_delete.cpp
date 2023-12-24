@@ -16,7 +16,7 @@ namespace crs::console::command
 
     void car_delete::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        authenticate_if_needed(options);
+        authenticate(options);
 
         int id = options["id"].as<int>();
         if (id <= 0)

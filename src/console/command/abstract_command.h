@@ -19,8 +19,8 @@ namespace crs::console::command
             virtual void configure_options(cxxopts::OptionAdder& options);
         protected:
             cxxopts::OptionAdder& add_auth_params(cxxopts::OptionAdder& options_builder);
-            const void authenticate_if_needed(const cxxopts::ParseResult& parsed_options);
-            int user_id_;
+            const void authenticate(const cxxopts::ParseResult& parsed_options);
+            crs::core::user::user* user_;
         private:
             static const std::string OPTION_USERNAME;
             static const std::string OPTION_PASSWORD;

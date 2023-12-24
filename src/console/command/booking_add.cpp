@@ -17,14 +17,14 @@ namespace crs::console::command
 
     void booking_add::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        authenticate_if_needed(options);
+        authenticate(options);
 
         int id = options["id"].as<int>();
         if (id <= 0)
         {
             throw crs::core::core_exception("Id must be greater than 0.");
         }
-        if (user_id_ <= 0)
+        if (user_ == nullptr)
         {
             throw crs::core::core_exception("User Id must be greater than 0.");
         }
@@ -50,7 +50,7 @@ namespace crs::console::command
             throw core::core_exception("End date: " + std::string(exception.what()));
         }
 
-        auto total = rent_service_->book(user_id_, id, start_ymd, end_ymd);
+        auto total = rent_service_->book(user_->get_id(), id, start_ymd, end_ymd);
 
         output << "Car has successfully been booked, the payment will be " << total << " NZD." << std::endl;
     }

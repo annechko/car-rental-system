@@ -24,7 +24,7 @@ namespace crs::core::service
                 crs::console::date_ymd* start,
                 crs::console::date_ymd* end
             ) const;
-            const std::vector<std::unique_ptr<crs::core::car::car_booking>> get_list() const;
+            const std::vector<std::unique_ptr<crs::core::car::car_booking>> get_list(int user_id) const;
         private:
             const float calculate(
                 crs::core::car::car* car,

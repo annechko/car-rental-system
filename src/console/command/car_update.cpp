@@ -16,7 +16,7 @@ namespace crs::console::command
 
     void car_update::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
-        authenticate_if_needed(options);
+        authenticate(options);
 
         std::string make = options["make"].as<std::string>();
         std::string model = options["model"].as<std::string>();

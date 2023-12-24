@@ -12,7 +12,7 @@ namespace crs::console::command
     abstract_command::abstract_command()
     {
         auth_service_ = new crs::core::service::auth_service;
-        user_id_ = 0;
+        user_ = nullptr;
     }
 
     void abstract_command::configure_options(cxxopts::OptionAdder& options)
@@ -28,7 +28,7 @@ namespace crs::console::command
             ("p," + OPTION_PASSWORD, "Login password.", cxxopts::value<std::string>()->default_value(""));
     }
 
-    const void abstract_command::authenticate_if_needed(const cxxopts::ParseResult& parsed_options)
+    const void abstract_command::authenticate(const cxxopts::ParseResult& parsed_options)
     {
         auto required_role = get_permission_level();
         if (required_role == ROLE::ANY)
@@ -46,7 +46,7 @@ namespace crs::console::command
         }
 
         crs::core::user::user* user = auth_service_->login(username, password);
-        user_id_ = user->get_id();
+        user_ = user;
         switch (required_role)
         {
             case ROLE::AUTHENTICATED:
