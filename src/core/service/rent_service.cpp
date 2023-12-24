@@ -32,10 +32,15 @@ namespace crs::core::service
     const float rent_service::calculate(
         int car_id,
         crs::console::date_ymd* start,
-        crs::console::date_ymd* end) const
+        crs::console::date_ymd* end
+    ) const
     {
         auto car = car_repository_->get_by_id(car_id);
 
+        if (car_booking_repository_->has(car_id, start, end))
+        {
+            throw core::core_exception("Car is unavailable for these dates.");
+        }
         return calculate(car->get_price_per_day(), start, end);
     }
 
@@ -46,6 +51,11 @@ namespace crs::core::service
         crs::console::date_ymd* end) const
     {
         auto car = car_repository_->get_by_id(car_id);
+
+        if (car_booking_repository_->has(car_id, start, end))
+        {
+            throw core::core_exception("Car is unavailable for these dates.");
+        }
         float total_price = calculate(car->get_price_per_day(), start, end);
         auto car_booking = new crs::core::car::car_booking(
             customer_id,

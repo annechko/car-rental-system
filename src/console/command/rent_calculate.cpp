@@ -46,7 +46,7 @@ namespace crs::console::command
 
         float total_price = rent_service_->calculate(id, start_ymd, end_ymd);
 
-        output << "Total (";
+        output << "Total payment will be (";
         start_ymd->print(output);
         output << " to ";
         end_ymd->print(output);

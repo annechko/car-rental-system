@@ -41,7 +41,8 @@ namespace crs::console::command
         if (username.empty() || password.empty())
         {
             throw crs::core::core_exception(
-                "Authentication is required to run this command, please provide username and password options.");
+                "Authentication is required to run this command (" + get_name()
+                    + "), please provide username and password options.");
         }
 
         crs::core::user::user* user = auth_service_->login(username, password);
