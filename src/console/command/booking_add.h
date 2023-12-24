@@ -1,14 +1,14 @@
-#ifndef CAR_BOOK_H
-#define CAR_BOOK_H
+#ifndef BOOKING_ADD_H
+#define BOOKING_ADD_H
 #include "abstract_command.h"
 #include "core/service/rent_service.h"
 
 namespace crs::console::command
 {
-    class car_book : public abstract_command
+    class booking_add : public abstract_command
     {
         public:
-            car_book();
+            booking_add();
             const std::string get_name() const override;
             void handle(cxxopts::ParseResult& options, std::ostream& output) override;
             void configure_options(cxxopts::OptionAdder& options) override;

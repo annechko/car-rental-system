@@ -1,21 +1,21 @@
-#include "car_book.h"
+#include "booking_add.h"
 #include "console/date_ymd.h"
 #include "core/core_exception.hpp"
 #include <string>
 
 namespace crs::console::command
 {
-    car_book::car_book()
+    booking_add::booking_add()
     {
         rent_service_ = new crs::core::service::rent_service;
     }
 
-    const std::string car_book::get_name() const
+    const std::string booking_add::get_name() const
     {
         return std::string("booking:add");
     }
 
-    void car_book::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void booking_add::handle(cxxopts::ParseResult& options, std::ostream& output)
     {
         authenticate_if_needed(options);
 
@@ -55,7 +55,7 @@ namespace crs::console::command
         output << "Car has successfully been booked, the payment will be " << total << " NZD." << std::endl;
     }
 
-    void car_book::configure_options(cxxopts::OptionAdder& options_builder)
+    void booking_add::configure_options(cxxopts::OptionAdder& options_builder)
     {
         add_auth_params(options_builder)
             ("i,id", "Id of the car to book.", cxxopts::value<int>())
@@ -67,7 +67,7 @@ namespace crs::console::command
                 cxxopts::value<std::string>());
     }
 
-    const crs::console::ROLE car_book::get_permission_level() const
+    const crs::console::ROLE booking_add::get_permission_level() const
     {
         return crs::console::ROLE::CUSTOMER;
     }

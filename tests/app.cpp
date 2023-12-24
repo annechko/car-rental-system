@@ -148,7 +148,7 @@ void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
     (new crs::console::application(14, opts_car_add, buffer_car))->handle();
 
     add_customer();
-    char* opts_calculate[]{ (char*)"car_rental_system", "car:book",
+    char* opts_calculate[]{ (char*)"car_rental_system", "booking:add",
                             "--start", "01/01/2025",
                             "--end", "10/01/2025",
                             "-i", "1",
@@ -203,7 +203,7 @@ void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
     }
     for (const auto& dates : unavailable_dates)
     {
-        char* opts_calculate[]{ (char*)"car_rental_system", "car:book",
+        char* opts_calculate[]{ (char*)"car_rental_system", "booking:add",
                                 "--start", dates[0],
                                 "--end", dates[1],
                                 "-i", "1", "-u", "c", "-p", "p",
@@ -269,7 +269,7 @@ void testBookCar_WhenCarAvailable_SuccessBooking()
 
     add_customer();
     // see price
-    char* opts_calculate[]{ (char*)"car_rental_system", "car:book",
+    char* opts_calculate[]{ (char*)"car_rental_system", "booking:add",
                             "--start", "01/01/2025",
                             "--end", "01/01/2025",
                             "-i", "1",
