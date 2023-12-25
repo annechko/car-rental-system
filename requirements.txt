@@ -18,6 +18,6 @@ Rental Booking:
 
 --------------------------------------------------------------------------------
 Rental Management:
-    approve rental request (admin)
-    reject rental request (admin)
+    ✅approve rental request (admin)
+    ✅reject rental request (admin)
 
