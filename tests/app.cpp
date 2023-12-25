@@ -77,7 +77,7 @@ void testRegisterAsAdmin_AddCar_CarCreated()
     std::stringstream buffer;
     (new crs::console::application(7, opts_register, buffer))->handle();
 
-    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "Admin with username", __FUNCTION__);
     assert_has_text(buffer.str(), "was created", __FUNCTION__);
     char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "u", "-p", "p",
                           "--make", "toyota",
@@ -290,7 +290,7 @@ void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
     std::stringstream buffer;
     (new crs::console::application(7, opts_register, buffer))->handle();
 
-    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "Admin with username", __FUNCTION__);
     assert_has_text(buffer.str(), "was created", __FUNCTION__);
     char* make = "toyota";
     char* model = "x2";

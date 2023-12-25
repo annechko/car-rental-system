@@ -27,7 +27,7 @@ namespace crs::console::command
 
         auth_service_->sign_up(name, pass, is_admin);
 
-        output << (is_admin ? "Amin" : "User") << " with username = \"" + name + "\" was created!."
+        output << (is_admin ? "Admin" : "User") << " with username = \"" + name + "\" was created!."
                << std::endl;
     }
 
