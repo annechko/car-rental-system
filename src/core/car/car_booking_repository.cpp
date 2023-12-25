@@ -1,6 +1,7 @@
 #include "car_booking_repository.h"
 #include "core/storage/storage.h"
 #include "date_ymd.h"
+#include "core/core_exception.hpp"
 
 namespace crs::core::car
 {
@@ -55,6 +56,21 @@ namespace crs::core::car
             );
         }
         return db_->get_all_pointer<car_booking>();
+    }
+
+    car_booking* car_booking_repository::get_by_id(int id) const
+    {
+        using namespace crs::core;
+
+        auto result = db_->get_pointer<car_booking>(id);
+        if (result)
+        {
+            return result.release();
+        }
+        else
+        {
+            throw core::core_exception("Car booking with id = " + std::to_string(id) + " not found.");
+        }
     }
 }
 

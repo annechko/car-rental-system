@@ -15,6 +15,7 @@ namespace crs::core::car
                 int timestamp_start,
                 int timestamp_end
             );
+            void approve();
             const int get_id() const;
             void set_id(int id);
             int get_customer_id() const;

@@ -15,6 +15,7 @@ namespace crs::core::car
             void save(car_booking* car_booking) const;
             const bool has(int car_id, date_ymd* start, date_ymd* end) const;
             const std::vector<std::unique_ptr<car_booking>> get_list(int user_id) const;
+            car_booking* get_by_id(int id) const;
         private:
             crs::core::storage::db* db_;
     };

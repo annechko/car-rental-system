@@ -72,4 +72,11 @@ namespace crs::core::service
     {
         return car_booking_repository_->get_list(user_id);
     }
+
+    void rent_service::approve(int booking_id) const
+    {
+        auto car_booking = car_booking_repository_->get_by_id(booking_id);
+        car_booking->approve();
+        car_booking_repository_->save(car_booking);
+    }
 }

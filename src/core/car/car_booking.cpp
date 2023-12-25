@@ -1,4 +1,5 @@
 #include "car_booking.h"
+#include "core/core_exception.hpp"
 
 namespace crs::core::car
 {
@@ -120,6 +121,15 @@ namespace crs::core::car
     const bool car_booking::is_approved() const
     {
         return status_ == STATUS_APPROVED;
+    }
+
+    void car_booking::approve()
+    {
+        if (!is_new())
+        {
+            throw crs::core::core_exception("You can only approve new bookings.");
+        }
+        status_ = STATUS_APPROVED;
     }
 }
 
