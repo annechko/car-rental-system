@@ -7,6 +7,8 @@ namespace crs::core::car
 
     const int car_booking::STATUS_APPROVED = 1;
 
+    const int car_booking::STATUS_REJECTED = 2;
+
     car_booking::car_booking(
         int customer_id,
         int car_id,
@@ -102,15 +104,17 @@ namespace crs::core::car
 
     const std::string car_booking::get_status_string() const
     {
-        if (is_new())
+        switch (status_)
         {
-            return "NEW";
+            case STATUS_NEW:
+                return "NEW";
+            case STATUS_APPROVED:
+                return "APPROVED";
+            case STATUS_REJECTED:
+                return "REJECTED";
+            default:
+                return "";
         }
-        else if (is_approved())
-        {
-            return "APPROVED";
-        }
-        return "";
     }
 
     const bool car_booking::is_new() const
@@ -123,6 +127,11 @@ namespace crs::core::car
         return status_ == STATUS_APPROVED;
     }
 
+    const bool car_booking::is_rejected() const
+    {
+        return status_ == STATUS_REJECTED;
+    }
+
     void car_booking::approve()
     {
         if (!is_new())
@@ -130,6 +139,15 @@ namespace crs::core::car
             throw crs::core::core_exception("You can only approve new bookings.");
         }
         status_ = STATUS_APPROVED;
+    }
+
+    void car_booking::reject()
+    {
+        if (!is_new())
+        {
+            throw crs::core::core_exception("You can only reject new bookings.");
+        }
+        status_ = STATUS_REJECTED;
     }
 }
 

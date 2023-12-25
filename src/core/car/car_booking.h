@@ -16,6 +16,7 @@ namespace crs::core::car
                 int timestamp_end
             );
             void approve();
+            void reject();
             const int get_id() const;
             void set_id(int id);
             int get_customer_id() const;
@@ -33,9 +34,11 @@ namespace crs::core::car
             const std::string get_status_string() const;
             const bool is_new() const;
             const bool is_approved() const;
+            const bool is_rejected() const;
         private:
             static const int STATUS_NEW;
             static const int STATUS_APPROVED;
+            static const int STATUS_REJECTED;
             void init();
             int id_;
             int customer_id_;

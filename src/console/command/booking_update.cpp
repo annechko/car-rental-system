@@ -28,15 +28,23 @@ namespace crs::console::command
         {
             throw crs::core::core_exception("User Id must be greater than 0.");
         }
+
         bool approve = options["approve"].as<bool>();
+        bool reject = options["reject"].as<bool>();
+        if (approve && reject)
+        {
+            throw crs::core::core_exception("You can not specify these 2 options at the same time.");
+        }
+
         if (approve)
         {
-            if (!user_->is_admin())
-            {
-                throw crs::core::core_exception("Only admin can approve bookings.");
-            }
             rent_service_->approve(id);
             output << "Car booking has been approved." << std::endl;
+        }
+        else if (reject)
+        {
+            rent_service_->reject(id);
+            output << "Car booking has been rejected." << std::endl;
         }
         else
         {
@@ -48,11 +56,12 @@ namespace crs::console::command
     {
         add_auth_params(options_builder)
             ("i,id", "Id of the car booking.", cxxopts::value<int>())
-            ("a,approve", "Change status to approved.");
+            ("a,approve", "Change status to approved.")
+            ("r,reject", "Change status to rejected.");
     }
 
     const crs::console::ROLE booking_update::get_permission_level() const
     {
-        return crs::console::ROLE::AUTHENTICATED;
+        return crs::console::ROLE::ADMIN;
     }
 }

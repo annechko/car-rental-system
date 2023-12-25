@@ -26,6 +26,7 @@ namespace crs::core::service
             ) const;
             const std::vector<std::unique_ptr<crs::core::car::car_booking>> get_list(int user_id) const;
             void approve(int booking_id) const;
+            void reject(int booking_id) const;
         private:
             const float calculate(
                 crs::core::car::car* car,

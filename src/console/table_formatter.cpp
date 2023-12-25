@@ -153,6 +153,10 @@ namespace crs::console
                 // approved booking - green color.
                 c = Color::green;
             }
+            else if (booking->is_rejected())
+            {
+                c = Color::red;
+            }
             contents_table[booking_row][5].format()
                 .font_style({ FontStyle::bold, FontStyle::italic, })
                 .font_color(c);
