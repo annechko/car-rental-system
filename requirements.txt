@@ -14,6 +14,7 @@ Car Management:
 --------------------------------------------------------------------------------
 Rental Booking:
     ✅book car (specify rental dates and provide necessary details)
+    check minimum-maximum rent period before book car
     ✅calculate the rental fees based on the selected car, rental duration, and any additional charges
 
 --------------------------------------------------------------------------------
