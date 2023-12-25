@@ -16,12 +16,9 @@
 
 namespace crs::console
 {
-    application::application(int argc, const char* const* argv, ostream& output)
-        : output_(output)
+    application::application(const int argc, const char* const* argv, ostream& output)
+        : output_(output), argc_(argc), argv_(argv)
     {
-        argc_ = argc;
-        argv_ = argv;
-        auth_service_ = new crs::core::service::auth_service;
         init_commands();
         init_options();
     }
@@ -64,7 +61,6 @@ namespace crs::console
         options_default_->positional_help("");
         options_default_->allow_unrecognised_options();
         options_default_->custom_help("");
-        // todo maybe move -u -p to abstract command for every command that needs auth
         options_default_->add_options()
             ("command", "The command to execute.", cxxopts::value<std::string>()->default_value(""))
             ("h,help", "Print help.");

@@ -14,7 +14,7 @@ namespace crs::console::command
         return std::string("booking:list");
     }
 
-    void booking_list::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void booking_list::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         authenticate(options);
         int user_id = 0;

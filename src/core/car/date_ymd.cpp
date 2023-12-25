@@ -1,7 +1,7 @@
 #include "date_ymd.h"
 #include "core/core_exception.hpp"
 
-namespace crs::console
+namespace crs::core::car
 {
     date_ymd::date_ymd(const string& day_month_year)
     {
@@ -38,12 +38,12 @@ namespace crs::console
         return ymd_;
     }
 
-    void date_ymd::print(ostream& ostream) const
+    std::ostream& operator<<(ostream& ostream, const date_ymd& date)
     {
-        int d = unsigned(get_ymd().day());
-        int m = unsigned(get_ymd().month());
-        int y = int(get_ymd().year());
-        ostream << std::to_string(d) << '/' << m << '/' << y;
+        int d = unsigned(date.get_ymd().day());
+        int m = unsigned(date.get_ymd().month());
+        int y = int(date.get_ymd().year());
+        ostream << std::to_string(d) + "/" + std::to_string(m) + "/" + std::to_string(y);;
     }
 
     const int date_ymd::get_timestamp() const

@@ -1,5 +1,5 @@
 #include "rent_calculate.h"
-#include "console/date_ymd.h"
+#include "core/car/date_ymd.h"
 #include "core/core_exception.hpp"
 #include <string>
 
@@ -15,7 +15,7 @@ namespace crs::console::command
         return std::string("rent:calculate");
     }
 
-    void rent_calculate::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void rent_calculate::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         int id = options["id"].as<int>();
         if (id <= 0)
@@ -25,11 +25,11 @@ namespace crs::console::command
         std::string start = options["start"].as<std::string>();
         std::string end = options["end"].as<std::string>();
 
-        date_ymd* start_ymd;
-        date_ymd* end_ymd;
+        crs::core::car::date_ymd* start_ymd;
+        crs::core::car::date_ymd* end_ymd;
         try
         {
-            start_ymd = new date_ymd(start);
+            start_ymd = new crs::core::car::date_ymd(start);
         }
         catch (const core::core_exception& exception)
         {
@@ -37,7 +37,7 @@ namespace crs::console::command
         }
         try
         {
-            end_ymd = new date_ymd(end);
+            end_ymd = new crs::core::car::date_ymd(end);
         }
         catch (const core::core_exception& exception)
         {
@@ -46,11 +46,8 @@ namespace crs::console::command
 
         float total_price = rent_service_->calculate(id, start_ymd, end_ymd);
 
-        output << "Total payment will be (";
-        start_ymd->print(output);
-        output << " to ";
-        end_ymd->print(output);
-        output << "): " << total_price << " NZD." << std::endl;
+        output << "Total payment will be ("
+               << start_ymd << " to " << end_ymd << "): " << total_price << " NZD." << std::endl;
     }
 
     void rent_calculate::configure_options(cxxopts::OptionAdder& options_builder)

@@ -13,11 +13,11 @@ namespace crs::console
         public:
             table_formatter();
             void draw_car_list(
-                std::vector<std::unique_ptr<crs::core::car::car>>& cars,
+                const std::vector<std::unique_ptr<crs::core::car::car>>& cars,
                 std::ostream& output
-            );
+            ) const;
             void draw_booking_list(
-                std::vector<std::unique_ptr<crs::core::car::car_booking>>& bookings,
+                const std::vector<std::unique_ptr<crs::core::car::car_booking>>& bookings,
                 std::ostream& ostream
             ) const;
 

@@ -1,5 +1,6 @@
 #include "car_booking_repository.h"
 #include "core/storage/storage.h"
+#include "date_ymd.h"
 
 namespace crs::core::car
 {
@@ -24,8 +25,8 @@ namespace crs::core::car
 
     const bool car_booking_repository::has(
         int car_id,
-        crs::console::date_ymd* start,
-        crs::console::date_ymd* end
+        date_ymd* start,
+        date_ymd* end
     ) const
     {
         using namespace sqlite_orm;

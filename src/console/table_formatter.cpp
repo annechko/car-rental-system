@@ -9,9 +9,9 @@ namespace crs::console
     }
 
     void table_formatter::draw_car_list(
-        std::vector<std::unique_ptr<crs::core::car::car>>& cars,
+        const std::vector<std::unique_ptr<crs::core::car::car>>& cars,
         std::ostream& output
-    )
+    ) const
     {
         const int COLUMN_COUNT = 8;
         using namespace tabulate;
@@ -104,7 +104,7 @@ namespace crs::console
     }
 
     void table_formatter::draw_booking_list(
-        std::vector<std::unique_ptr<crs::core::car::car_booking>>& bookings,
+        const std::vector<std::unique_ptr<crs::core::car::car_booking>>& bookings,
         std::ostream& output
     ) const
     {

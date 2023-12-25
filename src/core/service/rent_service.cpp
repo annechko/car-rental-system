@@ -2,7 +2,6 @@
 #include "core/core_exception.hpp"
 #include "core/car/car_booking.h"
 #include <chrono>
-#include <iostream>
 
 namespace crs::core::service
 {
@@ -14,8 +13,8 @@ namespace crs::core::service
 
     const float rent_service::calculate(
         crs::core::car::car* car,
-        crs::console::date_ymd* start,
-        crs::console::date_ymd* end
+        crs::core::car::date_ymd* start,
+        crs::core::car::date_ymd* end
     ) const
     {
         if (end->get_timestamp() < start->get_timestamp())
@@ -37,8 +36,8 @@ namespace crs::core::service
 
     const float rent_service::calculate(
         int car_id,
-        crs::console::date_ymd* start,
-        crs::console::date_ymd* end
+        crs::core::car::date_ymd* start,
+        crs::core::car::date_ymd* end
     ) const
     {
         auto car = car_repository_->get_by_id(car_id);
@@ -49,8 +48,8 @@ namespace crs::core::service
     float rent_service::book(
         int customer_id,
         int car_id,
-        crs::console::date_ymd* start,
-        crs::console::date_ymd* end) const
+        crs::core::car::date_ymd* start,
+        crs::core::car::date_ymd* end) const
     {
         auto car = car_repository_->get_by_id(car_id);
 

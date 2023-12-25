@@ -10,7 +10,7 @@ namespace crs::core::service
         user_repository_ = new crs::core::user::user_repository;
     }
 
-    crs::core::user::user* auth_service::login(std::string username, std::string password)
+    crs::core::user::user* auth_service::login(std::string username, std::string password) const
     {
         crs::core::user::user* user = user_repository_->get_by_username(username);
         if (!bcrypt::validatePassword(password, user->get_password_hash()))
@@ -20,7 +20,11 @@ namespace crs::core::service
         return user;
     }
 
-    crs::core::user::user* auth_service::sign_up(std::string username, std::string password, bool is_admin)
+    crs::core::user::user* auth_service::sign_up(
+        std::string username,
+        std::string password,
+        bool is_admin
+    ) const
     {
         auto user = new crs::core::user::user(username, bcrypt::generateHash(password));
         if (is_admin)

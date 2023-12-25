@@ -13,7 +13,7 @@ namespace crs::console::command
         return std::string("car:add");
     }
 
-    void car_add::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void car_add::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         authenticate(options);
 

@@ -15,7 +15,7 @@ namespace crs::console::command
         return std::string("car:list");
     }
 
-    void car_list::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void car_list::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         auto cars = car_service_->get_list();
         table_formatter_->draw_car_list(cars, output);

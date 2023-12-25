@@ -14,7 +14,7 @@ namespace crs::console::command
         return std::string("car:update");
     }
 
-    void car_update::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void car_update::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         authenticate(options);
 

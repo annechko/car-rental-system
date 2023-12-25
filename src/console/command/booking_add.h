@@ -10,7 +10,7 @@ namespace crs::console::command
         public:
             booking_add();
             const std::string get_name() const override;
-            void handle(cxxopts::ParseResult& options, std::ostream& output) override;
+            void handle(const cxxopts::ParseResult& options, std::ostream& output) override;
             void configure_options(cxxopts::OptionAdder& options) override;
             const crs::console::ROLE get_permission_level() const override;
 

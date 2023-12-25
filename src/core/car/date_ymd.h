@@ -3,16 +3,17 @@
 #include <chrono>
 #include <string>
 #include <iostream>
+#include <string>
 
-namespace crs::console
+namespace crs::core::car
 {
     class date_ymd
     {
         public:
             date_ymd(const std::string& day_month_year);
             const std::chrono::year_month_day get_ymd() const;
-            void print(std::ostream& ostream) const;
             const int get_timestamp() const;
+            friend std::ostream& operator<<(std::ostream& ostream, date_ymd const& date);
         private:
             std::chrono::year_month_day ymd_;
             void validate(const std::chrono::year_month_day& ymd);

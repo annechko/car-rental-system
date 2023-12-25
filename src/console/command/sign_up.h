@@ -10,13 +10,13 @@ namespace crs::console::command
     {
         public:
             sign_up();
-            void handle(cxxopts::ParseResult& options, std::ostream& output) override;
+            void handle(const cxxopts::ParseResult& options, std::ostream& output) override;
             const std::string get_name() const override;
             void configure_options(cxxopts::OptionAdder& options) override;
             const crs::console::ROLE get_permission_level() const override;
         private:
-            crs::core::service::auth_service* auth_service_;
+            const crs::core::service::auth_service* auth_service_;
     };
 }
 
-#endif //SIGN_UP_H
+#endif

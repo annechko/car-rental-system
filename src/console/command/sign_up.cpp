@@ -15,7 +15,7 @@ namespace crs::console::command
         return std::string("register");
     }
 
-    void sign_up::handle(cxxopts::ParseResult& options, std::ostream& output)
+    void sign_up::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
         std::string name = options["username"].as<std::string>();
         std::string pass = options["password"].as<std::string>();

@@ -10,8 +10,8 @@ namespace crs::core::service
     {
         public:
             auth_service();
-            crs::core::user::user* login(std::string username, std::string password);
-            crs::core::user::user* sign_up(std::string username, std::string password, bool is_admin);
+            crs::core::user::user* login(std::string username, std::string password) const;
+            crs::core::user::user* sign_up(std::string username, std::string password, bool is_admin) const;
         private:
             crs::core::user::user_repository* user_repository_;
     };
