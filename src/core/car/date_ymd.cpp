@@ -44,6 +44,7 @@ namespace crs::core::car
         int m = unsigned(date.get_ymd().month());
         int y = int(date.get_ymd().year());
         ostream << std::to_string(d) + "/" + std::to_string(m) + "/" + std::to_string(y);;
+        return ostream;
     }
 
     const int date_ymd::get_timestamp() const
