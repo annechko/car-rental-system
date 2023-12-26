@@ -72,7 +72,7 @@ set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
 FetchContent_Declare(
         sqlite_orm
         GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
-        GIT_TAG        master
+        GIT_TAG v1.8.2
 )
 FetchContent_MakeAvailable(sqlite_orm)
 
@@ -86,14 +86,14 @@ FetchContent_MakeAvailable(cxxopts)
 FetchContent_Declare(
         bcrypt
         GIT_REPOSITORY https://github.com/hilch/Bcrypt.cpp
-        GIT_TAG        master
+        GIT_TAG 7f2db29d35c61ab1c07a4611ed6607377ecb9d81
 )
 FetchContent_MakeAvailable(bcrypt)
 
 FetchContent_Declare(
         tabulate
         GIT_REPOSITORY https://github.com/p-ranav/tabulate
-        GIT_TAG master
+        GIT_TAG v1.5
 )
 FetchContent_MakeAvailable(tabulate)
 
