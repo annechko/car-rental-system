@@ -155,4 +155,16 @@ namespace crs::core::car
         price_per_day_ = price_per_day;
     }
 
+    const bool car::can_be_rented_for_days(int days) const
+    {
+        if (min_rent_ > 0 && days < min_rent_)
+        {
+            return false;
+        }
+        if (max_rent_ > 0 && days > max_rent_)
+        {
+            return false;
+        }
+        return true;
+    }
 }

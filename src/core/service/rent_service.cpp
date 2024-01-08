@@ -25,10 +25,19 @@ namespace crs::core::service
         {
             throw core::core_exception("Car is unavailable for these dates.");
         }
-        // todo check min/max rent
 
         auto diff = std::chrono::sys_days(end->get_ymd()) - std::chrono::sys_days(start->get_ymd());
         int days = diff.count() + 1;
+        int min_days = car->get_min_rent();
+        int max_days = car->get_max_rent();
+        if (!car->can_be_rented_for_days(days))
+        {
+            throw core::core_exception(
+                "Car cannot be rented for " + std::to_string(days)
+                    + " days, only from " + std::to_string(min_days)
+                    + " days to " + std::to_string(max_days) + " days."
+            );
+        }
         auto price_per_day = car->get_price_per_day();
 
         return float(days * price_per_day);

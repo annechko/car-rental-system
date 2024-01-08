@@ -46,6 +46,7 @@ namespace crs::core::car
                 float price_per_day
             );
 
+            const bool can_be_rented_for_days(int days) const;
         private:
             int id_;
             std::string make_;

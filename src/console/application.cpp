@@ -9,6 +9,7 @@
 #include <console/command/booking_add.h>
 #include <console/command/booking_update.h>
 #include <console/command/rent_calculate.h>
+#include <console/role.hpp>
 #include <console/text_helper.hpp>
 #include <core/core_exception.hpp>
 #include <cxxopts.hpp>
@@ -47,8 +48,26 @@ namespace crs::console
     {
         for (const auto& [key, command] : commands_)
         {
-            auto command_options = new cxxopts::Options(text_helper::green(
-                (std::string)"car_rental_system " + command->get_name()));
+            std::string command_help;
+            switch (command->get_permission_level())
+            {
+                case crs::console::ROLE::ADMIN:
+                    command_help = "Admin only.";
+                    break;
+                case crs::console::ROLE::CUSTOMER:
+                    command_help = "Customer only.";
+                    break;
+                case crs::console::ROLE::AUTHENTICATED:
+                    command_help = "Authenticated only.";
+                    break;
+                case crs::console::ROLE::ANY:
+                default:
+                    break;
+            }
+            auto command_options = new cxxopts::Options(
+                text_helper::green((std::string)"car_rental_system " + command->get_name())
+            );
+            command_options->custom_help("[OPTION...]\n" + command_help);
             command_options->allow_unrecognised_options();
 
             auto builder = command_options->add_options();
