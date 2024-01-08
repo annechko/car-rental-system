@@ -19,3 +19,7 @@ db relation diagram - img
 
 
 preview how to use - video
+
+tests with ctest
+tests on push
+tests in IDE - img
