@@ -31,7 +31,7 @@ namespace crs::console::command
     void car_delete::configure_options(cxxopts::OptionAdder& options_builder)
     {
         add_auth_params(options_builder)
-            ("i,id", "Id of the car to update.", cxxopts::value<int>());
+            ("i,id", "Id of the car to delete.", cxxopts::value<int>());
     }
 
     const crs::console::ROLE car_delete::get_permission_level() const
