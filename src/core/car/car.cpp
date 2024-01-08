@@ -17,13 +17,13 @@ namespace crs::core::car
         const string& model,
         int year,
         int mileage,
-        int minRent,
-        int maxRent,
+        int min_rent,
+        int max_rent,
         float price_per_day
     )
         : make_(make), model_(model),
           year_(year), mileage_(mileage),
-          min_rent_(minRent), max_rent_(maxRent),
+          min_rent_(min_rent), max_rent_(max_rent),
           price_per_day_(price_per_day)
     {
         if (make_.empty() || model_.empty() || year_ <= 0)

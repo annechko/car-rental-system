@@ -9,7 +9,7 @@
 #include <console/application.h>
 
 /* UNIT */
-void testCreateUser()
+void test_create_user()
 {
     crs::core::user::user user{ "test_name", "sdf" };
 
@@ -18,7 +18,7 @@ void testCreateUser()
 }
 
 /* ACCEPTANCE */
-void testHelp_NoCommand_SeeAllCommandsHelps()
+void test_help_when_no_command_expect_see_all_commands_helps()
 {
     char* argv_test[] = { (char*)"car_rental_system", (char*)"-h", };
     int argc_test = 2;
@@ -34,7 +34,7 @@ void testHelp_NoCommand_SeeAllCommandsHelps()
     assert_has_text(buffer.str(), "car_rental_system register", __FUNCTION__);
 }
 
-void testHelp_ForRegisterCommand_dontSeeOtherCommands()
+void test_help_when_register_command_expect_no_other_commands()
 {
     char* argv_test[] = { (char*)"car_rental_system", (char*)"register", (char*)"-h", };
     int argc_test = 3;
@@ -49,7 +49,7 @@ void testHelp_ForRegisterCommand_dontSeeOtherCommands()
     assert_no_text(buffer.str(), "car_rental_system car:add", __FUNCTION__);
 }
 
-void testHelp_CommandNotExist_Error()
+void test_help_when_command_not_exist_expect_error()
 {
     char* argv_test[] = { (char*)"car_rental_system", (char*)"no_such_command", (char*)"-h", };
     int argc_test = 3;
@@ -69,7 +69,7 @@ void testHelp_CommandNotExist_Error()
     show_error_msg("Expected an exception but didn't have any");
 }
 
-void testRegisterAsAdmin_AddCar_CarCreated()
+void test_add_car_when_register_as_admin_expect_car_created()
 {
     char* opts_register[]
         { (char*)"car_rental_system", (char*)"register", (char*)"-u", (char*)"u", (char*)"-p", (char*)"p",
@@ -109,7 +109,7 @@ void add_customer()
     (new crs::console::application(6, opts_register, buffer))->handle();
 }
 
-void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
+void test_calculate_rent_when_car_available_expect_correct_price()
 {
     add_admin();
     // add car
@@ -134,7 +134,7 @@ void testCalculateRent_WhenCarAvailable_SeeCorrectPrice()
     assert_has_text(buffer_calc.str(), ": 10 NZD", __FUNCTION__);
 }
 
-void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
+void test_calculate_or_book_when_car_booked_expect_error_when_dates_not_available()
 {
     add_admin();
     // add car
@@ -253,7 +253,7 @@ void testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable()
     }
 }
 
-void testBookCar_WhenCarAvailable_SuccessBooking()
+void test_book_car_when_car_available_expect_success_booking()
 {
     add_admin();
     // add car
@@ -284,7 +284,7 @@ void testBookCar_WhenCarAvailable_SuccessBooking()
         __FUNCTION__);
 }
 
-void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
+void test_car_list_by_customer_when_car_created_by_admin_expect_customer_sees_car()
 {
     char* opts_register[]{ (char*)"car_rental_system", "register", "-u", "u", "-p", "p", "-a", };
     std::stringstream buffer;
@@ -316,7 +316,7 @@ void testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar()
     assert_has_text(buffer_list.str(), year, __FUNCTION__);
 }
 
-void testRegisterAsCustomer_AddCar_FailedToAdd()
+void test_add_car_when_register_as_customer_expect_failed_to_add()
 {
     char* opts_register[]{ (char*)"car_rental_system", "register", "-u", "u", "-p", "p", };
     std::stringstream buffer;
@@ -347,7 +347,7 @@ void testRegisterAsCustomer_AddCar_FailedToAdd()
     show_error_msg("Expected an exception but didn't catch any", __FUNCTION__);
 }
 
-void testCarAdd_ByNotExistedUser_SeeError()
+void test_car_add_when_not_existed_user_expect_error()
 {
     char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "no_such_user", "-p", "p" };
 
@@ -377,17 +377,17 @@ int main()
 {
     int res = 0;
     std::vector<std::function<void()>> tests{
-        []() -> void { testHelp_NoCommand_SeeAllCommandsHelps(); },
-        []() -> void { testHelp_ForRegisterCommand_dontSeeOtherCommands(); },
-        []() -> void { testHelp_CommandNotExist_Error(); },
-        []() -> void { testRegisterAsAdmin_AddCar_CarCreated(); },
-        []() -> void { testCarListByCustomer_WhenCarCreatedByAdmin_CustomerSeesCar(); },
-        []() -> void { testCalculateRent_WhenCarAvailable_SeeCorrectPrice(); },
-        []() -> void { testCalculateOrBook_WhenCarBooked_SeeErrorWhenDatesNotAvailable(); },
-        []() -> void { testBookCar_WhenCarAvailable_SuccessBooking(); },
-        []() -> void { testRegisterAsCustomer_AddCar_FailedToAdd(); },
-        []() -> void { testCarAdd_ByNotExistedUser_SeeError(); },
-        []() -> void { testCreateUser(); },
+        []() -> void { test_help_when_no_command_expect_see_all_commands_helps(); },
+        []() -> void { test_help_when_register_command_expect_no_other_commands(); },
+        []() -> void { test_help_when_command_not_exist_expect_error(); },
+        []() -> void { test_add_car_when_register_as_admin_expect_car_created(); },
+        []() -> void { test_car_list_by_customer_when_car_created_by_admin_expect_customer_sees_car(); },
+        []() -> void { test_calculate_rent_when_car_available_expect_correct_price(); },
+        []() -> void { test_calculate_or_book_when_car_booked_expect_error_when_dates_not_available(); },
+        []() -> void { test_book_car_when_car_available_expect_success_booking(); },
+        []() -> void { test_add_car_when_register_as_customer_expect_failed_to_add(); },
+        []() -> void { test_car_add_when_not_existed_user_expect_error(); },
+        []() -> void { test_create_user(); },
     };
     for (auto& test : tests)
     {

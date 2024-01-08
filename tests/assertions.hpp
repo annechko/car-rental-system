@@ -30,15 +30,15 @@ void success_assertion(std::string func_name = "")
     }
 }
 
-template<class SomeType>
-void assert_equals(SomeType a, SomeType b, std::string func_name = "")
+template<class some_type>
+void assert_equals(some_type a, some_type b, std::string func_name = "")
 {
     if (a == b)
     {
         success_assertion(func_name);
         return;
     }
-    if constexpr (std::is_same<SomeType, std::string>::value)
+    if constexpr (std::is_same<some_type, std::string>::value)
     {
         show_error_msg(
             "Failed asserting that \"" + (std::string)a + "\" is equal to \"" + (std::string)b + "\"",
