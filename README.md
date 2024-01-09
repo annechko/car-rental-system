@@ -39,7 +39,7 @@ To view a prompt for a specific command, type the executable file name, the comm
 car_rental_system car:update -h
 ```
 
-![Alt Text](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHE1bjd5dHFtamJicXd1OGNqeHZmdXoya3gwZGR6d2FvbHN0cWpoayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BQFlrDRU3uUdY0SIfq/giphy.gif)
+![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlkZGJmN2g3cmh5cHZ4dWJsOHZvMXFjbWV3d3R5amkzbmk3dmpnbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wvu94sM3RFLoBvs34R/giphy.gif)
 
 ## List of available commands
 
