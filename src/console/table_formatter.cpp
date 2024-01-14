@@ -4,6 +4,8 @@
 
 namespace crs::console
 {
+    const char* table_formatter::DATE_FORMAT = "%d/%m/%Y";
+
     table_formatter::table_formatter()
     {
     }
@@ -129,10 +131,10 @@ namespace crs::console
         for (const auto& booking : bookings)
         {
             ts = *localtime(new time_t(booking->get_timestamp_start()));
-            strftime(date_start, sizeof(date_start), "%Y-%m-%d", &ts);
+            strftime(date_start, sizeof(date_start), table_formatter::DATE_FORMAT, &ts);
 
             ts = *localtime(new time_t(booking->get_timestamp_end()));
-            strftime(date_end, sizeof(date_end), "%Y-%m-%d", &ts);
+            strftime(date_end, sizeof(date_end), table_formatter::DATE_FORMAT, &ts);
 
             contents_table.add_row({
                 std::to_string(booking->get_id()),

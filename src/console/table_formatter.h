@@ -27,6 +27,7 @@ namespace crs::console
                 short row_count,
                 tabulate::Table table
             ) const;
+            static const char* DATE_FORMAT;
     };
 }
 
