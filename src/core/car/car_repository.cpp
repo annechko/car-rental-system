@@ -34,8 +34,15 @@ namespace crs::core::car
         if (days > 0)
         {
             return db_->get_all_pointer<crs::core::car::car>(
-                where(c(&crs::core::car::car::get_min_rent) <= days
-                    and c(&crs::core::car::car::get_max_rent) >= days
+                where(
+                    (
+                        c(&crs::core::car::car::get_min_rent) <= days
+                            and c(&crs::core::car::car::get_max_rent) >= days
+                    )
+                        or (
+                            (c(&crs::core::car::car::get_min_rent) == 0)
+                                and c(&crs::core::car::car::get_max_rent) == 0
+                        )
                 )
             );
         }
