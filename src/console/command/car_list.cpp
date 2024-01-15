@@ -20,10 +20,19 @@ namespace crs::console::command
 
     void car_list::handle(const cxxopts::ParseResult& options, std::ostream& output)
     {
+        crs::core::service::car_list_filters* filters = new crs::core::service::car_list_filters();
+
         std::string start = options["start"].as<std::string>();
         std::string end = options["end"].as<std::string>();
 
-        crs::core::service::car_list_filters* filters = new crs::core::service::car_list_filters();
+        filters->set_make(options["make"].as<std::string>());
+        filters->set_model(options["model"].as<std::string>());
+        filters->set_year_from(options["year-from"].as<int>());
+        filters->set_year_to(options["year-to"].as<int>());
+
+        filters->set_price_from(options["price-from"].as<float>());
+        filters->set_price_to(options["price-to"].as<float>());
+
 
         if (!start.empty())
         {
@@ -61,7 +70,25 @@ namespace crs::console::command
                 cxxopts::value<std::string>()->default_value(""))
             ("end",
                 "Until when you want to book a car, format dd/mm/yyy: 31/12/2020.",
-                cxxopts::value<std::string>()->default_value(""));
+                cxxopts::value<std::string>()->default_value(""))
+            ("k,make",
+                "Company that made a car, for example: Ford, Honda, Volkswagen.",
+                cxxopts::value<std::string>()->default_value(""))
+            ("o,model",
+                "Car's specific name, for example: Escape, Civic, or Jetta.",
+                cxxopts::value<std::string>()->default_value(""))
+            ("year-from",
+                "year-from",
+                cxxopts::value<int>()->default_value("0"))
+            ("year-to",
+                "year-to",
+                cxxopts::value<int>()->default_value("0"))
+            ("price-from",
+                "price-from",
+                cxxopts::value<float>()->default_value("0.0"))
+            ("price-to",
+                "price-to",
+                cxxopts::value<float>()->default_value("0.0"));
     }
 
     const crs::console::ROLE car_list::get_permission_level() const

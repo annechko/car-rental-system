@@ -31,25 +31,39 @@ namespace crs::core::car
 
         using namespace sqlite_orm;
 
-        if (days > 0)
-        {
-            return db_->get_all_pointer<crs::core::car::car>(
-                where(
-                    (
-                        c(&crs::core::car::car::get_min_rent) <= days
-                            and c(&crs::core::car::car::get_max_rent) >= days
-                    )
-                        or (
-                            (c(&crs::core::car::car::get_min_rent) == 0)
-                                and c(&crs::core::car::car::get_max_rent) == 0
+        return db_->get_all_pointer<crs::core::car::car>(
+            where(
+                c(&crs::core::car::car::get_id) > 0 and
+                    (days <= 0 or (
+                        (
+                            c(&crs::core::car::car::get_min_rent) <= days
+                                and c(&crs::core::car::car::get_max_rent) >= days
                         )
-                )
-            );
-        }
-        else
-        {
-            return db_->get_all_pointer<crs::core::car::car>();
-        }
+                            or (
+                                (c(&crs::core::car::car::get_min_rent) == 0)
+                                    and c(&crs::core::car::car::get_max_rent) == 0
+                            )
+                    ))
+                    and
+                        (filters->get_model().empty()
+                            or c(&crs::core::car::car::get_model) == filters->get_model())
+                    and
+                        (filters->get_make().empty()
+                            or c(&crs::core::car::car::get_make) == filters->get_make())
+                    and
+                        (filters->get_year_from() <= 0
+                            or c(&crs::core::car::car::get_year) >= filters->get_year_from())
+                    and
+                        (filters->get_year_to() <= 0
+                            or c(&crs::core::car::car::get_year) <= filters->get_year_to())
+                    and
+                        (filters->get_price_from() <= 0
+                            or c(&crs::core::car::car::get_price_per_day) >= filters->get_price_from())
+                    and
+                        (filters->get_price_to() <= 0
+                            or c(&crs::core::car::car::get_price_per_day) <= filters->get_price_to())
+            )
+        );
     }
 
     car* car_repository::get_by_id(int id) const
