@@ -28,6 +28,7 @@ namespace crs::console
                 tabulate::Table table
             ) const;
             static const char* DATE_FORMAT;
+            std::string round_float(float day) const;
     };
 }
 

@@ -41,7 +41,7 @@ namespace crs::console
                 std::to_string(car->get_mileage()),
                 std::to_string(car->get_min_rent()),
                 std::to_string(car->get_max_rent()),
-                std::to_string(car->get_price_per_day()),
+                round_float(car->get_price_per_day()),
             });
         }
 
@@ -110,7 +110,7 @@ namespace crs::console
         std::ostream& output
     ) const
     {
-        const int COLUMN_COUNT = 6;
+        const int COLUMN_COUNT = 7;
         using namespace tabulate;
         Table contents_table;
         Table header;
@@ -121,6 +121,7 @@ namespace crs::console
             "Customer ID",
             "Start",
             "End",
+            "Total price",
             "Status"
         });
 
@@ -142,6 +143,7 @@ namespace crs::console
                 std::to_string(booking->get_customer_id()),
                 date_start,
                 date_end,
+                round_float(booking->get_price()),
                 booking->get_status_string()
             });
             Color c = Color::grey;
@@ -159,7 +161,7 @@ namespace crs::console
             {
                 c = Color::red;
             }
-            contents_table[booking_row][5].format()
+            contents_table[booking_row][6].format()
                 .font_style({ FontStyle::bold, FontStyle::italic, })
                 .font_color(c);
             booking_row++;
@@ -203,5 +205,11 @@ namespace crs::console
         {
             output << contents_table << std::endl;
         }
+    }
+
+    std::string table_formatter::round_float(float num) const
+    {
+        std::string price_text = std::to_string(num);
+        return price_text.substr(0, price_text.find(".") + 3);
     }
 }
