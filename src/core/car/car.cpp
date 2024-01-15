@@ -26,9 +26,9 @@ namespace crs::core::car
           min_rent_(min_rent), max_rent_(max_rent),
           price_per_day_(price_per_day)
     {
-        if (make_.empty() || model_.empty() || year_ <= 0)
+        if (make_.empty() || model_.empty() || year_ <= 0 || price_per_day_ <= 0)
         {
-            throw crs::core::core_exception("Make, model and year are required fields.");
+            throw crs::core::core_exception("Make, model, price and year are required fields.");
         }
     }
 

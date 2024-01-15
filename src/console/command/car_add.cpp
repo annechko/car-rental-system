@@ -44,7 +44,7 @@ namespace crs::console::command
                 cxxopts::value<int>()->default_value("0"))
             ("c,price-per-day",
                 "Price to rent this car for 1 day.",
-                cxxopts::value<float>()->default_value("0"))
+                cxxopts::value<float>())
             ("min-rent",
                 "The minimum rent period in days.",
                 cxxopts::value<int>()->default_value("0"))
