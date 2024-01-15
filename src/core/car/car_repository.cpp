@@ -25,9 +25,24 @@ namespace crs::core::car
         }
     }
 
-    std::vector<std::unique_ptr<crs::core::car::car>> car_repository::get_list()
+    std::vector<std::unique_ptr<car>> car_repository::get_list(crs::core::service::car_list_filters* filters)
     {
-        return db_->get_all_pointer<crs::core::car::car>();
+        int days = filters->get_days_amount();
+
+        using namespace sqlite_orm;
+
+        if (days > 0)
+        {
+            return db_->get_all_pointer<crs::core::car::car>(
+                where(c(&crs::core::car::car::get_min_rent) <= days
+                    and c(&crs::core::car::car::get_max_rent) >= days
+                )
+            );
+        }
+        else
+        {
+            return db_->get_all_pointer<crs::core::car::car>();
+        }
     }
 
     car* car_repository::get_by_id(int id) const

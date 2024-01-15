@@ -56,4 +56,14 @@ namespace crs::core::car
 
         return seconds.count();
     }
+
+    const int date_ymd::count_days_till(date_ymd* end) const
+    {
+        if (end->get_timestamp() < get_timestamp())
+        {
+            throw core::core_exception("End date must be greater than start date.");
+        }
+        auto diff = std::chrono::sys_days(end->get_ymd()) - std::chrono::sys_days(get_ymd());
+        return diff.count() + 1;
+    }
 }

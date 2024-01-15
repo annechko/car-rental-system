@@ -22,9 +22,11 @@ namespace crs::core::service
         return car;
     }
 
-    std::vector<std::unique_ptr<car::car>> car_service::get_list() const
+    std::vector<std::unique_ptr<car::car>> car_service::get_list(car_list_filters* filters) const
     {
-        return car_repository_->get_list();
+        filters->validate();
+
+        return car_repository_->get_list(filters);
     }
 
     crs::core::car::car* car_service::update(

@@ -14,6 +14,7 @@ namespace crs::core::car
             const std::chrono::year_month_day get_ymd() const;
             const int get_timestamp() const;
             friend std::ostream& operator<<(std::ostream& ostream, date_ymd const& date);
+            const int count_days_till(date_ymd* pYmd) const;
         private:
             std::chrono::year_month_day ymd_;
             void validate(const std::chrono::year_month_day& ymd);

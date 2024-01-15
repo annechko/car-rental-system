@@ -2,6 +2,7 @@
 #define CAR_SERVICE_H
 #include "core/car/car.h"
 #include "core/car/car_repository.h"
+#include "car_list_filters.h"
 #include <memory>
 #include <vector>
 
@@ -30,7 +31,7 @@ namespace crs::core::service
                 int max_rent,
                 float price_per_day
             ) const;
-            std::vector<std::unique_ptr<car::car>> get_list() const;
+            std::vector<std::unique_ptr<car::car>> get_list(car_list_filters* filters) const;
             void delete_car(int id) const;
         private:
             crs::core::car::car_repository* car_repository_;

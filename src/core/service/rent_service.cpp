@@ -17,17 +17,12 @@ namespace crs::core::service
         crs::core::car::date_ymd* end
     ) const
     {
-        if (end->get_timestamp() < start->get_timestamp())
-        {
-            throw core::core_exception("End date must be greater than start date.");
-        }
         if (car_booking_repository_->has(car->get_id(), start, end))
         {
             throw core::core_exception("Car is unavailable for these dates.");
         }
 
-        auto diff = std::chrono::sys_days(end->get_ymd()) - std::chrono::sys_days(start->get_ymd());
-        int days = diff.count() + 1;
+        int days = start->count_days_till(end);
         int min_days = car->get_min_rent();
         int max_days = car->get_max_rent();
         if (!car->can_be_rented_for_days(days))
