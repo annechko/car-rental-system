@@ -3,6 +3,7 @@
 #include "core/car/car.h"
 #include "core/car/car_repository.h"
 #include "car_list_filters.h"
+#include "core/car/car_booking_repository.h"
 #include <memory>
 #include <vector>
 
@@ -35,6 +36,7 @@ namespace crs::core::service
             void delete_car(int id) const;
         private:
             crs::core::car::car_repository* car_repository_;
+            crs::core::car::car_booking_repository* car_booking_repository_;
     };
 }
 #endif

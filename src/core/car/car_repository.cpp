@@ -25,15 +25,17 @@ namespace crs::core::car
         }
     }
 
-    std::vector<std::unique_ptr<car>> car_repository::get_list(crs::core::service::car_list_filters* filters)
+    std::vector<std::unique_ptr<car>> car_repository::get_list(
+        crs::core::service::car_list_filters* filters,
+        std::vector<int> car_ids_with_bookings_for_same_period
+    )
     {
         int days = filters->get_days_amount();
-
         using namespace sqlite_orm;
 
         return db_->get_all_pointer<crs::core::car::car>(
             where(
-                c(&crs::core::car::car::get_id) > 0 and
+                not_in(&crs::core::car::car::get_id, car_ids_with_bookings_for_same_period) and
                     (days <= 0 or (
                         (
                             c(&crs::core::car::car::get_min_rent) <= days

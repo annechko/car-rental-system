@@ -1,10 +1,12 @@
 #include "car_service.h"
+#include <vector>
 
 namespace crs::core::service
 {
     car_service::car_service()
     {
         car_repository_ = new crs::core::car::car_repository;
+        car_booking_repository_ = new crs::core::car::car_booking_repository;
     }
 
     crs::core::car::car* car_service::create(
@@ -26,7 +28,22 @@ namespace crs::core::service
     {
         filters->validate();
 
-        return car_repository_->get_list(filters);
+        std::vector<int> car_ids_with_bookings_for_same_period;
+
+        if (filters->has_period())
+        {
+            car_ids_with_bookings_for_same_period = car_booking_repository_->get_car_ids_with_bookings(
+                filters->get_start_ymd(),
+                filters->get_end_ymd()
+            );
+        }
+        else
+        {
+            car_ids_with_bookings_for_same_period.push_back(-1);
+        }
+
+
+        return car_repository_->get_list(filters, car_ids_with_bookings_for_same_period);
     }
 
     crs::core::car::car* car_service::update(

@@ -11,6 +11,7 @@ namespace crs::core::service
             car_list_filters();
             void validate();
             const int get_days_amount() const;
+            const bool has_period() const;
 
             car::date_ymd* get_start_ymd() const;
             void set_start_ymd(car::date_ymd* start_ymd);

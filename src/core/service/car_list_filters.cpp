@@ -127,4 +127,9 @@ namespace crs::core::service
     {
         return price_to_;
     }
+
+    const bool car_list_filters::has_period() const
+    {
+        return start_ymd_ != nullptr && end_ymd_ != nullptr;
+    }
 }

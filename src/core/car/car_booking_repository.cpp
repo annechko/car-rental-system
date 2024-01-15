@@ -72,6 +72,22 @@ namespace crs::core::car
             throw core::core_exception("Car booking with id = " + std::to_string(id) + " not found.");
         }
     }
+
+    const std::vector<int> car_booking_repository::get_car_ids_with_bookings(
+        date_ymd* start,
+        date_ymd* end
+    ) const
+    {
+        using namespace sqlite_orm;
+
+        return db_->select(
+            &crs::core::car::car_booking::get_car_id,
+            where(
+                c(&crs::core::car::car_booking::get_timestamp_start) <= end->get_timestamp()
+                    and c(&crs::core::car::car_booking::get_timestamp_end) >= start->get_timestamp()
+            )
+        );
+    }
 }
 
 

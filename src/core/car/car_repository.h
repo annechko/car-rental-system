@@ -13,7 +13,10 @@ namespace crs::core::car
         public:
             car_repository();
             void save(car* car_to_add);
-            std::vector<std::unique_ptr<car>> get_list(crs::core::service::car_list_filters* filters);
+            std::vector<std::unique_ptr<car>> get_list(
+                crs::core::service::car_list_filters* filters,
+                std::vector<int> car_ids_with_bookings_for_same_period
+            );
             car* get_by_id(int id) const;
             void delete_car(int id);
         private:
