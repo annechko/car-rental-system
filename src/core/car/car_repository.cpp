@@ -45,6 +45,14 @@ namespace crs::core::car
                                 (c(&crs::core::car::car::get_min_rent) == 0)
                                     and c(&crs::core::car::car::get_max_rent) == 0
                             )
+                            or (
+                                c(&crs::core::car::car::get_min_rent) <= days
+                                    and c(&crs::core::car::car::get_max_rent) == 0
+                            )
+                            or (
+                                c(&crs::core::car::car::get_max_rent) >= days
+                                    and (c(&crs::core::car::car::get_min_rent) == 0)
+                            )
                     ))
                     and
                         (filters->get_model().empty()
