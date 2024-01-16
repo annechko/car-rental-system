@@ -142,17 +142,17 @@ void test_calculate_or_book_when_car_booked_expect_error_when_dates_not_availabl
         "car_rental_system booking:add --start 01/01/2025 --end 10/01/2025 -i 1 -u c -p p"
     );
 
-    std::list<array<char*, 2>> unavailable_dates{
-        array<char*, 2>{ "01/01/2025", "10/01/2025" },
-        array<char*, 2>{ "01/01/2024", "10/01/2026" },
-        array<char*, 2>{ "02/01/2025", "09/01/2025" },
-        array<char*, 2>{ "09/01/2025", "15/01/2025" },
-        array<char*, 2>{ "25/12/2024", "05/01/2025" },
-        array<char*, 2>{ "25/12/2024", "01/01/2025" },
-        array<char*, 2>{ "10/01/2025", "11/01/2025" },
-        array<char*, 2>{ "10/01/2025", "10/01/2025" },
-        array<char*, 2>{ "01/01/2025", "01/01/2025" },
-        array<char*, 2>{ "04/01/2025", "04/01/2025" },
+    std::list<array<std::string, 2>> unavailable_dates{
+        array<std::string, 2>{ "01/01/2025", "10/01/2025" },
+        array<std::string, 2>{ "01/01/2024", "10/01/2026" },
+        array<std::string, 2>{ "02/01/2025", "09/01/2025" },
+        array<std::string, 2>{ "09/01/2025", "15/01/2025" },
+        array<std::string, 2>{ "25/12/2024", "05/01/2025" },
+        array<std::string, 2>{ "25/12/2024", "01/01/2025" },
+        array<std::string, 2>{ "10/01/2025", "11/01/2025" },
+        array<std::string, 2>{ "10/01/2025", "10/01/2025" },
+        array<std::string, 2>{ "01/01/2025", "01/01/2025" },
+        array<std::string, 2>{ "04/01/2025", "04/01/2025" },
     };
 
     // another customer can NOT book those dates
@@ -206,11 +206,11 @@ void test_calculate_or_book_when_car_booked_expect_error_when_dates_not_availabl
     }
 
     // but CAN book those dates
-    std::list<array<char*, 2>> available_dates{
-        array<char*, 2>{ "11/01/2025", "11/01/2025" },
-        array<char*, 2>{ "31/12/2024", "31/12/2024" },
-        array<char*, 2>{ "01/01/2026", "10/01/2026" },
-        array<char*, 2>{ "01/01/2024", "10/01/2024" },
+    std::list<array<std::string, 2>> available_dates{
+        array<std::string, 2>{ "11/01/2025", "11/01/2025" },
+        array<std::string, 2>{ "31/12/2024", "31/12/2024" },
+        array<std::string, 2>{ "01/01/2026", "10/01/2026" },
+        array<std::string, 2>{ "01/01/2024", "10/01/2024" },
     };
     for (const auto& dates : available_dates)
     {
@@ -227,28 +227,15 @@ void test_book_car_when_car_available_expect_success_booking()
 {
     add_admin();
     // add car
-    char* opts_car_add[]{ (char*)"car_rental_system", "car:add", "-u", "a", "-p", "p",
-                          "--make", "toyota",
-                          "--model", "x2",
-                          "--year", "2020",
-                          "--price-per-day", "10"
-    };
-
-    std::stringstream buffer_car;
-    (new crs::console::application(14, opts_car_add, buffer_car))->handle();
+    auto buffer_car = run_app(
+        "car_rental_system car:add -u a -p p --make toyota --model x2 --year 2020 --price-per-day 10"
+    );
 
     add_customer();
     // see price
-    char* opts_calculate[]{ (char*)"car_rental_system", "booking:add",
-                            "--start", "01/01/2025",
-                            "--end", "01/01/2025",
-                            "-i", "1",
-                            "-u", "c",
-                            "-p", "p"
-    };
-
-    std::stringstream buffer_calc;
-    (new crs::console::application(12, opts_calculate, buffer_calc))->handle();
+    auto buffer_calc = run_app(
+        "car_rental_system booking:add --start 01/01/2025 --end 01/01/2025 -i 1 -u c -p p"
+    );
     assert_has_text(buffer_calc.str(),
         "Car has successfully been booked, the payment will be 10 NZD",
         __FUNCTION__);
@@ -285,7 +272,7 @@ void test_add_car_when_register_as_customer_expect_failed_to_add()
         "car_rental_system register -u u -p p"
     );
 
-    assert_has_text(buffer.str(), "User with username", __FUNCTION__);
+    assert_has_text(buffer.str(), "Customer with username", __FUNCTION__);
     assert_has_text(buffer.str(), "was created", __FUNCTION__);
 
     try
