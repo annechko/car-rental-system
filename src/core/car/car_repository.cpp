@@ -25,6 +25,51 @@ namespace crs::core::car
         }
     }
 
+    auto get_order(crs::core::service::car_list_filters* filters, crs::core::storage::db* db_)
+    {
+        using namespace sqlite_orm;
+        using namespace crs::core::service;
+
+        auto order_by_field = dynamic_order_by(*db_);
+        bool is_asc = filters->is_sort_asc();
+        if (filters->get_sort_field() == car_list_filters::SORT_MODEL)
+        {
+            auto ord = order_by(&crs::core::car::car::get_model);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_MAKE)
+        {
+            auto ord = order_by(&crs::core::car::car::get_make);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_YEAR)
+        {
+            auto ord = order_by(&crs::core::car::car::get_year);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_MIN_RENT)
+        {
+            auto ord = order_by(&crs::core::car::car::get_min_rent);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_MAX_RENT)
+        {
+            auto ord = order_by(&crs::core::car::car::get_max_rent);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_ID)
+        {
+            auto ord = order_by(&crs::core::car::car::get_id);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        else if (filters->get_sort_field() == car_list_filters::SORT_PRICE)
+        {
+            auto ord = order_by(&crs::core::car::car::get_price_per_day);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
+        return order_by_field;
+    }
+
     std::vector<std::unique_ptr<car>> car_repository::get_list(
         crs::core::service::car_list_filters* filters,
         std::vector<int> car_ids_with_bookings_for_same_period
@@ -32,6 +77,8 @@ namespace crs::core::car
     {
         int days = filters->get_days_amount();
         using namespace sqlite_orm;
+
+        auto order_by_field = get_order(filters, db_);
 
         return db_->get_all_pointer<crs::core::car::car>(
             where(
@@ -72,7 +119,8 @@ namespace crs::core::car
                     and
                         (filters->get_price_to() <= 0
                             or c(&crs::core::car::car::get_price_per_day) <= filters->get_price_to())
-            )
+            ),
+            order_by_field
         );
     }
 

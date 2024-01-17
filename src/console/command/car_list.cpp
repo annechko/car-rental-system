@@ -33,6 +33,8 @@ namespace crs::console::command
         filters->set_price_from(options["price-from"].as<float>());
         filters->set_price_to(options["price-to"].as<float>());
 
+        filters->set_sort_field(options["sort"].as<std::string>());
+        filters->set_sort_order(options["sort-order"].as<std::string>());
 
         if (!start.empty())
         {
@@ -78,17 +80,24 @@ namespace crs::console::command
                 "Car's specific name, for example: Escape, Civic, or Jetta.",
                 cxxopts::value<std::string>()->default_value(""))
             ("year-from",
-                "year-from",
+                "Show cars with a model year greater than the specified year.",
                 cxxopts::value<int>()->default_value("0"))
             ("year-to",
-                "year-to",
+                "Show cars with a model year less than the specified year.",
                 cxxopts::value<int>()->default_value("0"))
             ("price-from",
-                "price-from",
+                "Show cars with a price per day greater than the specified year.",
                 cxxopts::value<float>()->default_value("0.0"))
             ("price-to",
-                "price-to",
-                cxxopts::value<float>()->default_value("0.0"));
+                "Show cars with a price per day less than the specified year.",
+                cxxopts::value<float>()->default_value("0.0"))
+            ("sort",
+                "Sort cars in a \"sort-order\" (ascending by default) by the field which is one of ["
+                    + crs::core::service::car_list_filters::get_allowed_sort_fields_text() + "].",
+                cxxopts::value<std::string>()->default_value(""))
+            ("sort-order",
+                "Sort cars in ascending or descending order, one of [asc|desc]. Requires sort option as well.",
+                cxxopts::value<std::string>()->default_value(""));
     }
 
     const crs::console::ROLE car_list::get_permission_level() const
