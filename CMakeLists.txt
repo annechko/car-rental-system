@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.26)
 project(car_rental_system)
-find_package(SQLite3 REQUIRED)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
@@ -11,6 +11,8 @@ add_executable(car_rental_system src/main.cpp)
 
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+find_package(SQLite3 REQUIRED)
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/external)
 
 FetchContent_Declare(
         sqlite_orm
