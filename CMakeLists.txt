@@ -4,6 +4,42 @@ project(car_rental_system)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
+####### ADDING EXTERNAL DEPENDENCIES #######
+
+include(FetchContent)
+set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+
+FetchContent_Declare(
+        sqlite_orm
+        GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
+        GIT_TAG v1.8.2
+)
+FetchContent_MakeAvailable(sqlite_orm)
+
+FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+        GIT_TAG        v3.1.1
+)
+FetchContent_MakeAvailable(cxxopts)
+
+FetchContent_Declare(
+        bcrypt
+        GIT_REPOSITORY https://github.com/hilch/Bcrypt.cpp
+        GIT_TAG 7f2db29d35c61ab1c07a4611ed6607377ecb9d81
+)
+FetchContent_MakeAvailable(bcrypt)
+
+FetchContent_Declare(
+        tabulate
+        GIT_REPOSITORY https://github.com/p-ranav/tabulate
+        GIT_TAG v1.5
+)
+FetchContent_MakeAvailable(tabulate)
+
+
+####### ADDING APP #######
+
 add_library(app
         src/core/user/user.h
         src/core/user/user.cpp
@@ -66,38 +102,6 @@ include_directories(${SHARED_INCLUDES})
 
 add_executable(car_rental_system src/main.cpp)
 
-####### ADDING EXTERNAL DEPENDENCIES #######
-
-include(FetchContent)
-set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
-
-FetchContent_Declare(
-        sqlite_orm
-        GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
-        GIT_TAG v1.8.2
-)
-FetchContent_MakeAvailable(sqlite_orm)
-
-FetchContent_Declare(
-        cxxopts
-        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
-        GIT_TAG        v3.1.1
-)
-FetchContent_MakeAvailable(cxxopts)
-
-FetchContent_Declare(
-        bcrypt
-        GIT_REPOSITORY https://github.com/hilch/Bcrypt.cpp
-        GIT_TAG 7f2db29d35c61ab1c07a4611ed6607377ecb9d81
-)
-FetchContent_MakeAvailable(bcrypt)
-
-FetchContent_Declare(
-        tabulate
-        GIT_REPOSITORY https://github.com/p-ranav/tabulate
-        GIT_TAG v1.5
-)
-FetchContent_MakeAvailable(tabulate)
 
 target_link_libraries(app PRIVATE bcrypt)
 target_link_libraries(app PRIVATE sqlite_orm)
