@@ -7,6 +7,10 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
 add_executable(car_rental_system src/main.cpp)
 ####### ADDING EXTERNAL DEPENDENCIES #######
+find_package (SQLite3)
+find_package(SqliteOrm REQUIRED)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/external)
 
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
@@ -18,8 +22,5 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sqlite_orm)
 
-
-set (SQLite3_INCLUDE_DIR ${sqlite3_SOURCE_DIR})
-set (SQLite3_LIBRARY ${CMAKE_CURRENT_BINARY_DIR}/sqlite3.lib)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
