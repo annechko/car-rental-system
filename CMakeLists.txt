@@ -1,17 +1,18 @@
 cmake_minimum_required(VERSION 3.26)
-project(car_rental_system)
+project(car_rental_system VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+##### Project wide setup ####
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
 
 add_executable(car_rental_system src/main.cpp)
 ####### ADDING EXTERNAL DEPENDENCIES #######
-find_package (SQLite3 REQUIRED)
-include_directories(${SQLite3_INCLUDE_DIRS})
 
 include(FetchContent)
-set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
+#set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
 
 FetchContent_Declare(
         sqlite_orm
@@ -20,5 +21,5 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sqlite_orm)
 
-target_link_libraries(car_rental_system PRIVATE sqlite_orm)
+target_link_libraries(car_rental_system PRIVATE sqlite_orm::sqlite_orm)
 
