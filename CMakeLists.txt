@@ -18,5 +18,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sqlite_orm)
 
+
+set (SQLite3_INCLUDE_DIR ${sqlite3_SOURCE_DIR})
+set (SQLite3_LIBRARY ${CMAKE_CURRENT_BINARY_DIR}/sqlite3.lib)
 target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
