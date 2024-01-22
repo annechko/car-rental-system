@@ -8,8 +8,7 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 add_executable(car_rental_system src/main.cpp)
 ####### ADDING EXTERNAL DEPENDENCIES #######
 find_package (SQLite3 REQUIRED)
-
-add_subdirectory(${CMAKE_BINARY_DIR}/external)
+include_directories(${SQLite3_INCLUDE_DIRS})
 
 include(FetchContent)
 set(FETCHCONTENT_BASE_DIR ${CMAKE_BINARY_DIR}/external)
