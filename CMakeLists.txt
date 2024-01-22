@@ -1,14 +1,11 @@
 cmake_minimum_required(VERSION 3.26)
 project(car_rental_system)
 
-find_package(SQLite3 REQUIRED)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR})
 
 
 add_executable(car_rental_system src/main.cpp)
-target_link_libraries(car_rental_system PRIVATE SQLite::SQLite3)
 ####### ADDING EXTERNAL DEPENDENCIES #######
 
 include(FetchContent)
