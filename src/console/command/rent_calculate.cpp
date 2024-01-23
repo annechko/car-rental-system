@@ -47,7 +47,7 @@ namespace crs::console::command
         float total_price = rent_service_->calculate(id, start_ymd, end_ymd);
 
         output << "Total payment will be ("
-               << start_ymd << " to " << end_ymd << "): " << total_price << " NZD." << std::endl;
+            << *start_ymd << " to " << *end_ymd << "): " << total_price << " NZD." << std::endl;
     }
 
     void rent_calculate::configure_options(cxxopts::OptionAdder& options_builder)
