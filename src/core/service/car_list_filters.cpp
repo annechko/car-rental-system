@@ -114,7 +114,7 @@ namespace crs::core::service
 
     const bool car_list_filters::is_sort_asc() const
     {
-        return get_sort_order() == "asc";
+        return get_sort_order() != "desc";
     }
 
     car::date_ymd* car_list_filters::get_start_ymd() const

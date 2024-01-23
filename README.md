@@ -310,7 +310,14 @@ auto command = commands_[command_name];
 command->handle(parsed_cmnd_options, output_);
 ```
 
-### Services
+That way I tried to follow the **O**(pen-closed) principle from **SOLID** - when you need to add new functionality (for example delete a booking) you
+will **not** modify any existing code but you will add a new command and write your new logic there.
+
+You get new behaviour by adding code, not changing it.
+
+So this application is easily extensible.
+
+### Basic command
 
 Let's look at a typical command implementation - `car_rental_system car:delete` with explaining comments.
 
@@ -380,20 +387,87 @@ namespace crs::console::command
 }
 ```
 
-patterns used 
-commands
+### Domain
+
+I wanted to use a hexagonal architecture for this application.
+
+_Hexagonal architecture is a pattern that uses the mechanism of ports and adapters to achieve separation of concerns and isolate external systems and
+other external code such as user interfaces and databases from the core application._
+
+So all core/domain logic is located in
+`src/core` folder and can be reused in a case if I add GUI.
+
+All console-specific logic is inside `src/console` folder.
+
+My adapters for now are the commands classes, where I obtain all arguments from user console input and call core services classes.
+
+If I add GUI or act as an API for mobile applications I will be able to call the same services, do the same logic for managing DB, just will get all
+the arguments from http requests or from GUI components (inputs, forms, etc.)
+
+## External dependencies
+
+External libraries I use:
+
+#### sqlite_orm
+
+To execute all database related commands (select, update, delete, etc.).
+
+Library repository https://github.com/fnc12/sqlite_orm.git
+
+#### cxxopts
+
+Help with parsing command-line arguments and options and configuring allowed options, also creates help output for all configured options.
+
+Library repository  https://github.com/jarro2783/cxxopts
+
+#### bcrypt
+
+To securely store user passwords in DB. You should never store plain passwords for security reasons, so I hash a given password when create a user,
+then store this hash in DB. So the next time this user provides his password for log in I can only compare that password hash with the stored hash.
+
+Library repository  https://github.com/hilch/Bcrypt.cpp
+
+#### tabulate
+
+Help with drawing tables in console for car and booking lists.
+
+Library repository  https://github.com/p-ranav/tabulate
+
+I do not have any external library code in my repository, I specify them as external dependencies in CMakeLists.txt and then make it available to use
+in my code.
+
+The `FetchContent_Declare` function specifies the details of the library, such as its name, the GitHub repository URL, and the version tag.
+The `FetchContent_MakeAvailable` function is then used to download and make the library available for use in the project:
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+        sqlite_orm
+        GIT_REPOSITORY https://github.com/fnc12/sqlite_orm.git
+        GIT_TAG v1.8.2
+)
+FetchContent_MakeAvailable(sqlite_orm)
+
+# link it to use in my code
+target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
 
-external libraries, how they added, what they do
-(cmake)
+```
 
 uml use cases - img
 
-db relation diagram - img
+## Entity relationship diagram
+
+There are only 3 tables
+
+- user (stores information about users)
+- car (information about cars)
+- car_booking (relation between cars and users with extra information, which user book which car for which dates and total price for a booking)
+
 <img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYR50kvt7rvDYzT1j-xDxlQ6UvcxSGrzE0wbUlW9F1QzShbVOW1qfiTxICqZLk8ktnsKYwqzdD_Ave37Nx2OpGm8pu_dPA=w2560-h1308" width="400"/>
 
-preview how to use - video
+## Tests
 
-tests with ctest
-tests on push
-tests in IDE - img
+There are simple tests in `tests/` folder. I run them with ctest. You can run them in IDE (I use CLion)
+
+

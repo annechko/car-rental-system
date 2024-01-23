@@ -67,6 +67,12 @@ namespace crs::core::car
             auto ord = order_by(&crs::core::car::car::get_price_per_day);
             order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
         }
+        else
+        {
+            // default by id
+            auto ord = order_by(&crs::core::car::car::get_id);
+            order_by_field.push_back(is_asc ? ord.asc() : ord.desc());
+        }
         return order_by_field;
     }
 
