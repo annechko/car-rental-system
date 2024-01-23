@@ -41,25 +41,345 @@ car_rental_system car:update -h
 
 ![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlkZGJmN2g3cmh5cHZ4dWJsOHZvMXFjbWV3d3R5amkzbmk3dmpnbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wvu94sM3RFLoBvs34R/giphy.gif)
 
+## Output of help command
+
+These are all the commands and their help.
+
+```commandline
+Car Rental System - help with the rental process, users and cars management.
+Usage:
+  car_rental_system <command> [options]
+
+  -h, --help  Print help.
+
+
+Usage:
+  car_rental_system register [OPTION...]
+
+
+  -u, --username arg  Username for a new user.
+  -p, --password arg  Password for a new user.
+  -a, --admin         Assign admin permissions (testing purposes).
+
+
+Usage:
+  car_rental_system car:list [OPTION...]
+
+
+      --start arg       start which date you want to book a car, format 
+                        dd/mm/yyy: 31/12/2020. (default: "")
+      --end arg         Until when you want to book a car, format 
+                        dd/mm/yyy: 31/12/2020. (default: "")
+  -k, --make arg        Company that made a car, for example: Ford, Honda, 
+                        Volkswagen. (default: "")
+  -o, --model arg       Car's specific name, for example: Escape, Civic, or 
+                        Jetta. (default: "")
+      --year-from arg   Show cars with a model year greater than the 
+                        specified year. (default: 0)
+      --year-to arg     Show cars with a model year less than the specified 
+                        year. (default: 0)
+      --price-from arg  Show cars with a price per day greater than the 
+                        specified year. (default: 0.0)
+      --price-to arg    Show cars with a price per day less than the 
+                        specified year. (default: 0.0)
+      --sort arg        Sort cars in a "sort-order" (ascending by default) 
+                        by the field which is one of 
+                        [make|model|year|price|min-rent|max-rent]. 
+                        (default: "")
+      --sort-order arg  Sort cars in ascending or descending order, one of 
+                        [asc|desc]. Requires sort option as well. (default: 
+                        "")
+
+
+Usage:
+  car_rental_system car:delete [OPTION...]
+Admin only.
+
+  -u, --username arg  Login as user. (default: "")
+  -p, --password arg  Login password. (default: "")
+  -i, --id arg        Id of the car to delete.
+
+
+Usage:
+  car_rental_system car:add [OPTION...]
+Admin only.
+
+  -u, --username arg       Login as user. (default: "")
+  -p, --password arg       Login password. (default: "")
+  -k, --make arg           Company that made a car, for example: Ford, 
+                           Honda, Volkswagen.
+  -o, --model arg          Car's specific name, for example: Escape, Civic, 
+                           or Jetta.
+  -y, --year arg           Model year.
+  -a, --mileage arg        Number of miles that car can travel using one 
+                           gallon of fuel. (default: 0)
+  -c, --price-per-day arg  Price to rent this car for 1 day.
+      --min-rent arg       The minimum rent period in days. (default: 0)
+      --max-rent arg       The maximum rent period in days. (default: 0)
+
+
+Usage:
+  car_rental_system rent:calculate [OPTION...]
+
+
+  -i, --id arg     Id of the car to book.
+  -s, --start arg  From which date you want to book a car, format 
+                   dd/mm/yyy: 31/12/2020.
+  -e, --end arg    Until when you want to book a car, format dd/mm/yyy: 
+                   31/12/2020.
+
+
+Usage:
+  car_rental_system booking:list [OPTION...]
+Authenticated only.
+
+  -u, --username arg  Login as user. (default: "")
+  -p, --password arg  Login password. (default: "")
+
+
+Usage:
+  car_rental_system car:update [OPTION...]
+Admin only.
+
+  -u, --username arg       Login as user. (default: "")
+  -p, --password arg       Login password. (default: "")
+  -i, --id arg             Id of the car to update.
+  -k, --make arg           Company that made a car, for example: Ford, 
+                           Honda, Volkswagen. (default: "")
+  -o, --model arg          Car's specific name, for example: Escape, Civic, 
+                           or Jetta. (default: "")
+  -y, --year arg           Model year. (default: -1)
+  -a, --mileage arg        Number of miles that car can travel using one 
+                           gallon of fuel. (default: -1)
+  -c, --price-per-day arg  Price to rent this car for 1 day. (default: 0)
+      --min-rent arg       The minimum rent period in days. (default: -1)
+      --max-rent arg       The maximum rent period in days. (default: -1)
+
+
+Usage:
+  car_rental_system booking:add [OPTION...]
+Customer only.
+
+  -u, --username arg  Login as user. (default: "")
+  -p, --password arg  Login password. (default: "")
+  -i, --id arg        Id of the car to book.
+  -s, --start arg     From which date you want to book a car, format 
+                      dd/mm/yyy: 31/12/2020.
+  -e, --end arg       Until when you want to book a car, format dd/mm/yyy: 
+                      31/12/2020.
+
+
+Usage:
+  car_rental_system booking:update [OPTION...]
+Admin only.
+
+  -u, --username arg  Login as user. (default: "")
+  -p, --password arg  Login password. (default: "")
+  -i, --id arg        Id of the car booking.
+  -a, --approve       Change status to approved.
+  -r, --reject        Change status to rejected.
+
+
+```
+
 ## List of available commands
 
 * Authentication NOT required:
-  * ```car_rental_system register ```
-  * ```car_rental_system car:list ```
-  * ```car_rental_system rent:calculate ```
+  * ```car_rental_system register ``` - add new user (customer or admin)
+  * ```car_rental_system car:list ``` - show a list of all cars. There are many option to filter the list (by price, year, rent period, etc.)
+  * ```car_rental_system rent:calculate ``` - show the total price for renting a car for specified period.
 
 * Authenticated (any role):
-  * ```car_rental_system booking:list ```
+  * ```car_rental_system booking:list ``` - customers will see their bookings, admin will see bookings of all the customers.
 
 * Admin only:
   * ```car_rental_system car:delete ```
   * ```car_rental_system car:add ```
   * ```car_rental_system car:update ```
-  * ```car_rental_system booking:update   ```
+  * ```car_rental_system booking:update   ``` - update a status of specified booking, reject or accept a booking.
 * Customer only:
-  * ```car_rental_system booking:add ```
+  * ```car_rental_system booking:add ``` - create a booking for specified car and days.
 
-architecture
+## System architecture
+
+### Application
+
+All the application classes are located in the namespace `crs` (car rental system), so we do not overlap with any library or standard classes,
+functions, etc.
+
+In `main.cpp` we create an application object (`crs::console::application`) and run it, passing the input arguments.
+
+It will write all its output to the stream we pass to it in the constructor (that way we can use it for testing purposes,
+providing `std::stringstream` insteadof `std::cout` and then checking the output that our application creates).
+
+```c++
+int main(int argc, char* argv[])
+{
+    auto app = new crs::console::application(argc, argv, std::cout);
+
+    try
+    {
+        app->handle();
+    }
+    catch (const std::exception& exception)
+    {
+        std::cout << crs::console::text_helper::red(exception.what()) << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+
+While in tests:
+
+```c++
+
+std::stringstream buffer;
+auto app = new crs::console::application(argc, argv, buffer);
+
+// then check
+// buffer.str() == "expected output"
+
+```
+
+The application class has a dictionary of so-called commands
+(`std::unordered_map<std::string, crs::console::command::abstract_command*>`) where a key is a command name and a corresponding value is a command
+object itself.
+
+The application creates all the commands classes and then delegates all the work to one of the commands.
+
+### Commands
+
+For every command that you call from terminal such as `car_rental_system car:add` there is a class that derives from basic abstract
+class `crs::console::command::abstract_command`.
+
+Every command class has
+
+- a name (equals to one that you type in terminal while running the application, such as `car:add`, `register`, `booking:list`)
+- `get_permission_level` method that returns an allowed role of a user to run this command (customer or admin)
+
+```c++
+namespace crs::console
+{
+    enum ROLE
+    {
+        CUSTOMER = 0,
+        ADMIN = 1,
+        ANY = 2,
+        AUTHENTICATED = 3
+    };
+}
+```
+
+- `handle` method that does everything
+- `configure_options` method to specify all the options needed for the command (`-u`, `-p`, `--year`, etc.).
+
+Abstract command class:
+
+```c++
+namespace crs::console::command
+{
+    class abstract_command
+    {
+        public:
+            abstract_command();
+            virtual void handle(const cxxopts::ParseResult& options, std::ostream& output) = 0;
+            virtual const std::string get_name() const = 0;
+            virtual const crs::console::ROLE get_permission_level() const = 0;
+            virtual void configure_options(cxxopts::OptionAdder& options);
+        protected:
+            cxxopts::OptionAdder& add_auth_params(cxxopts::OptionAdder& options_builder);
+            const void authenticate(const cxxopts::ParseResult& parsed_options);
+            const crs::core::user::user* user_;
+        private:
+            static const std::string OPTION_USERNAME;
+            static const std::string OPTION_PASSWORD;
+            const crs::core::service::auth_service* auth_service_;
+    };
+}
+
+```
+
+So the main logic and purpose of the application class is to create the commands, ask every one of them to configure their own options, then detect a
+command name that was specified while running the application from terminal and delegate all the work to the needed command.
+
+```c++
+auto parsed_cmnd_options = options_commands[command_name]->parse(argc_, argv_);
+auto command = commands_[command_name];
+command->handle(parsed_cmnd_options, output_);
+```
+
+### Services
+
+Let's look at a typical command implementation - `car_rental_system car:delete` with explaining comments.
+
+```c++
+#include "car_delete.h"
+#include "core/core_exception.hpp"
+#include <ostream>
+
+namespace crs::console::command
+{
+    car_delete::car_delete()
+    {
+        // initialise all the needed dependencies.
+        // in an ideal world there will be a dependency injection
+        // but for the learning purposes I left it as a simple manual initialization here
+        car_service_ = new crs::core::service::car_service;
+    }
+
+    const std::string car_delete::get_name() const
+    {
+        // the application class instance will ask for this name 
+        // and compare it with the command name from the command-line input 
+        return std::string("car:delete");
+    }
+
+    void car_delete::handle(const cxxopts::ParseResult& options, std::ostream& output)
+    {
+        // call a method from abstract parent class
+        // same implementation (logic) for all children of abstract_command
+        // it will find a user by specified username
+        // check his password from DB to the command-input one 
+        // then check the role of this user and compare to the allowed role of this command 
+        // (from car_delete::get_permission_level())
+        authenticate(options);
+
+        // extract the needed options from the input
+        // for
+        // car_rental_system car:delete -i 1 
+        // id will be 1
+        int id = options["id"].as<int>();
+        if (id <= 0)
+        {
+            throw crs::core::core_exception("Id must be greater than 0.");
+        }
+
+        // delegate an actual work to a service
+        // the service will deal with the database, etc.
+        car_service_->delete_car(id);
+        output << "Car with id = " + std::to_string(id) + " was deleted!" << std::endl;
+    }
+
+    void car_delete::configure_options(cxxopts::OptionAdder& options_builder)
+    {
+        // what option you can specify when calling this command
+        // --id 1
+        // or
+        // -i 1 
+        add_auth_params(options_builder)
+            ("i,id", "Id of the car to delete.", cxxopts::value<int>());
+    }
+
+    const crs::console::ROLE car_delete::get_permission_level() const
+    {
+        // can be run by admin only.
+        return crs::console::ROLE::ADMIN;
+    }
+}
+```
+
 patterns used 
 commands
 
