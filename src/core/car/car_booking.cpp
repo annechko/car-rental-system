@@ -149,5 +149,10 @@ namespace crs::core::car
         }
         status_ = STATUS_REJECTED;
     }
+
+    const int car_booking::get_rejected_status_value()
+    {
+        return STATUS_REJECTED;
+    }
 }
 

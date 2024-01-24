@@ -2,6 +2,7 @@
 #include "core/storage/storage.h"
 #include "date_ymd.h"
 #include "core/core_exception.hpp"
+#include "core/car/car_booking.h"
 
 namespace crs::core::car
 {
@@ -34,6 +35,8 @@ namespace crs::core::car
         auto other_bookings = db_->select(
             &crs::core::car::car_booking::get_id,
             where(c(&crs::core::car::car_booking::get_car_id) == car_id
+                and c(&crs::core::car::car_booking::get_status)
+                    != crs::core::car::car_booking::get_rejected_status_value()
                 and (
                     (c(&crs::core::car::car_booking::get_timestamp_start) <= end->get_timestamp())
                         and (c(&crs::core::car::car_booking::get_timestamp_end) >= start->get_timestamp())

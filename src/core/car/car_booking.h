@@ -35,6 +35,7 @@ namespace crs::core::car
             const bool is_new() const;
             const bool is_approved() const;
             const bool is_rejected() const;
+            static const int get_rejected_status_value();
         private:
             static const int STATUS_NEW;
             static const int STATUS_APPROVED;
