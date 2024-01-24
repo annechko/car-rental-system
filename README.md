@@ -30,13 +30,13 @@ To see a prompt on how to use the app, simply enter the executable file name and
 You will be presented with information about all available commands and options for each command, along with their respective functionalities.
 
 ```commandline
-car_rental_system
+./car_rental_system
 ```
 
 To view a prompt for a specific command, type the executable file name, the command name and **-h** or **--help**
 
 ```commandline
-car_rental_system car:update -h
+./car_rental_system car:update -h
 ```
 
 ![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlkZGJmN2g3cmh5cHZ4dWJsOHZvMXFjbWV3d3R5amkzbmk3dmpnbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wvu94sM3RFLoBvs34R/giphy.gif)
@@ -454,8 +454,6 @@ target_link_libraries(car_rental_system PRIVATE sqlite_orm)
 
 ```
 
-uml use cases - img
-
 ## Entity relationship diagram
 
 There are only 3 tables
@@ -468,81 +466,93 @@ There are only 3 tables
 
 ## Tests
 
-There are simple tests in `tests/` folder. I run them with ctest. You can run them in IDE (I use CLion)
+There are simple acceptance tests in `tests/` folder. I run them with ctest. You can run them in IDE (I use CLion)
 
 
-<img alt="img.png" src="https://lh3.googleusercontent.com/fife/AGXqzDkUTl-EttEiKHXO3PsQonKRo4or-zgeDI65iNY95JAomaR6r35cj0iptcz6xgUDKCu2YnzFJsgMnT6CKgB1e7y5FMSnNugUaHym5JHSGb4C4kHdgB7Wi5lpfpD-Ka9_7q2FLA5izp080_IURQm0z7zZY7dRgJ7f8JhGe43vdJkej7ZFnknN5aHNNl5v1Zqw2hKNpHQDbGOCqSaBpTinCMu2One2cZUVgndgQzNiAKy12gEAXGxBi7X1SN1P8fEfxeuV9PBpoO2xsui2xH9mtd6ez2LsTuVSwxU7aIdQeG2EBSOhTycDSGmgJFk55v_CNbU_8JN4xERfMo9r-8qzvJJg-SslDVyFolizZrGKAFLAJFSVsFKFmPXEhn3uGkIuKmM-J4o0nyF_60sKWVjfu0cajbGPblfu79_NTuNgY1CD_VpT7zyuTxZhZVvXhzSW_nIUTLNR7L1iMOtt-qY7WcsIgoaLywm44YxEINf8aryRmZ0BrMw0YYU4Nhv7yFgx4XZQ9TcbiW_7li3jDWG51KxFjYPcV_SUV7EDDuHVXN4MQ5EGose8GCUlyQUJXlV9wKHozwQanHwKajMZMVMHn9kxshS4ceCR6TMOblbyxcHrcK6hIFiDvkMuJPDXoBSqbHv9HrK--xYav1WXk3gYBMVkqrQvVv1U3-GkAzvf-DmgppBzS4NETKyyu9epTOa-GHAmM1LsNWhHqAIJyniUPAwzzhVGbsMAIFyAD7B_dcFsNPkJCNkHjdz8sWAjJNO5dRClb7IISUdcAKxKXQQGU_LBfQnjAGDTeY2tcaJzem_LjpoOVdXWRHW7OmC_WjPU8cQyH1bKSHWc13AnlWeDY1YS4uSj7SwEvX7IGIw9z_bzvBilkleXNY3YosCvBWeO2N47Q3rpV15REHLsJc-riKFILTNinDvpkEmTz3Ko-U8DfL-D3EIgeZYOhwLHU2kmRDmxB4BBnnVAWqNDE9eBFutGkFu-AVmHMiVhgoW8kEFRZ4uZ4NysBFNdC9w7nhPCgVQc5QMtjPwJ7lRrWxhyE4C8AqAYiWOp69jiGO_b70V4GJ4a-SKjdTQlwi0Qta9CdB6yrw7SO15mWtZO1gdOX-guU4Zjv2T7hyuoZSEO1nqX6r9gucxyHo70OHujTkWdIYWfmd-98_buNcOtvWxZmK6_q8ltrpMt8dmw_QEQEubigNZ8u62XCf23b3nN7i4jN1_4NuXtIeEG8NQxZ3ASaOQkbX8kd15l5DHx47xY4EhFMIbzxCk-n1z3a5kZb6kHN7IuIjsEl8xRDfYlABPAP049mYx4WcFqvpRlffseq83SRp8HjPfAYrJOTZ4qWFkNfbG8Nus1fXa6vytQw9SPobajvoBb3K9QNXQAg69Z0qcom_7xzvj7W3DNCslVVwYsl5FGVDlnlI7LJ0zOfPdWuvNdJSL8rNQD96f-m1Q--QzzCI3Z07dQz7xCyR7s5zNBjWRiCXxoS3yqbIEDA_hfDCUK7txSPcBF9cvqsWR_CTJoJ1asbli8-fy7xqOmw9FrBr4FIBuvQElKPNY1aPsUhOy5krxPsAO2kpH9CLesEObKNhJ3mvGAKZ2zFeMl-CcDkne9BfiPTnXigkfxwIFTJA4F2YF5L8FRDzb81Q=w2560-h1308" width="800"/>
+<img alt="tests.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYS4RZh6anqqKERyCsOGNqhx-fzPhBlyvI0zJKxHLNjXMWa_ZcOTI01Nx1k9uGNA1ifClbtc_y0HbnTmMLgGsyv8qiIluA=w2560-h918" width="800"/>
 
 ## Use cases
 
 Register 2 users - admin with name `a` and customer with name `c`:
 
 ```commandline
-car_rental_system register -u c -p p
-car_rental_system register -u a -p p -a
+./car_rental_system register -u c -p p
+./car_rental_system register -u a -p p -a
 ```
 
 Add 2 cars:
 
 ```commandline
-car_rental_system car:add -u a -p p --make toyota --model x2 --price-per-day 5 --year 2022 --min-rent 1 --max-rent 100
-car_rental_system car:add -u a -p p --make mazda --model cx-60 --price-per-day 2 --year 2023 --min-rent 7
+./car_rental_system car:add -u a -p p --make toyota --model x2 --price-per-day 5 --year 2022 --min-rent 1 --max-rent 100
+./car_rental_system car:add -u a -p p --make mazda --model cx-60 --price-per-day 2 --year 2023 --min-rent 7
 ```
 
 Show cars:
 
 ```commandline
-car_rental_system car:list
-car_rental_system car:list  --start 01/01/2025 --end 01/01/2025
-car_rental_system car:list  --start 01/01/2025 --end 01/02/2025
-car_rental_system car:list  --start 01/01/2025 --end 01/02/2026
+./car_rental_system car:list
+```
+
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYS4g9iKImmlPXAOVWNcP-roumqQWflqyOYCMjUSsvCpLXU_Bne5MIkxg2BYOB7Iuo1VjJV_DOwYQjvqvZ6wlmb1AaKnHg=w2560-h918" width="900"/>
+
+
+Show cars with filters:
+
+```commandline
+./car_rental_system car:list  --start 01/01/2025 --end 01/01/2025
+./car_rental_system car:list  --start 01/01/2025 --end 01/02/2025
 ```
 
 Check a rent price to book a toyota car for one week since February 15, 2024:
 
 ```commandline
-car_rental_system rent:calculate -i 1 --start 15/02/2024 --end 22/02/2024
+./car_rental_system rent:calculate -i 1 --start 15/02/2024 --end 22/02/2024
 ```
 
 Book a toyota car for customer with name `c` for one week since February 15, 2024:
 
 ```commandline
-car_rental_system booking:add -i 1 --start 15/02/2024 --end 22/02/2024 -u c -p p
+./car_rental_system booking:add -i 1 --start 15/02/2024 --end 22/02/2024 -u c -p p
 ```
+
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQwlkXdD5qqpTskjdQPlMa4Xf65ueGzAsQXdb5iFzvK7t-giQQ4ik_mB2eh4qW_CDDTEJCkYuK8huI3ITZEhmbGYVFM1Q=w2560-h918" width="900"/>
 
 See a new booking with status NEW:
 
 ```commandline
-car_rental_system booking:list  -u c -p p
+./car_rental_system booking:list  -u c -p p
 ```
 
 Approve a new booking as admin:
 
 ```commandline
-car_rental_system booking:update -i 1  -u a -p p --approve
+./car_rental_system booking:update -i 1  -u a -p p --approve
 ```
 
 See a new booking with status APPROVED:
 
 ```commandline
-car_rental_system booking:list  -u c -p p
+./car_rental_system booking:list  -u c -p p
 ```
 
 Book a mazda car for customer with name `c` for one week since February 15, 2024:
 
 ```commandline
-car_rental_system booking:add -i 2 --start 15/02/2024 --end 22/02/2024 -u c -p p
+./car_rental_system booking:add -i 2 --start 15/02/2024 --end 22/02/2024 -u c -p p
 ```
 
 Reject a new booking as admin:
 
 ```commandline
-car_rental_system booking:update -i 2  -u a -p p --reject
+./car_rental_system booking:update -i 2  -u a -p p --reject
 ```
+
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTOcw35QkumYkeHE3sgdcJ6AxWwoli3nh4yQxHmMsWTkPJLK2RkaJfNyRXIZV9krDvP2GuvsC7oJYN09-tGFjm7Gq-I5g=w2560-h918" width="900"/>
 
 See two bookings, the second one with status REJECTED:
 
 ```commandline
-car_rental_system booking:list  -u c -p p
+./car_rental_system booking:list  -u c -p p
 ```
 
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQ0SLYDcRUen1Z18dIaJD0woMrlTyWaTmESj7KskCyj0JIKtFY2DHoQeZ1zEz7EAapfrIY7FIibdmSbWM78rcA_wZnftQ=w2560-h918" width="900"/>
