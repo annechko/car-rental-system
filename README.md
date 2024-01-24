@@ -4,6 +4,26 @@
 
 This application is a small console command-line tool written in **C++** for managing car rental process.
 
+# Table of Contents
+
+1. [Functionality](#functionality)
+1. [Usage](#usage)
+    1. [Output of help command](#output-of-help-command)
+1. [List of available commands](#list-of-available-commands)
+1. [System architecture](#system-architecture)
+    1. [Application](#application)
+    1. [Commands](http://localhost:6419/#commands)
+    1. [Basic command](http://localhost:6419/#basic-command)
+    1. [Domain](http://localhost:6419/#domain)
+1. [External dependencies](http://localhost:6419/#external-dependencies)
+    1. [sqlite_orm](#sqlite_orm)
+    1. [cxxopts](#cxxopts)
+    1. [bcrypt](#bcrypt)
+    1. [tabulate](#tabulate)
+1. [Entity relationship diagram](#entity-relationship-diagram)
+1. [Use cases](#use-cases)
+1. [Tests](#tests)
+
 ## Functionality
 
 * User Management:
@@ -41,7 +61,7 @@ To view a prompt for a specific command, type the executable file name, the comm
 
 ![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlkZGJmN2g3cmh5cHZ4dWJsOHZvMXFjbWV3d3R5amkzbmk3dmpnbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wvu94sM3RFLoBvs34R/giphy.gif)
 
-## Output of help command
+### Output of help command
 
 These are all the commands and their help.
 
@@ -408,26 +428,26 @@ the arguments from http requests or from GUI components (inputs, forms, etc.)
 
 External libraries I use:
 
-#### sqlite_orm
+### sqlite_orm
 
 To execute all database related commands (select, update, delete, etc.).
 
 Library repository https://github.com/fnc12/sqlite_orm.git
 
-#### cxxopts
+### cxxopts
 
 Help with parsing command-line arguments and options and configuring allowed options, also creates help output for all configured options.
 
 Library repository  https://github.com/jarro2783/cxxopts
 
-#### bcrypt
+### bcrypt
 
 To securely store user passwords in DB. You should never store plain passwords for security reasons, so I hash a given password when create a user,
 then store this hash in DB. So the next time this user provides his password for log in I can only compare that password hash with the stored hash.
 
 Library repository  https://github.com/hilch/Bcrypt.cpp
 
-#### tabulate
+### tabulate
 
 Help with drawing tables in console for car and booking lists.
 
@@ -463,13 +483,6 @@ There are only 3 tables
 - car_booking (relation between cars and users with extra information, which user book which car for which dates and total price for a booking)
 
 <img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYR50kvt7rvDYzT1j-xDxlQ6UvcxSGrzE0wbUlW9F1QzShbVOW1qfiTxICqZLk8ktnsKYwqzdD_Ave37Nx2OpGm8pu_dPA=w2560-h1308" width="400"/>
-
-## Tests
-
-There are simple acceptance tests in `tests/` folder. I run them with ctest. You can run them in IDE (I use CLion)
-
-
-<img alt="tests.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYS4RZh6anqqKERyCsOGNqhx-fzPhBlyvI0zJKxHLNjXMWa_ZcOTI01Nx1k9uGNA1ifClbtc_y0HbnTmMLgGsyv8qiIluA=w2560-h918" width="800"/>
 
 ## Use cases
 
@@ -582,3 +595,12 @@ Create a car, see it in the list, delete it, check the list without this car:
 ```
 
 <img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYRraKp3heuyqS87NW-SlCv8l0n4l-t3CpIewUIcR5QEv_lV1tyKrCLm_1gibi3DvWkg01iW1MD4liuuaEM952vvB62Y=w2560-h918" width="900"/>
+
+## Tests
+
+There are simple acceptance tests in `tests/` folder. I run them with ctest. You can run them in IDE (I use CLion).
+Also, those tests are automatically running in GitHub pipelines on every push in the GitHub repository with the sources.
+
+
+<img alt="tests.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYS4RZh6anqqKERyCsOGNqhx-fzPhBlyvI0zJKxHLNjXMWa_ZcOTI01Nx1k9uGNA1ifClbtc_y0HbnTmMLgGsyv8qiIluA=w2560-h918" width="800"/>
+
