@@ -556,3 +556,29 @@ See two bookings, the second one with status REJECTED:
 ```
 
 <img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQ0SLYDcRUen1Z18dIaJD0woMrlTyWaTmESj7KskCyj0JIKtFY2DHoQeZ1zEz7EAapfrIY7FIibdmSbWM78rcA_wZnftQ=w2560-h918" width="900"/>
+
+Update a car with ID = 1, change model to "x3":
+
+```commandline
+./car_rental_system car:update -i 1 -u a -p p --model x3 
+```
+
+Check car list with filter by make:
+
+```commandline
+./car_rental_system car:list  --make to
+```
+
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTbkWyHmFo3QrMrR-BUbQrFrPLtKoPy7VB9J7LyYM7gGyh975TQtq6Dfvgx-nFQZlurYGxfBVR3amw_7R2PLjftGdcISw=w2560-h918" width="900"/>
+
+
+Create a car, see it in the list, delete it, check the list without this car:
+
+```commandline
+./car_rental_system car:add -u a -p p --make BMW --model R --price-per-day 50 --year 2002 --min-rent 1 --max-rent 10
+./car_rental_system car:list 
+./car_rental_system car:delete -i 3 -u a -p p 
+./car_rental_system car:list 
+```
+
+<img alt="img.png" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYRraKp3heuyqS87NW-SlCv8l0n4l-t3CpIewUIcR5QEv_lV1tyKrCLm_1gibi3DvWkg01iW1MD4liuuaEM952vvB62Y=w2560-h918" width="900"/>
