@@ -4,6 +4,8 @@
 
 This application is a small console command-line tool written in **C++** for managing car rental process.
 
+Source code is on GitHub https://github.com/annechko/car-rental-system
+
 # Table of Contents
 
 1. [Functionality](#functionality)
