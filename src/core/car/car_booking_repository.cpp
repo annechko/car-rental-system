@@ -88,6 +88,8 @@ namespace crs::core::car
             where(
                 c(&crs::core::car::car_booking::get_timestamp_start) <= end->get_timestamp()
                     and c(&crs::core::car::car_booking::get_timestamp_end) >= start->get_timestamp()
+                    and c(&crs::core::car::car_booking::get_status)
+                        != crs::core::car::car_booking::get_rejected_status_value()
             )
         );
     }
