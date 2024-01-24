@@ -109,10 +109,10 @@ namespace crs::core::car
                     ))
                     and
                         (filters->get_model().empty()
-                            or c(&crs::core::car::car::get_model) == filters->get_model())
+                            or like(&crs::core::car::car::get_model, "%" + filters->get_model() + "%"))
                     and
                         (filters->get_make().empty()
-                            or c(&crs::core::car::car::get_make) == filters->get_make())
+                            or like(&crs::core::car::car::get_make, "%" + filters->get_make() + "%"))
                     and
                         (filters->get_year_from() <= 0
                             or c(&crs::core::car::car::get_year) >= filters->get_year_from())
