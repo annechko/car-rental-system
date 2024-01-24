@@ -91,6 +91,18 @@ namespace crs::core::car
             )
         );
     }
+
+    const bool car_booking_repository::has_by_car_id(int car_id) const
+    {
+        using namespace sqlite_orm;
+        auto bookings = db_->select(
+            &crs::core::car::car_booking::get_id,
+            where(c(&crs::core::car::car_booking::get_car_id) == car_id),
+            limit(1)
+        );
+
+        return bookings.size() > 0;
+    }
 }
 
 

@@ -1,5 +1,6 @@
 #include "car_service.h"
 #include <vector>
+#include "core/core_exception.hpp"
 
 namespace crs::core::service
 {
@@ -67,6 +68,14 @@ namespace crs::core::service
     {
         // check car exists.
         auto car = car_repository_->get_by_id(id);
+
+        // check bookings exist.
+        if (car_booking_repository_->has_by_car_id(id))
+        {
+            throw core::core_exception("Car with id = " + std::to_string(id)
+                + " cannot be deleted because of the bookings of this car.");
+        }
+
         car_repository_->delete_car(id);
     }
 }
