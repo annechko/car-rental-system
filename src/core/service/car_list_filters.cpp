@@ -7,13 +7,13 @@ namespace crs::core::service
 {
     const std::string car_list_filters::SORT_ID = "id";
 
-    const std::string car_list_filters::SORT_MODEL = "model";
-
     const std::string car_list_filters::SORT_MAKE = "make";
 
-    const std::string car_list_filters::SORT_PRICE = "price";
+    const std::string car_list_filters::SORT_MODEL = "model";
 
     const std::string car_list_filters::SORT_YEAR = "year";
+
+    const std::string car_list_filters::SORT_PRICE = "price";
 
     const std::string car_list_filters::SORT_MIN_RENT = "min-rent";
 
@@ -21,6 +21,7 @@ namespace crs::core::service
 
     const std::vector<std::string> car_list_filters::ALLOWED_SORT_FIELDS =
         std::vector<std::string>{
+            car_list_filters::SORT_ID,
             car_list_filters::SORT_MAKE,
             car_list_filters::SORT_MODEL,
             car_list_filters::SORT_YEAR,
