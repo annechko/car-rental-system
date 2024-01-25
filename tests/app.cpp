@@ -18,8 +18,9 @@ std::vector<char*> parse_argv(const std::string& cmnd)
 
     while (getline(command_stream, s, ' '))
     {
-        char* val = new char[s.size()];
+        char* val = new char[s.size() + 1];
         copy(s.begin(), s.end(), val);
+        val[s.size()] = (char)'\0';
         opts_car_add.push_back(val);
     }
     return opts_car_add;
@@ -33,7 +34,7 @@ const int parse_argc(const std::string& s)
 /* UNIT */
 void test_create_user()
 {
-    crs::core::user::user user{ "test_name", "sdf" };
+    crs::core::user::user user{"test_name", "sdf"};
 
     assert_equals(user.get_name(), (std::string)"test_name", __FUNCTION__);
     assert_equals(user.get_role(), crs::core::user::USER_ROLE::CUSTOMER, __FUNCTION__);
@@ -143,16 +144,16 @@ void test_calculate_or_book_when_car_booked_expect_error_when_dates_not_availabl
     );
 
     std::list<array<std::string, 2>> unavailable_dates{
-        array<std::string, 2>{ "01/01/2025", "10/01/2025" },
-        array<std::string, 2>{ "01/01/2024", "10/01/2026" },
-        array<std::string, 2>{ "02/01/2025", "09/01/2025" },
-        array<std::string, 2>{ "09/01/2025", "15/01/2025" },
-        array<std::string, 2>{ "25/12/2024", "05/01/2025" },
-        array<std::string, 2>{ "25/12/2024", "01/01/2025" },
-        array<std::string, 2>{ "10/01/2025", "11/01/2025" },
-        array<std::string, 2>{ "10/01/2025", "10/01/2025" },
-        array<std::string, 2>{ "01/01/2025", "01/01/2025" },
-        array<std::string, 2>{ "04/01/2025", "04/01/2025" },
+        array<std::string, 2>{"01/01/2025", "10/01/2025"},
+        array<std::string, 2>{"01/01/2024", "10/01/2026"},
+        array<std::string, 2>{"02/01/2025", "09/01/2025"},
+        array<std::string, 2>{"09/01/2025", "15/01/2025"},
+        array<std::string, 2>{"25/12/2024", "05/01/2025"},
+        array<std::string, 2>{"25/12/2024", "01/01/2025"},
+        array<std::string, 2>{"10/01/2025", "11/01/2025"},
+        array<std::string, 2>{"10/01/2025", "10/01/2025"},
+        array<std::string, 2>{"01/01/2025", "01/01/2025"},
+        array<std::string, 2>{"04/01/2025", "04/01/2025"},
     };
 
     // another customer can NOT book those dates
@@ -207,10 +208,10 @@ void test_calculate_or_book_when_car_booked_expect_error_when_dates_not_availabl
 
     // but CAN book those dates
     std::list<array<std::string, 2>> available_dates{
-        array<std::string, 2>{ "11/01/2025", "11/01/2025" },
-        array<std::string, 2>{ "31/12/2024", "31/12/2024" },
-        array<std::string, 2>{ "01/01/2026", "10/01/2026" },
-        array<std::string, 2>{ "01/01/2024", "10/01/2024" },
+        array<std::string, 2>{"11/01/2025", "11/01/2025"},
+        array<std::string, 2>{"31/12/2024", "31/12/2024"},
+        array<std::string, 2>{"01/01/2026", "10/01/2026"},
+        array<std::string, 2>{"01/01/2024", "10/01/2024"},
     };
     for (const auto& dates : available_dates)
     {
@@ -352,9 +353,9 @@ int main()
     };
     for (auto& test : tests)
     {
-        clear_db();
         try
         {
+            clear_db();
             test();
         }
         catch (const std::exception& exception)
